@@ -1,0 +1,6 @@
+<app-top-bar-component [settings]="settings" [mes]="mes" [gastos]="gastos" [patrimonio]="patrimonio" (onNovaData)="onNovaData($event)" (novoGasto)="onNovoGasto($event)" (onEditarSettings)="onEditarSettings($event)" (onLogout)="onLogOut()" (onPagarCartao)="onPagarCartao()"></app-top-bar-component>
+<app-middle-component [settings]="settings" [mes]="mes" [gastos]="gastos" [patrimonio]="patrimonio" (onEditarGasto)="onEditarGasto($event)" (onRemoverGasto)="onRemoverGasto($event)" (onMarcarGasto)="onMarcarGasto($event)"></app-middle-component>
+<app-bottom-bar-component [settings]="settings" [mes]="mes" [gastos]="gastos" [patrimonio]="patrimonio"></app-bottom-bar-component>
+
+<p-toast position="top-right"></p-toast>
+<p-confirmDialog></p-confirmDialog>

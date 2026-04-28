@@ -1,0 +1,248 @@
+
+
+:host ::ng-deep p-toolbar.topbar,
+:host ::ng-deep p-toolbar.p-2 {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 6px 10px !important;
+}
+
+.toolbar-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    width: 100%;
+    column-gap: 5px;
+    height: 40px;
+}
+
+.toolbar-left,
+.toolbar-middle,
+.toolbar-right {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.toolbar-left {
+    justify-content: flex-start;
+    gap: 5px;
+}
+
+.toolbar-middle {
+    justify-content: center;
+    justify-self: center;
+    gap: 5px;
+}
+
+.toolbar-right {
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.toolbar-middle .p-datepicker-trigger .pi {
+    font-size: 1.25rem;
+    color: inherit !important; 
+    transition: 0.25s ease;
+}
+
+.toolbar-middle .p-datepicker-trigger:hover .pi {
+    transform: scale(1.18);
+}
+
+.restante-destaque {
+    height: 32px;
+    padding-inline: 10px;
+    border: 1px solid currentColor;
+    box-shadow:
+        0 0 10px rgba(0, 255, 136, 0.35),
+        inset 0 0 14px rgba(255, 255, 255, 0.04);
+
+    .label {
+        opacity: 0.9;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+    }
+
+    .value {
+        font-size: 0.96rem;
+    }
+}
+
+
+
+.restante.positivo {
+    background: rgba(0, 255, 0, 0.10);
+}
+
+.restante.negativo {
+    background: rgba(255, 0, 0, 0.10);
+}
+
+
+
+:host ::ng-deep .p-drawer {
+    background: rgba(0, 0, 0, 0.58) !important;
+    backdrop-filter: blur(22px) saturate(160%) !important;
+    border-left: 1px solid rgba(255, 255, 255, 0.12) !important;
+}
+
+:host ::ng-deep .p-drawer-header {
+    background: rgba(0, 0, 0, 0.58) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    color: #00ff88 !important;
+    padding: 12px 16px !important;
+}
+
+:host ::ng-deep .p-drawer-content {
+    padding: 12px 16px !important;
+    overflow-y: auto !important;
+}
+
+.info-drawer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.panels-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+}
+
+.info-panel {
+    min-width: 0;
+    padding: 12px;
+    border-radius: 12px;
+    background: rgba(10, 10, 10, 0.65);
+    backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5);
+}
+
+.panel-jornada {
+    border-left: 3px solid #00e6e6;
+}
+
+.panel-descontos {
+    border-left: 3px solid #ffe066;
+}
+
+.panel-financeiro {
+    border-left: 3px solid #00ff88;
+}
+
+.panel-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+
+    i {
+        font-size: 0.95rem;
+        color: #00e6ff;
+    }
+
+    span {
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #e0e0e0;
+    }
+}
+
+.cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.field-card {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 38px;
+    min-width: 0;
+    padding: 6px 8px;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-left: 3px solid transparent;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+    transition: 0.2s ease;
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.45);
+    }
+
+    i {
+        flex-shrink: 0;
+        width: 20px;
+        text-align: center;
+        font-size: 1rem;
+        color: inherit;
+    }
+}
+
+.field-info {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+    line-height: 1.2;
+
+    label {
+        overflow: hidden;
+        color: #ccc;
+        font-size: 0.75rem;
+        font-weight: 500;
+        opacity: 0.82;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    span {
+        overflow: hidden;
+        color: inherit;
+        font-size: 0.9rem;
+        font-weight: 700;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+:host ::ng-deep .btn-pagar-cartao {
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    padding: 0;
+    border-radius: 6px;
+    background: rgba(0, 0, 0, 0.35) !important;
+    border: 1px solid rgba(125, 255, 125, 0.45) !important;
+    color: #7dff7d !important;
+
+    .pi {
+        font-size: 0.95rem;
+    }
+
+    &:hover {
+        background: rgba(125, 255, 125, 0.12) !important;
+    }
+}
+
+.drawer-restante {
+    min-height: 48px;
+    border-color: currentColor;
+    border-left-color: currentColor;
+    box-shadow:
+        0 0 16px rgba(0, 255, 136, 0.38),
+        inset 0 0 16px rgba(255, 255, 255, 0.04);
+
+    .field-info span {
+        font-size: 1.05rem;
+    }
+}

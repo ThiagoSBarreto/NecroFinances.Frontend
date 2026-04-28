@@ -1,0 +1,220 @@
+:host {
+    .gastos-table {
+        width: 100%;
+        min-height: 825px;
+    }
+
+    .col-icone {
+        width: 75px;
+    }
+
+    .col-data {
+        width: auto;
+    }
+
+    .col-valor {
+        width: auto;
+    }
+
+    .col-desc {
+        width: auto;
+    }
+
+    .col-acoes {
+        width: 140px;
+        text-align: center;
+    }
+
+    ::ng-deep .p-datatable-wrapper {
+        overflow-x: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 8px;
+    }
+
+    ::ng-deep .p-datatable-table {
+        table-layout: fixed;
+        width: 100%;
+    }
+
+    ::ng-deep .p-datatable-thead>tr>th {
+        font-weight: 700;
+        text-align: center;
+        padding: 9px 10px;
+        background: #111;
+        color: #bfc7c7;
+        border-color: #2d2d2d;
+        border-bottom: 1px solid #3a3a3a;
+        font-size: 0.72rem;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        white-space: nowrap;
+    }
+
+    ::ng-deep .p-datatable-tbody>tr {
+        transition: background 0.2s ease, color 0.2s ease;
+        transform-origin: center center;
+    }
+
+    ::ng-deep .p-datatable-tbody>tr:hover {
+        background: rgba(255, 255, 255, 0.055);
+    }
+
+    ::ng-deep .p-datatable-tbody>tr>td {
+        padding: 7px 10px;
+        text-align: center;
+        border-color: #2d2d2d;
+        color: #d7d7d7;
+        font-size: 0.86rem;
+        white-space: nowrap;
+        vertical-align: middle;
+    }
+
+    ::ng-deep .p-datatable-tbody>tr>td.col-data {
+        color: #aeb7b7;
+        font-size: 0.8rem;
+    }
+
+    ::ng-deep .p-datatable-tbody>tr>td.col-valor {
+        color: #f0f0f0;
+        font-weight: 650;
+        font-variant-numeric: tabular-nums;
+    }
+
+    ::ng-deep .p-datatable-tbody>tr>td.col-desc {
+        overflow: hidden;
+        color: #ececec;
+        text-overflow: ellipsis;
+    }
+
+   
+    .separator-row td {
+        background: rgba(0, 230, 230, 0.08);
+        border-top: 1px solid rgba(0, 230, 230, 0.28);
+        border-bottom: 1px solid rgba(0, 230, 230, 0.22);
+        padding: 9px 12px;
+    }
+
+    .separator-title {
+        font-weight: 700;
+        font-size: 0.82rem;
+        text-transform: uppercase;
+        color: #00e6e6;
+        letter-spacing: 0.08em;
+        text-align: center;
+    }
+
+   
+    .col-icone i {
+        font-size: 1.25rem;
+        color: #00e6e6;
+        transition: transform 0.2s ease, color 0.2s ease;
+    }
+
+    .col-icone i.icone-pago {
+        color: #7bff7b;
+        transform: scale(1.05);
+    }
+
+    .col-icone i:hover {
+        transform: scale(1.12);
+    }
+
+   
+    ::ng-deep .col-acoes .p-button {
+        margin: 0 2px;
+    }
+
+   
+    .pago td {
+        color: #b6d8b6 !important;
+    }
+
+    .pago:hover td {
+        color: #c2e4c2 !important;
+    }
+
+    .icon-pago {
+        margin-left: 8px;
+        font-size: 1rem;
+        color: #b6ffb6;
+        vertical-align: middle;
+    }
+
+    .pago td {
+        background: rgba(0, 255, 0, 0.035);
+    }
+
+    .pago td:first-child {
+        border-left: 3px solid lime !important;
+        border-top-left-radius: 15px;
+        border-bottom-left-radius: 15px;
+    }
+
+    .pago td:last-child {
+        border-right: 3px solid lime !important;
+        border-radius: 15px;
+    }
+
+   
+    .group-row {
+        background: rgba(255, 255, 255, 0.07);
+        cursor: pointer;
+        font-weight: 700;
+        transition: background 0.2s ease, transform 0.15s ease;
+    }
+
+    .group-row td {
+        color: #f5f5f5 !important;
+        font-size: 0.92rem !important;
+    }
+
+    .item-row td {
+        font-size: 0.84rem;
+    }
+
+    .group-row:hover {
+        background: rgba(255, 255, 255, 0.12);
+        transform: translateY(-1px);
+    }
+
+    .group-row i {
+        font-size: 1.25rem;
+    }
+
+    .group-row-expanded {
+        background: rgba(0, 230, 230, 0.1);
+    }
+
+    .group-row .col-desc {
+        color: #bfc7c7 !important;
+        font-size: 0.8rem !important;
+        font-weight: 600;
+    }
+
+   
+    .icon-rotate {
+        transition: transform 0.2s ease;
+        transform: rotate(180deg);
+    }
+
+   
+    @keyframes fadeSlideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-4px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .item-row {
+        animation: fadeSlideIn 0.18s ease-out;
+    }
+
+    .col-size {
+        font-size: 0.85rem !important;
+    }
+}

@@ -1,0 +1,107 @@
+<p-dialog [(visible)]="display" [modal]="true" [style]="{ width: '420px' }" [closable]="false">
+
+    <div class="gasto-dialog">
+        <div class="dialog-header">
+            <i class="pi pi-plus-circle"></i>
+            <h2>{{ modoEditar ? 'Editar Gasto' : 'Novo Gasto' }}</h2>
+        </div>
+
+        <form [formGroup]="formGasto" class="gasto-form">
+
+            <div class="field-card">
+                <i class="pi pi-calendar"></i>
+                <div class="field-info">
+                    <label for="dataGasto">Data do Gasto</label>
+                    <p-datepicker id="dataGasto" formControlName="dataGasto" dateFormat="dd/mm/yy" [showIcon]="true"
+                        [showOnFocus]="false">
+                    </p-datepicker>
+                </div>
+            </div>
+
+            <div class="field-card">
+                <i class="pi pi-dollar"></i>
+                <div class="field-info">
+                    <label for="valor">Valor (R$)</label>
+                    <p-inputNumber #valorInput id="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"
+                        [min]="0" (onFocus)="selecionarValor()">
+                    </p-inputNumber>
+                </div>
+            </div>
+
+            <div class="field-card icon-card">
+                <i class="pi pi-th-large"></i>
+                <div class="field-info">
+                    <label>Ícone</label>
+                    <div class="icon-grid">
+                        @for (ic of Object.values(IconesEnum); track $index) {
+                        <div class="icon-item" [ngClass]="{ 'selected-icon': formGasto.value.icone === ic }"
+                            (click)="formGasto.patchValue({ icone: ic })" [title]="IconesDescricao[ic]">
+                            <i [class]="ic"></i>
+                        </div>
+                        }
+                    </div>
+                </div>
+            </div>
+
+            @if(modoEditar == false) {
+                <div class="field-card tipo-card">
+                    <i class="pi pi-tags"></i>
+                    <div class="field-info">
+                        <label>Tipo de Gasto</label>
+                        <div class="tipo-container">
+                            <p-button label="Fixo" styleClass="tipo-btn" severity="info"
+                                [ngClass]="{ 'tipo-selected': formGasto.value.tipoGasto === IndicadorTipoGasto.FIXO }"
+                                (onClick)="selecionarTipo(IndicadorTipoGasto.FIXO)">
+                            </p-button>
+                            <p-button label="Parcelado" styleClass="tipo-btn" severity="info"
+                                [ngClass]="{ 'tipo-selected': formGasto.value.tipoGasto === IndicadorTipoGasto.PARCELADO }"
+                                (onClick)="selecionarTipo(IndicadorTipoGasto.PARCELADO)">
+                            </p-button>
+                            <p-button label="Avulso" styleClass="tipo-btn" severity="info"
+                                [ngClass]="{ 'tipo-selected': formGasto.value.tipoGasto === IndicadorTipoGasto.AVULSO }"
+                                (onClick)="selecionarTipo(IndicadorTipoGasto.AVULSO)">
+                            </p-button>
+                        </div>
+                    </div>
+                </div>
+
+                @if(formGasto.value.tipoGasto === IndicadorTipoGasto.PARCELADO) {
+                    <div class="field-card">
+                        <i class="pi pi-list"></i>
+                        <div class="field-info">
+                            <label for="totalParcelas">Parcelas</label>
+                            <p-inputNumber id="totalParcelas" formControlName="totalParcelas" [min]="1" [showButtons]="true"
+                                buttonLayout="horizontal" decrementButtonClass="p-button-secondary"
+                                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                                decrementButtonIcon="pi pi-minus">
+                            </p-inputNumber>
+                        </div>
+                    </div>
+                }
+            }
+
+            <div class="field-card">
+                <i class="pi pi-pencil"></i>
+                <div class="field-info">
+                    <label for="descricao">Descrição</label>
+                    <input id="descricao" pInputText formControlName="descricao" class="descricao-input"
+                        placeholder="Ex: Almoço, Combustível, Assinatura...">
+                </div>
+            </div>
+
+        </form>
+    </div>
+
+    @if(modoEditar == false) {
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
+        <p-button label="Adicionar" severity="success" [disabled]="formGasto.invalid" (onClick)="adicionar()"></p-button>
+    </ng-template>
+    } @else {
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
+        <p-button label="Atualizar" severity="success" [disabled]="formGasto.invalid" (onClick)="adicionar()"></p-button>
+    </ng-template>
+    }
+
+</p-dialog>

@@ -1,0 +1,51 @@
+<div class="login-page">
+    <p-card class="login-glass">
+
+        <div class="login-header">
+            <h1>NecroFinances</h1>
+        </div>
+
+        <form #loginForm="ngForm" (ngSubmit)="onSubmit(loginForm)" class="login-form" autocomplete="on">
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <i class="pi pi-user icon"></i>
+
+                    <input pInputText id="username" name="username" [(ngModel)]="username" required
+                        autocomplete="username" />
+                </div>
+
+                @if(loginForm.submitted && !username) {
+                <small class="error">
+                    Usuário é obrigatório
+                </small>
+                }
+            </div>
+
+            <div class="form-group">
+                <div class="input-wrapper">
+                    <i class="pi pi-lock icon"></i>
+
+                    <p-password id="password" name="password" [(ngModel)]="password" [feedback]="false"
+                        inputStyleClass="password-input" required autocomplete="current-password"></p-password>
+                </div>
+
+                @if(loginForm.submitted && !password) {
+                <small class="error">
+                    Senha é obrigatória
+                </small>
+                }
+            </div>
+
+            <div class="actions">
+                <button pButton type="submit" label="Entrar" class="btn primary" [disabled]="loading"></button>
+
+                <button pButton type="button" label="Registrar" class="btn ghost" (click)="registrar()"
+                    [disabled]="loading"></button>
+            </div>
+
+        </form>
+
+    </p-card>
+
+    <p-toast position="top-right"></p-toast>
+</div>

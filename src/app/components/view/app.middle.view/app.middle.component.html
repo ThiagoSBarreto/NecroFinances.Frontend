@@ -1,0 +1,150 @@
+<p-table [value]="listaGastos" class="gastos-table p-datatable-gridlines p-datatable-sm p-datatable-striped"
+    [scrollable]="true" scrollHeight="825px" [rowHover]="true">
+    <ng-template pTemplate="header">
+        <tr>
+            <th class="col-icone col-size">Ícone</th>
+            <th class="col-data col-size">Data</th>
+            <th class="col-valor col-size">Valor</th>
+            <th class="col-desc col-size">Descrição</th>
+            <th class="col-acoes col-size">Ações</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
+        @if (rowIndex === 0 || listaGastos[rowIndex - 1].tipoGasto !== item.tipoGasto) {
+        <tr class="separator-row">
+            <td colspan="5" class="separator-title">
+                {{
+                item.tipoGasto === TipoGastoEnum.FIXO
+                ? 'Fixos'
+                : item.tipoGasto === TipoGastoEnum.PARCELADO
+                ? 'Parcelados'
+                : 'Avulsos'
+                }}
+            </td>
+        </tr>
+        }
+
+        @if (item.isGroup) {
+        <tr class="group-row" [class.group-row-expanded]="expandedGroups[item.icone]" [class.pago]="item.pago" (click)="toggleGroup(item.icone)">
+            <td class="col-icone">
+                <i [class]="item.icone" [class.icone-pago]="item.pago"></i>
+            </td>
+
+            <td class="col-data">
+                {{ item.latestDate | date : 'dd/MM/yyyy' }}
+            </td>
+
+            <td class="col-valor">
+                {{ item.total | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+            </td>
+
+            <td class="col-desc">
+                [{{ item.itens.length }} itens]
+            </td>
+
+            <td class="col-acoes">
+                <i class="pi" [ngClass]="expandedGroups[item.icone] ? 'pi-chevron-up' : 'pi-chevron-down'"
+                    [class.icon-rotate]="expandedGroups[item.icone]"></i>
+            </td>
+        </tr>
+
+        @if (expandedGroups[item.icone]) {
+        @for (g of item.itens; track g.id) {
+        <tr class="item-row" [class.pago]="g.pago">
+            <td class="col-icone">
+                <i [class]="g.icone" [class.icone-pago]="g.pago"></i>
+            </td>
+
+            <td class="col-data">
+                {{ g.dataGasto | date : 'dd/MM/yyyy' }}
+            </td>
+
+            <td class="col-valor">
+                {{ g.valor | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+
+                @if (g.tipoGasto === TipoGastoEnum.PARCELADO) {
+                <ng-container>
+                    – {{ g.parcela }} / {{ g.totalParcelas }}
+                </ng-container>
+                }
+            </td>
+
+            <td class="col-desc">
+                {{ g.descricao }}
+            </td>
+
+            <td class="col-acoes">
+                @if (g.tipoGasto === TipoGastoEnum.FIXO && g.pago === false) {
+                <p-button icon="pi pi-check-circle" severity="success" styleClass="btn-acao btn-check"
+                    (onClick)="marcarGasto(g)" title="Marcar como Pago"></p-button>
+                }
+
+                @if (g.tipoGasto === TipoGastoEnum.FIXO && g.pago === true) {
+                <p-button icon="pi pi-times-circle" severity="danger" styleClass="btn-acao btn-uncheck"
+                    (onClick)="marcarGasto(g)" title="Marcar como NÃO Pago"></p-button>
+                }
+
+                @if (g.pago === false) {
+                <p-button icon="pi pi-pencil" severity="info" styleClass="btn-acao btn-editar"
+                    (onClick)="editarGasto(g)" title="Editar Gasto"></p-button>
+
+                <p-button icon="pi pi-trash" severity="danger" styleClass="btn-acao btn-remover"
+                    (onClick)="removerGasto(g)" title="Remover Gasto"></p-button>
+                }
+            </td>
+        </tr>
+        }
+        }
+        }
+
+        @if (!item.isGroup && item.tipoGasto !== TipoGastoEnum.AVULSO) {
+        <tr class="item-row" [class.pago]="item.pago">
+            <td class="col-icone">
+                <i [class]="item.icone" [class.icone-pago]="item.pago"></i>
+            </td>
+
+            <td class="col-data">
+                {{ item.dataGasto | date : 'dd/MM/yyyy' }}
+            </td>
+
+            <td class="col-valor">
+                {{ item.valor | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
+
+                @if (item.tipoGasto === TipoGastoEnum.PARCELADO) {
+                <ng-container>
+                    – {{ item.parcela }} / {{ item.totalParcelas }}
+                </ng-container>
+                }
+            </td>
+
+            <td class="col-desc">
+                {{ item.descricao }}
+            </td>
+
+            <td class="col-acoes">
+                @if (item.tipoGasto === TipoGastoEnum.FIXO && item.pago === false) {
+                <p-button icon="pi pi-check-circle" severity="success" styleClass="btn-acao btn-check"
+                    (onClick)="marcarGasto(item)" title="Marcar como Pago"></p-button>
+                }
+
+                @if (item.tipoGasto === TipoGastoEnum.FIXO && item.pago === true) {
+                <p-button icon="pi pi-times-circle" severity="danger" styleClass="btn-acao btn-uncheck"
+                    (onClick)="marcarGasto(item)" title="Marcar como NÃO Pago"></p-button>
+                }
+
+                @if (item.pago === false) {
+                <p-button icon="pi pi-pencil" severity="info" styleClass="btn-acao btn-editar"
+                    (onClick)="editarGasto(item)" title="Editar Gasto"></p-button>
+
+                <p-button icon="pi pi-trash" severity="danger" styleClass="btn-acao btn-remover"
+                    (onClick)="removerGasto(item)" title="Remover Gasto"></p-button>
+                }
+            </td>
+        </tr>
+        }
+    </ng-template>
+</p-table>
+
+<dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="onFinalizarEdicao($event)"></dialog-novo-gasto>
+<p-confirmDialog></p-confirmDialog>

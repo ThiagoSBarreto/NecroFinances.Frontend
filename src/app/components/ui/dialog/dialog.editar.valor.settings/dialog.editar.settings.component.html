@@ -1,0 +1,170 @@
+<p-dialog [(visible)]="display" [modal]="true" [closable]="false" 
+          [style]="{ width: '85vw', 'max-width': '900px' }">
+
+    <div class="settings-dialog">
+        <div class="dialog-header">
+            <i class="pi pi-cog"></i>
+            <h2>Configurações</h2>
+        </div>
+
+        <div class="panels-container">
+
+            
+            <div class="settings-panel panel-config">
+                <div class="panel-header">
+                    <i class="pi pi-sliders-h"></i>
+                    <span>Configurações</span>
+                </div>
+
+                <form [formGroup]="formSettings" class="cards-grid">
+                    <div class="field-card">
+                        <i class="pi pi-clock"></i>
+                        <div class="field-info">
+                            <label>Valor Hora (R$)</label>
+                            <p-inputNumber formControlName="valorHora" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-dollar"></i>
+                        <div class="field-info">
+                            <label>Salário Mínimo (R$)</label>
+                            <p-inputNumber formControlName="salarioMinimo" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-percentage"></i>
+                        <div class="field-info">
+                            <label>Taxa INSS (% | ex: 0,1 = 10%)</label>
+                            <p-inputNumber formControlName="percentagemTaxaINSS" mode="decimal" [min]="0" [maxFractionDigits]="2"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-building"></i>
+                        <div class="field-info">
+                            <label>Taxa Cooperativa (% | ex: 0,012 = 1,2%)</label>
+                            <p-inputNumber formControlName="percentagemTaxaCooperativa" mode="decimal" [min]="0" [maxFractionDigits]="3"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-heart"></i>
+                        <div class="field-info">
+                            <label>Plano Dental (R$)</label>
+                            <p-inputNumber formControlName="valorPlanoDental" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-shield"></i>
+                        <div class="field-info">
+                            <label>Plano Saúde (R$)</label>
+                            <p-inputNumber formControlName="valorPlanoSaude" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-bolt"></i>
+                        <div class="field-info">
+                            <label>Desafio Gastos (R$)</label>
+                            <p-inputNumber formControlName="valorDesafioGastos" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="settings-panel panel-patrimonio">
+                <div class="panel-header">
+                    <i class="pi pi-briefcase"></i>
+                    <span>Patrimônio</span>
+                </div>
+
+                <form [formGroup]="formPatrimonio" class="cards-grid">
+                    <div class="field-card">
+                        <i class="pi pi-car"></i>
+                        <div class="field-info">
+                            <label>Moto (R$)</label>
+                            <p-inputNumber formControlName="moto" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-wallet"></i>
+                        <div class="field-info">
+                            <label>Reserva Emergência (R$)</label>
+                            <p-inputNumber formControlName="reservaEmergencia" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-inbox"></i>
+                        <div class="field-info">
+                            <label>Reserva Extra (R$)</label>
+                            <p-inputNumber formControlName="reservaExtra" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-book"></i>
+                        <div class="field-info">
+                            <label>Fies Thiago (R$)</label>
+                            <p-inputNumber formControlName="fiesThiago" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-book"></i>
+                        <div class="field-info">
+                            <label>Fies Pri (R$)</label>
+                            <p-inputNumber formControlName="fiesPri" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            
+            <div class="settings-panel panel-mes">
+                <div class="panel-header">
+                    <i class="pi pi-calendar"></i>
+                    <span>Mês</span>
+                </div>
+
+                <form [formGroup]="formMonth" class="cards-grid">
+                    <div class="field-card">
+                        <i class="pi pi-calendar"></i>
+                        <div class="field-info">
+                            <label>Dias Úteis</label>
+                            <p-inputNumber formControlName="diasUteis" [min]="0" mode="decimal" [maxFractionDigits]="0"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-clock"></i>
+                        <div class="field-info">
+                            <label>Horas Úteis</label>
+                            <p-inputNumber formControlName="horasUteis" [min]="0" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+                        </div>
+                    </div>
+
+                    <div class="field-card">
+                        <i class="pi pi-stopwatch"></i>
+                        <div class="field-info">
+                            <label>Horas Extras</label>
+                            <p-inputNumber formControlName="horasExtras" [min]="0" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
+        <p-button label="Salvar" severity="success" [disabled]="formSettings.invalid || formMonth.invalid || formPatrimonio.invalid" (onClick)="salvar()"></p-button>
+    </ng-template>
+
+</p-dialog>
