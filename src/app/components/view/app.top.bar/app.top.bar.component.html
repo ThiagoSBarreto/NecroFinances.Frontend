@@ -18,45 +18,14 @@
             <p-button styleClass="btn-acao btn-navegacao" icon="pi pi-arrow-left" severity="info"
                 (onClick)="prevMonth()" title="Mês Anterior"></p-button>
 
-            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd/mm/yy" showIcon="true"
-                title="Range do Mês atual" (onSelect)="buscarDados()"></p-datepicker>
+            <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd/mm/yy"
+                title="Para alterar as datas, use as setas de navegação <- ->" (onSelect)="buscarDados()"></p-datepicker>
 
             <p-button styleClass="btn-acao btn-navegacao" icon="pi pi-arrow-right" severity="info"
                 (onClick)="nextMonth()" title="Mês Posterior"></p-button>
         </div>
 
         <div class="toolbar-right">
-            <div class="card-group card-financeiro" title="Bruto, Líquido e Gastos">
-                <div class="total-box bruto" title="Rendimento Bruto">
-                    <i class="pi pi-chart-line icon"></i>
-                    <div class="info">
-                        <span class="label">Bruto</span>
-                        <span class="value">
-                            {{ bruto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="total-box liquido" title="Rendimento Liquido">
-                    <i class="pi pi-wallet icon"></i>
-                    <div class="info">
-                        <span class="label">Líquido</span>
-                        <span class="value">
-                            {{ liquido | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                        </span>
-                    </div>
-                </div>
-
-                <div class="total-box restante restante-destaque" [ngClass]="restante >= 0 ? 'positivo' : 'negativo'" title="Restante">
-                    <i class="pi pi-sparkles icon"></i>
-                    <div class="info">
-                        <span class="label">Restante</span>
-                        <span class="value">
-                            {{ restante | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                        </span>
-                    </div>
-                </div>
-            </div>
             <p-button styleClass="btn-acao btn-logout" severity="danger" icon="pi pi-sign-out" iconPos="left"
                 title="Logout" (onClick)="logout()"></p-button>
         </div>
@@ -136,49 +105,6 @@
                         <div class="field-info">
                             <label>Descontos</label>
                             <span>{{ descontos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="info-panel panel-financeiro">
-                <div class="panel-header">
-                    <i class="pi pi-wallet"></i>
-                    <span>Financeiro</span>
-                </div>
-
-                <div class="cards-grid">
-                    <div class="field-card bruto" title="Rendimento Bruto">
-                        <i class="pi pi-chart-line"></i>
-                        <div class="field-info">
-                            <label>Bruto</label>
-                            <span>{{ bruto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
-                        </div>
-                    </div>
-
-                    <div class="field-card liquido" title="Rendimento Liquido">
-                        <i class="pi pi-wallet"></i>
-                        <div class="field-info">
-                            <label>Líquido</label>
-                            <span>{{ liquido | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
-                        </div>
-                    </div>
-
-                    <div class="field-card gastos" title="Total de Gastos">
-                        <i class="pi pi-shopping-cart"></i>
-                        <div class="field-info">
-                            <label>Gastos</label>
-                            <span>{{ gastosTotal | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
-                        </div>
-                        <p-button styleClass="btn-pagar-cartao" severity="success" icon="pi pi-credit-card"
-                            title="Pagar cartão" (onClick)="pargarCartao()"></p-button>
-                    </div>
-
-                    <div class="field-card restante drawer-restante" [ngClass]="restante >= 0 ? 'positivo' : 'negativo'" title="Restante">
-                        <i class="pi pi-sparkles"></i>
-                        <div class="field-info">
-                            <label>Restante</label>
-                            <span>{{ restante | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</span>
                         </div>
                     </div>
                 </div>

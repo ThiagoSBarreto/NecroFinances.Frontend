@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { GastosModel } from "../models/gasto.model";
 import { environment } from "../../environments/environment";
+import { MainDataModel } from "../models/main.data.model";
 
 @Injectable()
 export class GastoService {
@@ -13,8 +14,8 @@ export class GastoService {
 
     }
 
-    getGastoByRange(inicio: Date, fim: Date): Observable<GastosModel[]> {
-        return this.http.get<GastosModel[]>(`${environment.gastosContext}GetGastosByDate?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`);
+    getGastoByRange(inicio: Date, fim: Date): Observable<MainDataModel> {
+        return this.http.get<MainDataModel>(`${environment.gastosContext}GetGastosByDate?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`);
     }
 
     addNewGasto(gasto: GastosModel): Observable<GastosModel> {
@@ -27,13 +28,5 @@ export class GastoService {
 
     deleteGasto(id?: number): Observable<boolean> {
         return this.http.delete<boolean>(`${environment.gastosContext}DeleteGasto?gastoID=${id}`);
-    }
-
-    maskAsPaid(id: number): Observable<boolean> {
-        return this.http.post<boolean>(`${environment.gastosContext}MarkAsPaid?gastoID=${id}`, {});
-    }
-
-    pagarCartao(inicio: Date, fim: Date): Observable<boolean> {
-        return this.http.post<boolean>(`${environment.gastosContext}PagarCartao?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`, {});
     }
 }

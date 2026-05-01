@@ -103,14 +103,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     }
 
     buscarDados(): void {
-        const start: Date = this.rangeDates[0];
-        const end: Date = this.rangeDates[1];
-
-        if (!start || !end) {
-            return;
-        }
-
-        this.onNovaData.emit(this.rangeDates);
+        this.setRangeDates();
     }
 
     atualizarDados(): void {
