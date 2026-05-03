@@ -30,9 +30,9 @@ export class DialogNovoGastoComponent implements OnInit {
     icones = Object.values(IconesEnum);
     Object = Object;
     IconesEnum = IconesEnum;
-
-
     formGasto!: FormGroup;
+
+    gasto: GastosModel;
 
     @Output() onNovoGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
 
@@ -73,6 +73,7 @@ export class DialogNovoGastoComponent implements OnInit {
         this.formGasto.patchValue({ dataGasto: new Date(gasto.dataGasto) });
         this.formGasto.patchValue({ icone: this.determinarIcone(gasto.icone) });
         this.modoEditar = true;
+        this.gasto = gasto;
         this.display = true;
     }
 
@@ -95,7 +96,11 @@ export class DialogNovoGastoComponent implements OnInit {
     adicionar(): void {
         if (this.formGasto.invalid) return;
 
-        const gasto = this.formGasto.value as GastosModel;
+        const gasto: GastosModel = {
+            ...this.gasto,
+            ...this.formGasto.value
+        };
+        
         this.onNovoGasto.emit(gasto);
 
         this.display = false;

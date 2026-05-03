@@ -5,5 +5,5 @@ export class PatrimonioModel {
     reservaExtra: number;
     fiesThiago: number;
     fiesPri: number;
-    dataInsercao: Date;
+    data: Date;
 }

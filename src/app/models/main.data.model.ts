@@ -4,7 +4,7 @@ import { MesModel } from "./month.model";
 import { PatrimonioModel } from "./patrimonio.model";
 import { SettingsModel } from "./settings.model";
 
-export class MainDataModel {
+export class DashboardModel {
     totalBruto: number;
     diferencaBruto: number;
 
@@ -48,8 +48,4 @@ export class MainDataModel {
     listaGastosFixos: GastoConsolidadoModel[];
     listaGastosParcelados: GastoConsolidadoModel[];
     listaGastosAvulsos: GastoConsolidadoModel[];
-
-    mes: MesModel;
-    settings: SettingsModel;
-    patrimonio: PatrimonioModel;
 }

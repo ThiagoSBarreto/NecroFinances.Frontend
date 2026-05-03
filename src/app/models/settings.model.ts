@@ -1,7 +1,6 @@
 export class SettingsModel {
     id: number;
-    validadeDe: Date;
-    validadeAte: Date;
+    data: Date;
     valorHora: number;
     salarioMinimo: number;
     percentagemTaxaINSS: number;

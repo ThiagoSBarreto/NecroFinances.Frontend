@@ -1,4 +1,4 @@
-const api = 'http://localhost:8080/api/';
+const api = `192.168.70.6:8080`;
 
 export const environment = {
     production: false,
@@ -7,5 +7,6 @@ export const environment = {
     settingsContext: `${api}settings/`,
     monthContext: `${api}mes/`,
     gastosContext: `${api}gastos/`,
-    patrimonioContext: `${api}patrimonio/`
+    patrimonioContext: `${api}patrimonio/`,
+    dashboardContext: `${api}dashboard/`
 };

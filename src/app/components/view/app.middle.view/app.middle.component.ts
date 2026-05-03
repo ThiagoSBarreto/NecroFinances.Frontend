@@ -5,11 +5,11 @@ import { TableModule } from "primeng/table";
 import { ButtonModule } from "primeng/button";
 import { ConfirmationService } from "primeng/api";
 import { CardModule } from "primeng/card";
-import { MainDataModel } from "../../../models/main.data.model";
 import { IconesDescricao, IconesEnum } from "../../../models/icones.enum";
 import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
 import { DialogVisualizarOrigemComponent } from "../../ui/dialog/dialog.visualizar.origem/dialog.visualizar.origem.component";
 import { GastosModel } from "../../../models/gasto.model";
+import { DashboardModel } from "../../../models/main.data.model";
 
 @Component({
     selector: 'app-middle-component',
@@ -28,7 +28,7 @@ export class AppMiddleComponent implements OnChanges {
 
     gastoConsolidado: GastoConsolidadoModel;
 
-    @Input() data: MainDataModel = new MainDataModel();
+    @Input() data: DashboardModel = new DashboardModel();
 
     @Output() onEditarGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output() onRemoverGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();

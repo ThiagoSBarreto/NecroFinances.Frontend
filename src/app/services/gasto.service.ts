@@ -3,7 +3,6 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { GastosModel } from "../models/gasto.model";
 import { environment } from "../../environments/environment";
-import { MainDataModel } from "../models/main.data.model";
 
 @Injectable()
 export class GastoService {
@@ -14,12 +13,8 @@ export class GastoService {
 
     }
 
-    getGastoByRange(inicio: Date, fim: Date): Observable<MainDataModel> {
-        return this.http.get<MainDataModel>(`${environment.gastosContext}GetGastosByDate?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`);
-    }
-
-    addNewGasto(gasto: GastosModel): Observable<GastosModel> {
-        return this.http.post<GastosModel>(`${environment.gastosContext}AddNewGasto`, gasto);
+    addGasto(gasto: GastosModel): Observable<GastosModel> {
+        return this.http.post<GastosModel>(`${environment.gastosContext}AddGasto`, gasto);
     }
 
     updateGasto(gasto: GastosModel): Observable<boolean> {

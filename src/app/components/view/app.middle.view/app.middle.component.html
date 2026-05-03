@@ -193,7 +193,7 @@
                         [style.background]="getBarColor(item.percentagem)"></div>
                     <div class="barra-texto grid">
                         <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
-                                [class]="item.categoria"></i>{{ getDescricao(item.categoria) }}</div>
+                                [class]="item.categoria"></i>{{ item.descricao }}</div>
                         <div class="col texto-valor-barra mt-2">{{ item.valor |
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                         </div>

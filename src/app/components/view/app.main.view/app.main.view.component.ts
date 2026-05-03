@@ -14,7 +14,8 @@ import { MesModel } from "../../../models/month.model";
 import { PatrimonioModel } from "../../../models/patrimonio.model";
 import { PatrimonioService } from "../../../services/patrimonio.service";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
-import { MainDataModel } from "../../../models/main.data.model";
+import { DashboardModel } from "../../../models/main.data.model";
+import { DashboardService } from "../../../services/dashboard.service";
 
 @Component({
     selector: 'app-main-view-component',
@@ -25,16 +26,17 @@ import { MainDataModel } from "../../../models/main.data.model";
         AppTopBarComponent, AppMiddleComponent
     ],
     providers: [
-        SettingsService, MesService, GastoService, PatrimonioService,
+        SettingsService, MesService, GastoService, PatrimonioService, DashboardService,
         MessageService
     ]
 })
 export class AppMainViewComponent {
-
+    isMobile = window.matchMedia("(max-width: 768px)").matches;
+    
     settings: SettingsModel;
     mes: MesModel;
     patrimonio: PatrimonioModel;
-    mainData: MainDataModel;
+    mainData: DashboardModel;
 
     range: Date[] = [];
 
@@ -44,6 +46,7 @@ export class AppMainViewComponent {
         private gastoService: GastoService,
         private patrimonioService: PatrimonioService,
         private messageService: MessageService,
+        private dashboardService: DashboardService,
         private router: Router
     ) {
 
@@ -55,21 +58,27 @@ export class AppMainViewComponent {
     }
 
     buscarDados(): void {
-        this.gastoService.getGastoByRange(this.range[0], this.range[1]).subscribe({
-            next: (data) => {
-                this.settings = data.settings;
-                this.mes = data.mes;
-                this.patrimonio = data.patrimonio;
-                this.mainData = data;
+        forkJoin({
+            mainData: this.dashboardService.getDashboard(this.range[0], this.range[1]),
+            settings: this.settingsService.getSettingsByDate(this.range[0], this.range[1]),
+            mes: this.mesService.getMesByDate(this.range[0], this.range[1]),
+            patrimonio: this.patrimonioService.getPatrimonioByDate(this.range[0], this.range[1])
+        }).subscribe({
+            next: (result) => {
+                const { mainData, settings, mes, patrimonio } = result;
+                this.mainData = mainData;
+                this.settings = settings;
+                this.mes = mes;
+                this.patrimonio = patrimonio;
             },
             error: (err) => {
-                this.messageService.add({ severity: 'error', summary: 'Erro', detail: err.error });
+                this.toast('error', 'Erro ao buscar dados do periodo');
             }
         })
     }
 
     onNovoGasto(gasto: GastosModel): void {
-        this.gastoService.addNewGasto(gasto).subscribe({
+        this.gastoService.addGasto(gasto).subscribe({
             next: () => {
                 this.toast('success', 'Gasto adicionado com sucesso');
                 this.buscarDados();
@@ -108,13 +117,15 @@ export class AppMainViewComponent {
 
 
     onEditarSettings(event: any): void {
-        forkJoin([
-            this.settingsService.updateSetting(event.settings),
-            this.mesService.updateMonth(event.mes),
-            this.patrimonioService.adicionarPatrimonio(event.patrimonio)
-        ]).subscribe({
-            next: () => {
+        forkJoin({
+            settings: this.settingsService.updateSettings(event.settings),
+            mes: this.mesService.updateMes(event.mes),
+            patrimonio: this.patrimonioService.updatePatrimonio(event.patrimonio)
+        }).subscribe({
+            next: (result) => {
                 this.toast('success', 'Configurações atualizadas com sucesso');
+                const { settings, mes, patrimonio } = result;
+
                 this.buscarDados();
             },
             error: (err) => {
