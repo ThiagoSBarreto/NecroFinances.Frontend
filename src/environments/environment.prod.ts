@@ -1,4 +1,4 @@
-const api = `192.168.70.6:8080`;
+const api = `http://192.168.70.6:8080`;
 
 export const environment = {
     production: false,
