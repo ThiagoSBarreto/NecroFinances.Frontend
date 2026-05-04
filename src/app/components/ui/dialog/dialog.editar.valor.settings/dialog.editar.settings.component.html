@@ -76,56 +76,6 @@
             </div>
 
             
-            <div class="settings-panel panel-patrimonio">
-                <div class="panel-header">
-                    <i class="pi pi-briefcase"></i>
-                    <span>Patrimônio</span>
-                </div>
-
-                <form [formGroup]="formPatrimonio" class="cards-grid">
-                    <div class="field-card">
-                        <i class="pi pi-car"></i>
-                        <div class="field-info">
-                            <label>Moto (R$)</label>
-                            <p-inputNumber formControlName="moto" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
-                        </div>
-                    </div>
-
-                    <div class="field-card">
-                        <i class="pi pi-wallet"></i>
-                        <div class="field-info">
-                            <label>Reserva Emergência (R$)</label>
-                            <p-inputNumber formControlName="reservaEmergencia" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
-                        </div>
-                    </div>
-
-                    <div class="field-card">
-                        <i class="pi pi-inbox"></i>
-                        <div class="field-info">
-                            <label>Reserva Extra (R$)</label>
-                            <p-inputNumber formControlName="reservaExtra" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
-                        </div>
-                    </div>
-
-                    <div class="field-card">
-                        <i class="pi pi-book"></i>
-                        <div class="field-info">
-                            <label>Fies Thiago (R$)</label>
-                            <p-inputNumber formControlName="fiesThiago" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
-                        </div>
-                    </div>
-
-                    <div class="field-card">
-                        <i class="pi pi-book"></i>
-                        <div class="field-info">
-                            <label>Fies Pri (R$)</label>
-                            <p-inputNumber formControlName="fiesPri" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            
             <div class="settings-panel panel-mes">
                 <div class="panel-header">
                     <i class="pi pi-calendar"></i>

@@ -1,7 +1,10 @@
+import { FinanciamentoModel } from "./financiamento.model";
 import { GastoConsolidadoModel } from "./gasto.consolidado.model";
 import { GastosModel } from "./gasto.model";
+import { InvestimentoModel } from "./investimento.model";
 import { MesModel } from "./month.model";
 import { PatrimonioModel } from "./patrimonio.model";
+import { PropriedadeModel } from "./propriedade.model";
 import { SettingsModel } from "./settings.model";
 
 export class DashboardModel {
@@ -17,23 +20,11 @@ export class DashboardModel {
     totalRestante: number;
     diferencaRestante: number;
 
-    fipeMoto: number;
-    diferencaFipeMoto: number;
-    fipeCarro: number;
-    diferencaFipeCarro: number;
-
-    reservaEmergencia: number;
-    diferencaReservaEmergencia: number;
-    reservaExtra: number;
-    diferencaReservaExtra: number;
+    propriedades: PropriedadeModel[];
+    investimentos: InvestimentoModel[];
+    financiamentos: FinanciamentoModel[];
 
     economias: number;
-
-    fiesThiago: number;
-    diferencaFiesThiago: number;
-    fiesPriscila: number;
-    diferencaFiesPriscila: number;
-
     totalPatrimonio: number;
 
     totalGastosFixos: number;

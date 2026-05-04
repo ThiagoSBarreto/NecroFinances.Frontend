@@ -23,6 +23,7 @@
 /* ========================= */
 
 .card {
+    position: relative;
     background: #1e1e1e;
     border-radius: 12px;
     padding: 1rem;
@@ -301,12 +302,10 @@
 }
 
 .card-bruto {
-    border: solid 1px lightgray;
     border-left: 5px solid green;
 }
 
 .card-descontos {
-    border: solid 1px lightgray;
     border-left: 5px solid orange;
 }
 
@@ -315,7 +314,6 @@
 }
 
 .card-liquido {
-    border: solid 1px lightgray;
     border-left: 5px solid lime;
 }
 
@@ -351,8 +349,120 @@
 }
 
 .card-middle {
-    border: 2px solid lightgray;
+    position: relative;
     border-left: 5px solid cyan;
+}
+
+.card-middle .labels-patrimonio,
+.card .labels-card,
+.card .labels-card-superior {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0.18rem 0.7rem;
+    background: #1e1e1e;
+    color: #eee;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.labels-card-superior {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0.18rem 0.7rem;
+    background: #1e1e1e;
+    color: #eee;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.bottom {
+    flex-wrap: wrap;
+    min-height: auto;
+}
+
+.bottom .card-metric.card-middle {
+    flex: 1 1 220px;
+    min-width: 0;
+    max-width: 28rem;
+    max-height: 110px;
+}
+
+.bottom .card-metric.card-middle .card-content {
+    display: grid;
+    gap: 0.2rem;
+    min-height: 0;
+    max-height: 8.4rem;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 0;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom {
+    display: grid !important;
+    justify-items: stretch;
+    grid-template-columns: minmax(0, 33%) minmax(0, 33%) minmax(0, 33%);
+    gap: 0.2rem;
+    align-items: center;
+    width: 100%;
+    min-height: 2.1rem;
+    max-height: 2.45rem;
+    padding: 0.15rem 0.25rem;
+    box-sizing: border-box;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom > * {
+    min-width: 0;
+    margin: 0;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom .col-5,
+.bottom .card-metric.card-middle .barra-container-bottom .col {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom .mt-2 {
+    margin-top: 0 !important;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom .texto-descricao-barra {
+    display: block;
+    min-width: 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom .texto-valor-barra {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: bold;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+}
+
+.bottom .card-metric.card-middle .barra-container-bottom .texto-diferenca-barra {
+    font-size: 0.75rem;
+    font-weight: bold !important;
+    background-color: black;
+    border-radius: 5px;
+    text-align: center;
 }
 
 .value-fipe {
@@ -376,6 +486,22 @@
     text-align: center;
     color: darkgray;
     font-size: 1.15rem;
+}
+
+.labels-patrimonio {
+    text-align: center;
+    color: darkgray;
+    font-size: 0.75rem;
+}
+
+.barra-container-bottom {
+    width: 100%;
+    min-height: 30px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .barra-container {
@@ -471,7 +597,6 @@
 }
 
 .card-gastos {
-    border: solid 1px lightgray;
     border-left: solid 5px yellow;
     flex-direction: row;
     align-items: stretch;

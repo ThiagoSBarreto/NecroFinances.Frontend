@@ -102,14 +102,6 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
             horasExtras: mes.horasExtras
         });
 
-        this.formPatrimonio.patchValue({
-            moto: patrimonio.moto,
-            reservaEmergencia: patrimonio.reservaEmergencia,
-            reservaExtra: patrimonio.reservaExtra,
-            fiesThiago: patrimonio.fiesThiago,
-            fiesPri: patrimonio.fiesPri
-        });
-
         this.display = true;
     }
 

@@ -143,6 +143,10 @@ export class AppTopBarComponent implements OnInit, OnChanges {
         this.dialogEditarSettings.abrir(this.settings, this.mes, this.patrimonio);
     }
 
+    editPatrimonio(): void {
+        
+    }
+
     salvarSettings(event: any): void {
         this.onEditarSettings.emit(event);
     }
