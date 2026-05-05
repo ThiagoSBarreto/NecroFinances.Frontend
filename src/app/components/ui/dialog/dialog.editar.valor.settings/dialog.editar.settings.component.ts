@@ -46,7 +46,7 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
             percentagemTaxaCooperativa: [0, [Validators.required, Validators.min(0)]],
             valorPlanoDental: [0, [Validators.required, Validators.min(0)]],
             valorPlanoSaude: [0, [Validators.required, Validators.min(0)]],
-            valorDesafioGastos: [0, [Validators.required, Validators.min(0)]]
+            desafioGastos: [0, [Validators.required, Validators.min(0)]]
         });
 
         this.formMonth = this.fb.group({
@@ -93,7 +93,7 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
             percentagemTaxaCooperativa: settings.percentagemTaxaCooperativa,
             valorPlanoDental: settings.valorPlanoDental,
             valorPlanoSaude: settings.valorPlanoSaude,
-            valorDesafioGastos: settings.desafioGastos
+            desafioGastos: settings.desafioGastos
         });
 
         this.formMonth.patchValue({

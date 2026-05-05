@@ -37,7 +37,7 @@ export class DashboardModel {
     totalGastosAvulsos: number;
     diferencaGastosAvulsos: number;
 
-    meta: number;
+    valorMeta: number;
     diferencaMeta: number;
 
     listaGastosFixos: GastoConsolidadoModel[];

@@ -93,9 +93,9 @@
                             data.totalGastosParcelados|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
                         <div class="col mt-2"
-                            [ngClass]="getClassValor(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
+                            [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
                             <div class="texto-diferenca-barra"
-                                [ngClass]="getBordaDiferencaDivida(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
+                                [ngClass]="getBordaDiferenca(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
                                 <i
                                     [ngClass]="getIconValor(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)"></i>{{
                                 data.diferencaGastosAvulsos + data.diferencaGastosParcelados |
@@ -105,13 +105,13 @@
 
                     <div class="barra-container-bottom barra-container-resultados">
                         <div class="col-5 texto-descricao-barra mt-2">Diferença Meta</div>
-                        <div class="col texto-valor-barra mt-2" style="color: red">{{ data.diferencaMeta |
+                        <div class="col texto-valor-barra mt-2" style="color: red">{{ data.valorMeta |
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaGastosParcelados)">
+                        <div class="col mt-2" [ngClass]="getClassValor(data.diferencaMeta)">
                             <div class="texto-diferenca-barra"
-                                [ngClass]="getBordaDiferenca(data.diferencaGastosParcelados)"><i
-                                    [ngClass]="getIconValor(data.diferencaGastosParcelados)"></i>{{
-                                data.diferencaGastosParcelados |
+                                [ngClass]="getBordaDiferencaDivida(data.diferencaMeta)"><i
+                                    [ngClass]="getIconValor(data.diferencaMeta)"></i>{{
+                                data.diferencaMeta |
                                 currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
                         </div>
                     </div>
