@@ -107,7 +107,7 @@
                         <div class="col-5 texto-descricao-barra mt-2">Diferença Meta</div>
                         <div class="col texto-valor-barra mt-2" style="color: red">{{ data.valorMeta |
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValor(data.diferencaMeta)">
+                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaMeta)">
                             <div class="texto-diferenca-barra"
                                 [ngClass]="getBordaDiferencaDivida(data.diferencaMeta)"><i
                                     [ngClass]="getIconValor(data.diferencaMeta)"></i>{{

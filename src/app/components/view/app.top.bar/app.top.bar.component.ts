@@ -18,11 +18,11 @@ import { DialogEditarPatrimonioComponent } from "../../ui/dialog/dialog.editar.p
     templateUrl: './app.top.bar.component.html',
     styleUrls: ['./app.top.bar.component.scss'],
     imports: [
-    FormsModule, CommonModule,
-    ButtonModule, DatePickerModule, DrawerModule, ToolbarModule,
-    DialogEditarSettingsComponent, DialogNovoGastoComponent,
-    DialogEditarPatrimonioComponent
-]
+        FormsModule, CommonModule,
+        ButtonModule, DatePickerModule, DrawerModule, ToolbarModule,
+        DialogEditarSettingsComponent, DialogNovoGastoComponent,
+        DialogEditarPatrimonioComponent
+    ]
 })
 export class AppTopBarComponent implements OnInit, OnChanges {
 
@@ -56,6 +56,10 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     valorHora: number = 0;
     gastosTotal: number = 0;
     infoDrawerVisible: boolean = false;
+
+    mesAtual: string = '';
+    mesAnterior: string = '';
+    proximoMes: string = '';
 
     ngOnChanges(changes: SimpleChanges): void {
         if ((changes['mes'] && this.mes) || (changes['settings'] && this.settings) || (changes['gastos'] && this.gastos)) {
@@ -94,6 +98,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
         end.setMonth(start.getMonth() + 1);
 
         this.rangeDates = [start, end];
+        this.atuaizaMesBase();
         this.onNovaData.emit(this.rangeDates);
     }
 
@@ -132,6 +137,32 @@ export class AppTopBarComponent implements OnInit, OnChanges {
         });
 
         this.restante = this.liquido - this.gastosTotal;
+    }
+
+    atuaizaMesBase(): void {
+        const meses = [
+            "Janeiro", "Fevereiro", "Março", "Abril",
+            "Maio", "Junho", "Julho", "Agosto",
+            "Setembro", "Outubro", "Novembro", "Dezembro"
+        ];
+
+        const dia = this.rangeDates[0].getDate();
+        let mesIndex = this.rangeDates[0].getMonth();
+
+        if (dia <= 9) {
+            mesIndex -= 1;
+
+            if (mesIndex < 0) {
+                mesIndex = 11;
+            }
+        }
+
+        const prox: number = mesIndex == 11 ? 0 : mesIndex + 1;
+        const ant: number = mesIndex == 0 ? 11 : mesIndex -1;
+
+        this.proximoMes = meses[prox];
+        this.mesAnterior = meses[ant];
+        this.mesAtual = meses[mesIndex];
     }
 
     addNewEntry(): void {

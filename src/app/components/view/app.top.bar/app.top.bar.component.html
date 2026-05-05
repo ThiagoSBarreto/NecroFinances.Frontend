@@ -18,14 +18,18 @@
         </div>
 
         <div class="toolbar-middle">
+            <div>{{ mesAnterior }}</div>
+
             <p-button styleClass="btn-acao btn-navegacao" icon="pi pi-arrow-left" severity="info"
                 (onClick)="prevMonth()" title="Mês Anterior"></p-button>
 
             <p-datepicker [(ngModel)]="rangeDates" selectionMode="range" dateFormat="dd/mm/yy"
-                title="Para alterar as datas, use as setas de navegação <- ->" (onSelect)="buscarDados()"></p-datepicker>
+                title="{{ mesAtual }}" (onSelect)="buscarDados()"></p-datepicker>
 
             <p-button styleClass="btn-acao btn-navegacao" icon="pi pi-arrow-right" severity="info"
                 (onClick)="nextMonth()" title="Mês Posterior"></p-button>
+
+            <div>{{ proximoMes }}</div>
         </div>
 
         <div class="toolbar-right">
