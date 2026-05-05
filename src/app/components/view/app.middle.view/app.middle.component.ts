@@ -108,13 +108,35 @@ export class AppMiddleComponent implements OnChanges {
     }
 
     getClassRestante(valor: number): string {
-        if (!valor) return '';
+        if (valor >= 1000) {
+            return 'card-restante-excelente';
+        }
+
+        if (valor >= 500) {
+            return 'card-restante-bom';
+        }
 
         if (valor > 0) {
-            return 'card-restante-positivo';
+            return 'card-restante-alerta';
         }
 
         return 'card-restante-negativo';
+    }
+
+    getIconRestante(valor: number): string {
+        if (valor >= 1000) {
+            return 'pi pi-star';
+        }
+
+        if (valor >= 500) {
+            return 'pi pi-thumbs-up';
+        }
+
+        if (valor > 0) {
+            return 'pi pi-minus-circle';
+        }
+
+        return 'pi pi-thumbs-down';
     }
 
     getBarColor(valor: number): string {

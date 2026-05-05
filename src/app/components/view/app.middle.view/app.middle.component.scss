@@ -335,16 +335,52 @@
     }
 }
 
-.card-restante-positivo {
+.card-restante-excelente {
     border: 2px solid lime;
     background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
     box-shadow: 0 0 20px rgba(0, 255, 100, 0.25);
+}
+
+.card-restante-bom {
+    border: 2px solid green;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.25);
+}
+
+.card-restante-alerta {
+    border: 2px solid #ff9800;
+    background: linear-gradient(135deg, #33210a, #1e1e1e);
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.22);
 }
 
 .card-restante-negativo {
     border: 2px solid tomato;
     background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
     box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+}
+
+.icone-restante {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.9rem;
+    font-size: 1.25rem;
+    z-index: 2;
+}
+
+.card-restante-excelente .icone-restante {
+    color: lime;
+}
+
+.card-restante-bom .icone-restante {
+    color: green;
+}
+
+.card-restante-alerta .icone-restante {
+    color: #ff9800;
+}
+
+.card-restante-negativo .icone-restante {
+    color: tomato;
 }
 
 .card-middle {

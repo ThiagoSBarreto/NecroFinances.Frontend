@@ -57,7 +57,7 @@ export class DialogEditarPatrimonioComponent {
 
     abrir(patrimonio: PatrimonioModel) {
         this.patrimonio = patrimonio;
-        console.log(patrimonio);
+
         this.propriedades.clear();
         this.investimentos.clear();
         this.financiamentos.clear();
