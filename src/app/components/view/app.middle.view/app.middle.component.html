@@ -140,7 +140,7 @@
             <div class="card-content v-between-2">
                 @for(item of data.listaGastosFixos; track item.id) {
                 <div class="barra-container" (click)="abrirOrigem(item)">
-                    <div class="barra-preenchida" [style.width.%]="item.percentagem * 100"
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
                         [style.background]="getBarColor(item.percentagem)"></div>
                     <div class="barra-texto grid">
                         <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
@@ -166,7 +166,7 @@
             <div class="card-content v-between-2">
                 @for(item of data.listaGastosParcelados; track item.id) {
                 <div class="barra-container" (click)="abrirOrigem(item)">
-                    <div class="barra-preenchida" [style.width.%]="item.percentagem * 100"
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
                         [style.background]="getBarColor(item.percentagem)"></div>
                     <div class="barra-texto grid">
                         <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
@@ -190,7 +190,7 @@
             <div class="card-content v-between-2">
                 @for(item of data.listaGastosAvulsos; track item.id) {
                 <div class="barra-container" (click)="abrirOrigem(item)">
-                    <div class="barra-preenchida" [style.width.%]="item.percentagem * 100"
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
                         [style.background]="getBarColor(item.percentagem)"></div>
                     <div class="barra-texto grid">
                         <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"

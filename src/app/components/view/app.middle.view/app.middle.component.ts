@@ -35,6 +35,8 @@ export class AppMiddleComponent implements OnChanges {
 
     @ViewChild('dialogOrigem') dialogOrigem: DialogVisualizarOrigemComponent;
 
+    Math: Math;
+
     constructor(
         private confirmationService: ConfirmationService
     ) {
