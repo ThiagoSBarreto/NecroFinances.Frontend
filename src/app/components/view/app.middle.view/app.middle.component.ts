@@ -183,6 +183,13 @@ export class AppMiddleComponent implements OnChanges {
         return '';
     }
 
+    obtemClassPosicaoFinanceira(): string {
+        if (this.data.totalPatrimonio > 0) {
+            return 'card-posicao-financeira-good';
+        }
+        return 'card-posicao-financeira-bad';
+    }
+
     abrirOrigem(item: GastoConsolidadoModel): void {
         this.gastoConsolidado = item;
         this.dialogOrigem.open(item);

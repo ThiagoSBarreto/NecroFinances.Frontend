@@ -42,7 +42,7 @@
                 </div>
             </div>
 
-            <div class="card card-metric card-liquido">
+            <div class="card card-metric card-gastos">
                 <div class="labels-card-superior">Gastos</div>
                 <div class="card-content v-between gap-1">
                     <div class="barra-container-bottom">
@@ -213,7 +213,7 @@
     </div>
 
     <div class="bottom">
-        <div class="card card-metric card-middle">
+        <div class="card card-metric card-middle card-propriedades">
             <div class="labels-card">Propriedades</div>
             <div class="card-content v-between-2">
                 @for(item of data.propriedades; track item.id) {
@@ -233,7 +233,7 @@
             </div>
         </div>
 
-        <div class="card card-metric card-middle">
+        <div class="card card-metric card-middle card-investimentos">
             <div class="labels-card">Investimentos</div>
             <div class="card-content v-between-2">
                 @for(item of data.investimentos; track item.id) {
@@ -253,7 +253,7 @@
             </div>
         </div>
 
-        <div class="card card-metric card-middle">
+        <div class="card card-metric card-middle card-financiamentos">
             <div class="labels-card">Financiamentos</div>
             <div class="card-content v-between-2">
                 @for(item of data.financiamentos; track item.id) {
@@ -273,7 +273,7 @@
             </div>
         </div>
 
-        <div class="card card-metric card-middle">
+        <div class="card card-metric card-middle" [ngClass]="obtemClassPosicaoFinanceira()">
             <div class="labels-card">Posição Financeira</div>
             <div class="card-content v-between-2">
                 <div class="barra-container-bottom">

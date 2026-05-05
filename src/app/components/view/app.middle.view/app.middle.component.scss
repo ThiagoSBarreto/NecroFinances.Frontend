@@ -312,8 +312,8 @@
     color: orange;
 }
 
-.card-liquido {
-    border-left: 5px solid lime;
+.card-gastos {
+    border-left: 5px solid orangered;
 }
 
 .card-restante {
@@ -385,7 +385,6 @@
 
 .card-middle {
     position: relative;
-    border-left: 5px solid cyan;
 }
 
 .card-middle .labels-patrimonio,
@@ -629,12 +628,6 @@
     color: cyan;
 }
 
-.card-gastos {
-    border-left: solid 5px yellow;
-    flex-direction: row;
-    align-items: stretch;
-}
-
 .icone-avaliacao-wrapper {
     flex: 1;
     display: flex;
@@ -699,4 +692,28 @@
             lightgray 20%,
             lightgray 80%,
             transparent);
+}
+
+.card-propriedades {
+    border-left: 5px solid lime;
+}
+
+.card-investimentos {
+    border-left: 5px solid green;
+}
+
+.card-financiamentos {
+    border-left: 5px solid orangered;
+}
+
+.card-posicao-financeira-good {
+    border-left: 5px solid lime;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.25);
+}
+
+.card-posicao-financeira-bad {
+    border-left: 5px solid red;
+    background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
 }
