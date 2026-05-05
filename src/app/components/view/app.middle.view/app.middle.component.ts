@@ -127,88 +127,6 @@ export class AppMiddleComponent implements OnChanges {
         return `hsl(${hue}, 70%, 50%)`;
     }
 
-    getClassAvaliacaoMes(): string {
-        const v = this.data.totalRestante;
-
-        if (v >= 1500) {
-            return 'pi pi-star-fill icone-avaliacao valor-positivo-forte';
-        }
-        else if (v >= 1000) {
-            return 'pi pi-trophy icone-avaliacao valor-positivo-forte';
-        }
-        else if (v >= 700) {
-            return 'pi pi-thumbs-up icone-avaliacao valor-positivo';
-        }
-        else if (v >= 500) {
-            return 'pi pi-check-circle icone-avaliacao valor-positivo';
-        }
-        else if (v >= 300) {
-            return 'pi pi-arrow-up icone-avaliacao valor-positivo-leve';
-        }
-        else if (v >= 100) {
-            return 'pi pi-plus-circle icone-avaliacao valor-positivo-leve';
-        }
-        else if (v > 0) {
-            return 'pi pi-minus-circle icone-avaliacao valor-neutro';
-        }
-        else if (v >= -100) {
-            return 'pi pi-exclamation-circle icone-avaliacao valor-alerta';
-        }
-        else if (v >= -300) {
-            return 'pi pi-exclamation-triangle icone-avaliacao valor-alerta';
-        }
-        else if (v >= -500) {
-            return 'pi pi-arrow-down icone-avaliacao valor-negativo';
-        }
-        else if (v >= -1000) {
-            return 'pi pi-times-circle icone-avaliacao valor-negativo';
-        }
-        else {
-            return 'pi pi-ban icone-avaliacao valor-negativo-forte';
-        }
-    }
-
-    getTextoAvaliacaoDoMes(): string {
-        const v = this.data.totalRestante;
-
-        if (v >= 1500) {
-            return 'Resultado excelente! Sobra muito consistente — você já está em nível de otimização financeira.';
-        }
-        else if (v >= 1000) {
-            return 'Ótimo mês! Sobra acima de R$1.000 — excelente controle.';
-        }
-        else if (v >= 700) {
-            return 'Muito bom! Resultado forte e consistente.';
-        }
-        else if (v >= 500) {
-            return 'Bom resultado! Você está mantendo um padrão positivo.';
-        }
-        else if (v >= 300) {
-            return 'Positivo 👍 Dá para melhorar, mas já está no caminho certo.';
-        }
-        else if (v >= 100) {
-            return 'Levemente positivo. Pequenos ajustes já fazem diferença aqui.';
-        }
-        else if (v > 0) {
-            return 'Quase neutro, mas ainda positivo. Atenção aos pequenos gastos.';
-        }
-        else if (v >= -100) {
-            return 'Quase equilibrado. Um pequeno ajuste já vira o jogo.';
-        }
-        else if (v >= -300) {
-            return 'Leve negativo. Vale revisar alguns gastos do mês.';
-        }
-        else if (v >= -500) {
-            return 'Negativo moderado. Hora de ajustar prioridades.';
-        }
-        else if (v >= -1000) {
-            return 'Mês difícil. Importante revisar o que pesou mais.';
-        }
-        else {
-            return 'Resultado crítico. Vale uma revisão mais profunda para recuperar o controle.';
-        }
-    }
-
     getCorAvaliacaoMes(): string {
         if (this.data.totalRestante >= 500) {
             return 'lime';
@@ -221,11 +139,23 @@ export class AppMiddleComponent implements OnChanges {
 
     getBordaDiferenca(valor: number) {
         if (valor < 0) {
-            return 'border-lime';
+            //return 'border-lime';
         }
 
         if (valor > 0) {
-            return 'border-tomato';
+            //return 'border-tomato';
+        }
+
+        return '';
+    }
+
+    getBordaDiferencaDivida(valor: number) {
+        if (valor < 0) {
+            //return 'border-tomato';
+        }
+
+        if (valor > 0) {
+            //return 'border-lime';
         }
 
         return '';

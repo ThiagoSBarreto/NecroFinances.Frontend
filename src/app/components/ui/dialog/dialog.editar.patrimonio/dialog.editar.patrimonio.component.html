@@ -1,0 +1,111 @@
+<p-dialog [(visible)]="display" [modal]="true" [style]="{ width: '1250px' }" [closable]="false">
+
+    <div class="patrimonio-dialog">
+        <div class="dialog-header">
+            <i class="pi pi-wallet"></i>
+            <h2>Patrimônio</h2>
+        </div>
+
+        <div class="panels-container">
+            <div class="patrimonio-panel panel-propriedades">
+                <div class="panel-header">
+                    <i class="pi pi-home"></i>
+                    <span>Propriedades</span>
+                </div>
+
+                <div class="cards-grid">
+                    <div *ngFor="let item of propriedades.controls" [formGroup]="item"
+                        [ngClass]="getClass(item.value.status)" class="field-card row">
+
+                        <i class="pi pi-home"></i>
+                        <div class="field-info">
+                            <label>Nome</label>
+                            <input pInputText formControlName="nomePropriedade" (input)="marcarEdicao(item)" />
+                        </div>
+
+                        <div class="field-info value-field">
+                            <label>Valor</label>
+                            <p-inputNumber formControlName="valorPropriedade" mode="currency" currency="BRL"
+                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                            </p-inputNumber>
+                        </div>
+
+                        <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
+                    </div>
+                </div>
+
+                <button pButton icon="pi pi-plus" label="Adicionar" class="add-button"
+                    (click)="adicionar('propriedade')"></button>
+            </div>
+
+            <div class="patrimonio-panel panel-investimentos">
+                <div class="panel-header">
+                    <i class="pi pi-chart-line"></i>
+                    <span>Investimentos</span>
+                </div>
+
+                <div class="cards-grid">
+                    <div *ngFor="let item of investimentos.controls" [formGroup]="item"
+                        [ngClass]="getClass(item.value.status)" class="field-card row">
+
+                        <i class="pi pi-chart-line"></i>
+                        <div class="field-info">
+                            <label>Nome</label>
+                            <input pInputText formControlName="nomeInvestimento" (input)="marcarEdicao(item)" />
+                        </div>
+
+                        <div class="field-info value-field">
+                            <label>Valor</label>
+                            <p-inputNumber formControlName="valorInvestimento" mode="currency" currency="BRL"
+                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                            </p-inputNumber>
+                        </div>
+
+                        <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
+                    </div>
+                </div>
+
+                <button pButton icon="pi pi-plus" label="Adicionar" class="add-button"
+                    (click)="adicionar('investimento')"></button>
+            </div>
+
+            <div class="patrimonio-panel panel-financiamentos">
+                <div class="panel-header">
+                    <i class="pi pi-credit-card"></i>
+                    <span>Financiamentos</span>
+                </div>
+
+                <div class="cards-grid">
+                    <div *ngFor="let item of financiamentos.controls" [formGroup]="item"
+                        [ngClass]="getClass(item.value.status)" class="field-card row">
+
+                        <i class="pi pi-credit-card"></i>
+                        <div class="field-info">
+                            <label>Nome</label>
+                            <input pInputText formControlName="nomeFinanciamento" (input)="marcarEdicao(item)" />
+                        </div>
+
+                        <div class="field-info value-field">
+                            <label>Valor</label>
+                            <p-inputNumber formControlName="valorFinanciamento" mode="currency" currency="BRL"
+                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                            </p-inputNumber>
+                        </div>
+
+                        <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
+                    </div>
+                </div>
+
+                <button pButton icon="pi pi-plus" label="Adicionar" class="add-button"
+                    (click)="adicionar('financiamento')"></button>
+            </div>
+        </div>
+
+    </div>
+
+    <ng-template pTemplate="footer">
+        <button pButton label="Cancelar" class="p-button-danger" (click)="cancelar()"></button>
+        <p-button label="Salvar" [disabled]="!formValido()" (onClick)="salvar()"></p-button>
+    </ng-template>
+
+</p-dialog>

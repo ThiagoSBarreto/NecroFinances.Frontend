@@ -6,4 +6,5 @@ export class PropriedadeModel {
     nomePropriedade: string;
     valorPropriedade: number;
     diferenca: number;
+    status?: 'original' | 'added' | 'edited' | 'removed';
 }

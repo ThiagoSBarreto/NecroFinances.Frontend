@@ -27,6 +27,9 @@ export class DashboardModel {
     economias: number;
     totalPatrimonio: number;
 
+    diferencaEconomias: number;
+    diferencaPatrimonio: number;
+
     totalGastosFixos: number;
     diferencaGastosFixos: number;
     totalGastosParcelados: number;
@@ -34,6 +37,7 @@ export class DashboardModel {
     totalGastosAvulsos: number;
     diferencaGastosAvulsos: number;
 
+    meta: number;
     diferencaMeta: number;
 
     listaGastosFixos: GastoConsolidadoModel[];

@@ -4,4 +4,5 @@ export class FinanciamentoModel {
     nomeFinanciamento: string;
     valorFinanciamento: number;
     diferenca: number;
+    status?: 'original' | 'added' | 'edited' | 'removed';
 }

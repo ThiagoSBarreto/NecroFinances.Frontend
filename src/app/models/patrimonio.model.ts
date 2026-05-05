@@ -6,6 +6,6 @@ export class PatrimonioModel {
     id: number;
     propriedades: PropriedadeModel[];
     investimentos: InvestimentoModel[];
-    financiamento: FinanciamentoModel[];
+    financiamentos: FinanciamentoModel[];
     data: Date;
 }

@@ -4,4 +4,5 @@ export class InvestimentoModel {
     nomeInvestimento: string;
     valorInvestimento: number;
     diferenca: number;
+    status?: 'original' | 'added' | 'edited' | 'removed';
 }

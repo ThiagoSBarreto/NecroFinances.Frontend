@@ -135,7 +135,7 @@
 }
 
 .card-metric {
-    flex: 1;
+    flex: 2;
 }
 
 .card-large {
@@ -236,7 +236,6 @@
     overflow-y: auto;
     overflow-x: hidden;
     flex: 1;
-    padding-right: 6px;
 }
 
 /* ========================= */
@@ -395,7 +394,6 @@
 .bottom .card-metric.card-middle {
     flex: 1 1 220px;
     min-width: 0;
-    max-width: 28rem;
     max-height: 110px;
 }
 
@@ -423,7 +421,7 @@
     box-sizing: border-box;
 }
 
-.bottom .card-metric.card-middle .barra-container-bottom > * {
+.bottom .card-metric.card-middle .barra-container-bottom>* {
     min-width: 0;
     margin: 0;
 }
@@ -565,7 +563,6 @@
 .texto-valor-barra {
     font-size: 0.95;
     font-weight: bold;
-    color: white;
 }
 
 .texto-data-barra {
@@ -647,4 +644,23 @@
 
 .icone-avaliacao {
     font-size: 1.4rem;
+}
+
+.barra-container-resultados {
+    background: transparent;
+}
+
+.barra-container-resultados::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 72%;
+    height: 1px;
+
+    background: linear-gradient(to right,
+            transparent,
+            lightgray 20%,
+            lightgray 80%,
+            transparent);
 }

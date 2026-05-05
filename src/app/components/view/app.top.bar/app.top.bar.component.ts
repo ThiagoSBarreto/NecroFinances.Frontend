@@ -11,16 +11,18 @@ import { DialogNovoGastoComponent } from "../../ui/dialog/novo.gasto/dialog.novo
 import { DialogEditarSettingsComponent } from "../../ui/dialog/dialog.editar.valor.settings/dialog.editar.settings.component";
 import { MesModel } from "../../../models/month.model";
 import { PatrimonioModel } from "../../../models/patrimonio.model";
+import { DialogEditarPatrimonioComponent } from "../../ui/dialog/dialog.editar.patrimonio/dialog.editar.patrimonio.component";
 
 @Component({
     selector: 'app-top-bar-component',
     templateUrl: './app.top.bar.component.html',
     styleUrls: ['./app.top.bar.component.scss'],
     imports: [
-        FormsModule, CommonModule,
-        ButtonModule, DatePickerModule, DrawerModule, ToolbarModule,
-        DialogEditarSettingsComponent, DialogNovoGastoComponent
-    ]
+    FormsModule, CommonModule,
+    ButtonModule, DatePickerModule, DrawerModule, ToolbarModule,
+    DialogEditarSettingsComponent, DialogNovoGastoComponent,
+    DialogEditarPatrimonioComponent
+]
 })
 export class AppTopBarComponent implements OnInit, OnChanges {
 
@@ -33,10 +35,11 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     @Output('novoGasto') novoGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output('onEditarSettings') onEditarSettings: EventEmitter<SettingsModel> = new EventEmitter<SettingsModel>();
     @Output('onLogout') onLogout: EventEmitter<void> = new EventEmitter<void>();
-    @Output() onPagarCartao: EventEmitter<void> = new EventEmitter<void>();
+    @Output('onEditarPatrimonio') onEditarPatrimonio: EventEmitter<PatrimonioModel> = new EventEmitter<PatrimonioModel>();
 
     @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
     @ViewChild('dialogEditarSettings') dialogEditarSettings: DialogEditarSettingsComponent;
+    @ViewChild('dialogEditarPatrimonio') dialogEditarPatrimonio: DialogEditarPatrimonioComponent;
 
     rangeDates: Date[] = [];
 
@@ -144,11 +147,15 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     }
 
     editPatrimonio(): void {
-        
+        this.dialogEditarPatrimonio.abrir(this.patrimonio);
     }
 
     salvarSettings(event: any): void {
         this.onEditarSettings.emit(event);
+    }
+
+    salvarPatrimonio(event: PatrimonioModel): void {
+        this.onEditarPatrimonio.emit(event);
     }
 
     logout(): void {
@@ -157,9 +164,5 @@ export class AppTopBarComponent implements OnInit, OnChanges {
 
     info(): void {
         this.infoDrawerVisible = true;
-    }
-
-    pargarCartao(): void {
-        this.onPagarCartao.emit();
     }
 }

@@ -7,7 +7,7 @@ import { GastosModel } from "../../../models/gasto.model";
 import { SettingsService } from "../../../services/settings.service";
 import { GastoService } from "../../../services/gasto.service";
 import { MessageService } from "primeng/api";
-import { forkJoin } from "rxjs";
+import { concatMap, defer, forkJoin } from "rxjs";
 import { ToastModule } from "primeng/toast";
 import { MesService } from "../../../services/mes.service";
 import { MesModel } from "../../../models/month.model";
@@ -32,7 +32,7 @@ import { DashboardService } from "../../../services/dashboard.service";
 })
 export class AppMainViewComponent {
     isMobile = window.matchMedia("(max-width: 768px)").matches;
-    
+
     settings: SettingsModel;
     mes: MesModel;
     patrimonio: PatrimonioModel;
@@ -58,23 +58,32 @@ export class AppMainViewComponent {
     }
 
     buscarDados(): void {
-        forkJoin({
-            mainData: this.dashboardService.getDashboard(this.range[0], this.range[1]),
-            settings: this.settingsService.getSettingsByDate(this.range[0], this.range[1]),
-            mes: this.mesService.getMesByDate(this.range[0], this.range[1]),
-            patrimonio: this.patrimonioService.getPatrimonioByDate(this.range[0], this.range[1])
-        }).subscribe({
-            next: (result) => {
-                const { mainData, settings, mes, patrimonio } = result;
+
+        defer(() => this.dashboardService.getDashboard(this.range[0], this.range[1])).pipe(
+
+            concatMap(mainData => {
                 this.mainData = mainData;
+                return defer(() => this.settingsService.getSettingsByDate(this.range[0], this.range[1]));
+            }),
+
+            concatMap(settings => {
                 this.settings = settings;
+                return defer(() => this.mesService.getMesByDate(this.range[0], this.range[1]));
+            }),
+
+            concatMap(mes => {
                 this.mes = mes;
+                return defer(() => this.patrimonioService.getPatrimonioByDate(this.range[0], this.range[1]));
+            })
+
+        ).subscribe({
+            next: (patrimonio) => {
                 this.patrimonio = patrimonio;
             },
-            error: (err) => {
+            error: () => {
                 this.toast('error', 'Erro ao buscar dados do periodo');
             }
-        })
+        });
     }
 
     onNovoGasto(gasto: GastosModel): void {
@@ -132,6 +141,18 @@ export class AppMainViewComponent {
                 this.toast('error', err.error);
             }
         });
+    }
+
+    editarPatrimonio(event: PatrimonioModel): void {
+        this.patrimonioService.updatePatrimonio(event).subscribe({
+            next: ((patrimonio) => {
+                this.toast('success', 'Patrimônio atualizado com sucesso!');
+                this.buscarDados();
+            }),
+            error: (err) => {
+                this.toast('error', err.error);
+            }
+        })
     }
 
     private toast(tipo: 'success' | 'error', mensagem: string): void {
