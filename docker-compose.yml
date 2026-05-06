@@ -8,13 +8,4 @@ services:
     container_name: angular-app
     ports:
       - "4200:80"
-    depends_on:
-      - necrofinances
-    restart: always
-
-  necrofinances:
-    image: necrofinancesbackend-api
-    container_name: necro_api
-    ports:
-      - "8080:8080"
     restart: always
