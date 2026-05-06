@@ -10,6 +10,7 @@ services:
       - "4200:80"
     depends_on:
       - necrofinances
+    restart: always
 
   necrofinances:
     image: necrofinances:latest
