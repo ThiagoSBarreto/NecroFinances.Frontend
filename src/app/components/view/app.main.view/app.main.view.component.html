@@ -1,5 +1,5 @@
 @if(isMobile == false) {
-<app-top-bar-component [settings]="settings" [mes]="mes" [patrimonio]="patrimonio" (onNovaData)="onNovaData($event)"
+<app-top-bar-component [settings]="settings" [mes]="mes" [patrimonio]="patrimonio" [mainData]="mainData" (onNovaData)="onNovaData($event)"
     (novoGasto)="onNovoGasto($event)" (onEditarSettings)="onEditarSettings($event)"
     (onLogout)="onLogOut()" (onEditarPatrimonio)="editarPatrimonio($event)"></app-top-bar-component>
 <app-middle-component [data]="mainData" (onEditarGastos)="editarGastos($event)"

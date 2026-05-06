@@ -27,6 +27,8 @@ export class DialogVisualizarOrigemComponent {
     header: string = 'Gastos que compões a categoria';
     gastoConsolidado: GastoConsolidadoModel;
 
+    modoOrigem: boolean = false;
+
     @Output() onEditarGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output() onRemoverGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
 
@@ -42,9 +44,10 @@ export class DialogVisualizarOrigemComponent {
         this.visible = event;
     }
 
-    open(item: GastoConsolidadoModel): void {
+    open(item: GastoConsolidadoModel, modoOrigem?: boolean): void {
         this.header = `Gastos da categoria [ ${IconesDescricao[item.categoria as IconesEnum]} ]`;
         this.gastoConsolidado = item;
+        this.modoOrigem = modoOrigem ? modoOrigem : false;
         this.visible = true;
     }
 
