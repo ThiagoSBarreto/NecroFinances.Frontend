@@ -235,3 +235,21 @@ body {
 .card-tomato {
     border-left: 3px solid tomato;
 }
+
+.texto-diferenca-barra {
+    font-size: 0.75rem;
+    font-weight: bold !important;
+    background-color: black;
+    border-radius: 5px;
+    border: solid 1px black;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 5px;
+    min-width: 100px;
+    vertical-align: middle;
+    height: 25px;
+}

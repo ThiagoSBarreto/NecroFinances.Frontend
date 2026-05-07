@@ -7,9 +7,9 @@
                 <div class="card-content v-between gap-1">
                     <div class="barra-container-bottom">
                         <div class="col-5 texto-descricao-barra mt-2">Valor Bruto</div>
-                        <div class="col texto-valor-barra mt-2" style="color: green">{{ data.totalBruto|
+                        <div class="col texto-valor-barra" style="color: green">{{ data.totalBruto|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValor(data.diferencaBruto)">
+                        <div class="col" [ngClass]="getClassValor(data.diferencaBruto)">
                             <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(data.diferencaBruto)">
                                 <i [ngClass]="getIconValor(data.diferencaBruto)"></i>{{
                                 data.diferencaBruto |
@@ -18,9 +18,9 @@
                     </div>
                     <div class="barra-container-bottom">
                         <div class="col-5 texto-descricao-barra mt-2">Descontos</div>
-                        <div class="col texto-valor-barra mt-2" style="color: orange">{{ data.totalDescontos|
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalDescontos|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaDescontos)">
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaDescontos)">
                             <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(data.diferencaDescontos)"><i
                                     [ngClass]="getIconValor(data.diferencaDescontos)"></i>{{
                                 data.diferencaDescontos |
@@ -29,9 +29,9 @@
                     </div>
                     <div class="barra-container-bottom">
                         <div class="col-5 texto-descricao-barra mt-2">Valor Liquído</div>
-                        <div class="col texto-valor-barra mt-2" style="color: lime">{{ data.totalLiquido |
+                        <div class="col texto-valor-barra" style="color: lime">{{ data.totalLiquido |
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValor(data.diferencaLiquido)">
+                        <div class="col" [ngClass]="getClassValor(data.diferencaLiquido)">
                             <div class="texto-diferenca-barra"
                                 [ngClass]="getBordaDiferencaDivida(data.diferencaLiquido)"><i
                                     [ngClass]="getIconValor(data.diferencaLiquido)"></i>{{
@@ -46,10 +46,10 @@
                 <div class="labels-card-superior">Gastos</div>
                 <div class="card-content v-between gap-1">
                     <div class="barra-container-bottom">
-                        <div class="col-5 texto-descricao-barra mt-2">Fixos</div>
-                        <div class="col texto-valor-barra mt-2" style="color: orange">{{ data.totalGastosFixos|
+                        <div class="col-5 texto-descricao-barra mt=2">Fixos</div>
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosFixos|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaGastosFixos)">
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosFixos)">
                             <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(data.diferencaGastosFixos)">
                                 <i [ngClass]="getIconValor(data.diferencaGastosFixos)"></i>{{
                                 data.diferencaGastosFixos |
@@ -58,9 +58,9 @@
                     </div>
                     <div class="barra-container-bottom">
                         <div class="col-5 texto-descricao-barra mt-2">Parcelados</div>
-                        <div class="col texto-valor-barra mt-2" style="color: orange">{{ data.totalGastosParcelados|
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosParcelados|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaGastosParcelados)">
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosParcelados)">
                             <div class="texto-diferenca-barra"
                                 [ngClass]="getBordaDiferenca(data.diferencaGastosParcelados)"><i
                                     [ngClass]="getIconValor(data.diferencaGastosParcelados)"></i>{{
@@ -70,9 +70,9 @@
                     </div>
                     <div class="barra-container-bottom">
                         <div class="col-5 texto-descricao-barra mt-2">Avulsos</div>
-                        <div class="col texto-valor-barra mt-2" style="color: orange">{{ data.totalGastosAvulsos|
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosAvulsos|
                             currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
-                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos)">
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos)">
                             <div class="texto-diferenca-barra"
                                 [ngClass]="getBordaDiferenca(data.diferencaGastosAvulsos)"><i
                                     [ngClass]="getIconValor(data.diferencaGastosAvulsos)"></i>{{

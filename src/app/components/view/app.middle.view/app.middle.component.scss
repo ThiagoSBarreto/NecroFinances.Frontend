@@ -606,15 +606,6 @@
     color: lightgray;
 }
 
-.texto-diferenca-barra {
-    font-size: 0.75rem;
-    font-weight: bold !important;
-    background-color: black;
-    border-radius: 5px;
-    border: solid 1px black;
-    text-align: center;
-}
-
 .texto-parcelas {
     text-align: center;
     color: darkgray;
@@ -716,4 +707,9 @@
     border-left: 5px solid red;
     background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
     box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+}
+
+.dashboard .middle .texto-diferenca-barra,
+.dashboard .bottom .texto-diferenca-barra {
+    height: 20px;
 }
