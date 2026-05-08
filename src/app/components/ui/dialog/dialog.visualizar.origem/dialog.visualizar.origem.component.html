@@ -19,7 +19,7 @@
                     <div class="col texto-data-barra">
                         <div class="barra-container">
                             <div class="barra-preenchida" [style.width.%]="(item.valor / gastoConsolidado.valor) * 100"
-                                [style.background]="getBarColor(item.valor / gastoConsolidado.valor)"></div>
+                                [style.background]="getBarColor((item.valor / gastoConsolidado.valor) / 0.3)"></div>
                             <span class="barra-porcentagem">{{ ((item.valor / gastoConsolidado.valor) * 100).toFixed(2) }}%</span>
                         </div>
                     </div>

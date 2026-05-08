@@ -257,7 +257,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             if (index > 0) {
                 result.diferenca = result.total - resultado[index - 1].total;
             }
-            result.percentagem = (result.total / totalmes) / 0.3;
+            result.percentagem = (result.total / totalmes);
         });
 
         this.dialogGastosDiarios.open(resultado);

@@ -22,7 +22,7 @@
                     <div class="col texto-data-barra">
                         <div class="barra-container">
                             <div class="barra-preenchida" [style.width.%]="(item.percentagem) * 100"
-                                [style.background]="getBarColor(item.percentagem)"></div>
+                                [style.background]="getBarColor(item.percentagem / 0.3)"></div>
                             <span class="barra-porcentagem">{{ (item.percentagem * 100).toFixed(2) }}%</span>
                         </div>
                     </div>
