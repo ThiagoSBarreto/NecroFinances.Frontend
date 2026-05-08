@@ -1,34 +1,29 @@
-import { Component, ViewChild } from '@angular/core';
-import { CommonModule, CurrencyPipe } from '@angular/common';
+import { Component } from '@angular/core';
+import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
 import { ConfirmationService } from 'primeng/api';
-import { DiaGastoModel } from '../../../../models/dia.gasto.model';
-import { DialogListaGastoComponent } from '../dialog.lista.gastos/dialog.lista.gastos.component';
 import { GastosModel } from '../../../../models/gasto.model';
 
 @Component({
-    selector: 'dialog-gastos-diarios',
-    templateUrl: './dialog.gastos.diarios.component.html',
-    styleUrls: ['./dialog.gastos.diarios.component.scss'],
+    selector: 'dialog-lista-gastos',
+    templateUrl: './dialog.lista.gastos.component.html',
+    styleUrls: ['./dialog.lista.gastos.component.scss'],
     imports: [
-        CommonModule, DialogModule, ButtonModule, FormsModule, CurrencyPipe,
-        DialogListaGastoComponent
+        CommonModule, DialogModule, ButtonModule, FormsModule, CurrencyPipe
     ],
     providers: [
-        ConfirmationService
+        ConfirmationService, DatePipe
     ]
 })
-export class DialogGastosDiariosComponent {
+export class DialogListaGastoComponent {
     visible: boolean = false;
-    header: string = 'Gastos Diários';
-    gastos: DiaGastoModel[];
-
-    @ViewChild('dialogListaGastos') dialogListaGastos: DialogListaGastoComponent;
+    header: string = '';
+    gastos: GastosModel[];
 
     constructor (
-        
+        private datePipe: DatePipe
     ) {
 
     }
@@ -37,7 +32,8 @@ export class DialogGastosDiariosComponent {
         this.visible = event;
     }
 
-    open(gastos: DiaGastoModel[]): void {
+    open(gastos: GastosModel[]): void {
+        this.header = `${this.datePipe.transform(gastos[0].dataGasto, 'dd/MM/yyyy')} | R$ ${gastos.reduce((sum, s) => sum += s.valor, 0)}`;
         this.gastos = gastos;
         this.visible = true;
     }
@@ -68,9 +64,5 @@ export class DialogGastosDiariosComponent {
         if (diferenca >= 0) return 'pi pi-angle-up';
         if (diferenca >= -500) return 'pi pi-angle-down';
         return 'pi pi-angle-double-down';
-    }
-
-    abrirLista(gastos: GastosModel[]): void {
-        this.dialogListaGastos.open(gastos);
     }
 }

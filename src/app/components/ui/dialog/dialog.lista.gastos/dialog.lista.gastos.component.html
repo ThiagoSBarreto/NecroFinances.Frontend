@@ -1,0 +1,30 @@
+<p-dialog [(visible)]="visible" [header]="header" [modal]="true" [style]="{width: '30vw'}" [draggable]="false"
+    [resizable]="false" [closeOnEscape]="true" appendTo="body" [dismissableMask]="true">
+
+    <div class="dialog-content">
+        <div class="tabela-container">
+            <div class="tabela-body">
+                @if(gastos) {
+                @for(item of gastos; track item.dataGasto;) {
+                <div class="linha-item grid">
+                    <div class="col-3 texto-descricao-barra">
+                        <i class="icone-categoria" [class]="item.icone"></i>{{ item.descricao }}
+                    </div>
+                    <div class="col texto-data-barra">
+                        {{ item.dataGasto | date:'dd/MM/yyyy'}}
+                    </div>
+                    <div class="col texto-valor-barra">
+                        {{ item.valor| currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </div>
+                </div>
+                } @empty {
+                <div class="sem-itens">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Nenhum item encontrado</span>
+                </div>
+                }
+            }
+            </div>
+        </div>
+    </div>
+</p-dialog>

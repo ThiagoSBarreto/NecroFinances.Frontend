@@ -6,7 +6,7 @@
             <div class="tabela-body">
                 @if(gastos) {
                 @for(item of gastos; track item.data;) {
-                <div class="linha-item grid">
+                <div class="linha-item grid" (click)="abrirLista(item.gastos)">
                     <div class="col texto-data-barra">
                         {{ item.data | date:'dd/MM/yyyy'}}
                     </div>
@@ -31,3 +31,5 @@
         </div>
     </div>
 </p-dialog>
+
+<dialog-lista-gastos #dialogListaGastos></dialog-lista-gastos>

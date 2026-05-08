@@ -29,7 +29,7 @@
         <div class="toolbar-middle-right">
             <div class="gastos-diario" title="Gasto Diário" (click)="historicoGastos()">
                 <div class="label-gastos-diarios">Hoje: </div>
-                <div class="texto-valor-barra">{{ gastoDiaAtual | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                <div class="texto-valor-barra mr-3">{{ gastoDiaAtual | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
                 <div [ngClass]="getClassDiferenca(diferencaGasto)">
                     <div class="texto-diferenca-barra"><i
                             [ngClass]="getIconValor(diferencaGasto)"></i>{{ diferencaGasto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>

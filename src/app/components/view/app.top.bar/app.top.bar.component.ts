@@ -14,6 +14,7 @@ import { DialogEditarPatrimonioComponent } from "../../ui/dialog/dialog.editar.p
 import { DashboardModel } from "../../../models/main.data.model";
 import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
 import { DialogGastosDiariosComponent } from "../../ui/dialog/dialog.gastos.diarios/dialog.gastos.diarios.component";
+import { DiaGastoModel } from "../../../models/dia.gasto.model";
 
 @Component({
     selector: 'app-top-bar-component',
@@ -232,9 +233,10 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             let dataGasto: Date = new Date(gasto.dataGasto);
             const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
             if (diaGasto == undefined) {
-                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined });
+                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined, gastos: [gasto] });
             } else {
                 diaGasto.total += gasto.valor;
+                diaGasto.gastos.push(gasto);
             }
         })});
 
@@ -242,12 +244,10 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             let dataGasto: Date = new Date(gasto.dataGasto);
             const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
             if (diaGasto == undefined) {
-                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined });
+                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined, gastos: [gasto] });
             } else {
-                const index: number = resultado.indexOf(diaGasto);
-                if (index > 0) {
-                    resultado[index].total += gasto.valor;
-                }
+                diaGasto.total += gasto.valor;
+                diaGasto.gastos.push(gasto);
             }
         })});
 
