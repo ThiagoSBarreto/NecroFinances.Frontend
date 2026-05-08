@@ -16,6 +16,13 @@
                     <div class="col texto-valor-barra">
                         {{ item.valor| currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                     </div>
+                    <div class="col texto-data-barra">
+                        <div class="barra-container">
+                            <div class="barra-preenchida" [style.width.%]="(item.valor / total) * 100"
+                                [style.background]="getBarColor(item.valor / total)"></div>
+                            <span class="barra-porcentagem">{{ ((item.valor / total) * 100).toFixed(2) }}%</span>
+                        </div>
+                    </div>
                 </div>
                 } @empty {
                 <div class="sem-itens">

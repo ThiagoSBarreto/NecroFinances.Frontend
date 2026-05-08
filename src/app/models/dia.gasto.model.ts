@@ -4,5 +4,6 @@ export class DiaGastoModel {
     data: Date;
     total: number;
     diferenca?: number;
+    percentagem: number;
     gastos: GastosModel[];
 }

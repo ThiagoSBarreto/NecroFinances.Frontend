@@ -14,16 +14,18 @@ import { GastosModel } from '../../../../models/gasto.model';
         CommonModule, DialogModule, ButtonModule, FormsModule, CurrencyPipe
     ],
     providers: [
-        ConfirmationService, DatePipe
+        ConfirmationService, DatePipe, CurrencyPipe
     ]
 })
 export class DialogListaGastoComponent {
     visible: boolean = false;
     header: string = '';
     gastos: GastosModel[];
+    total: number;
 
     constructor (
-        private datePipe: DatePipe
+        private datePipe: DatePipe,
+        private currencyPipe: CurrencyPipe
     ) {
 
     }
@@ -32,8 +34,9 @@ export class DialogListaGastoComponent {
         this.visible = event;
     }
 
-    open(gastos: GastosModel[]): void {
-        this.header = `${this.datePipe.transform(gastos[0].dataGasto, 'dd/MM/yyyy')} | R$ ${gastos.reduce((sum, s) => sum += s.valor, 0)}`;
+    open(total: number, gastos: GastosModel[]): void {
+        this.header = `${this.datePipe.transform(gastos[0].dataGasto, 'dd/MM/yyyy')} | ${this.currencyPipe.transform(total, 'BRL', 'symbol', '1.2-2', 'pt-BR' )}`;
+        this.total = total;
         this.gastos = gastos;
         this.visible = true;
     }

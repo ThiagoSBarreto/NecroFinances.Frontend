@@ -70,7 +70,7 @@ export class DialogGastosDiariosComponent {
         return 'pi pi-angle-double-down';
     }
 
-    abrirLista(gastos: GastosModel[]): void {
-        this.dialogListaGastos.open(gastos);
+    abrirLista(item: DiaGastoModel): void {
+        this.dialogListaGastos.open(item.total, item.gastos);
     }
 }

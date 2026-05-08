@@ -6,7 +6,7 @@
             <div class="tabela-body">
                 @if(gastos) {
                 @for(item of gastos; track item.data;) {
-                <div class="linha-item grid" (click)="abrirLista(item.gastos)">
+                <div class="linha-item grid" (click)="abrirLista(item)">
                     <div class="col texto-data-barra">
                         {{ item.data | date:'dd/MM/yyyy'}}
                     </div>
@@ -17,6 +17,13 @@
                         <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(item.diferenca)">
                             <i [ngClass]="getIconValor(item.diferenca)"></i>
                             {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        </div>
+                    </div>
+                    <div class="col texto-data-barra">
+                        <div class="barra-container">
+                            <div class="barra-preenchida" [style.width.%]="(item.percentagem) * 100"
+                                [style.background]="getBarColor(item.percentagem)"></div>
+                            <span class="barra-porcentagem">{{ (item.percentagem * 100).toFixed(2) }}%</span>
                         </div>
                     </div>
                 </div>

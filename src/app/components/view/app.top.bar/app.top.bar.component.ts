@@ -226,6 +226,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
 
         const listaParcelados = this.mainData.listaGastosParcelados;
         const listaAvulsos = this.mainData.listaGastosAvulsos;
+        const totalmes: number = this.mainData.totalGastosAvulsos + this.mainData.totalGastosParcelados;
 
         let resultado: DiaGastoModel[] = [];
 
@@ -233,7 +234,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             let dataGasto: Date = new Date(gasto.dataGasto);
             const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
             if (diaGasto == undefined) {
-                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined, gastos: [gasto] });
+                resultado.push({ data: dataGasto, total: gasto.valor, percentagem: 0, diferenca: undefined, gastos: [gasto] });
             } else {
                 diaGasto.total += gasto.valor;
                 diaGasto.gastos.push(gasto);
@@ -244,7 +245,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             let dataGasto: Date = new Date(gasto.dataGasto);
             const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
             if (diaGasto == undefined) {
-                resultado.push({ data: dataGasto, total: gasto.valor, diferenca: undefined, gastos: [gasto] });
+                resultado.push({ data: dataGasto, total: gasto.valor, percentagem: 0, diferenca: undefined, gastos: [gasto] });
             } else {
                 diaGasto.total += gasto.valor;
                 diaGasto.gastos.push(gasto);
@@ -256,6 +257,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
             if (index > 0) {
                 result.diferenca = result.total - resultado[index - 1].total;
             }
+            result.percentagem = (result.total / totalmes) / 0.3;
         });
 
         this.dialogGastosDiarios.open(resultado);
