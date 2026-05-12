@@ -13,19 +13,11 @@ export class SettingsService {
 
     }
 
-    getSettingsByDate(date: Date): Observable<SettingsModel> {
-        return this.http.get<SettingsModel>(`${environment.settingsContext}GetSettings?date=${date.toISOString()}`);
+    getSettingsByDate(inicio: Date, fim: Date): Observable<SettingsModel> {
+        return this.http.get<SettingsModel>(`${environment.settingsContext}GetSettingsByDate?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`);
     }
 
-    addNewSetting(settings: SettingsModel): Observable<boolean> {
-        return this.http.post<boolean>(`${environment.settingsContext}AddNewSetting`, settings);
-    }
-
-    updateSetting(settings: SettingsModel): Observable<boolean> {
-        return this.http.put<boolean>(`${environment.settingsContext}UpdateSetting`, settings);
-    }
-
-    deleteSetting(id: string): Observable<boolean> {
-        return this.http.delete<boolean>(`${environment.settingsContext}DeleteSetting/${id}`);
+    updateSettings(model: SettingsModel): Observable<SettingsModel> {
+        return this.http.post<SettingsModel>(`${environment.settingsContext}updateSettings`, model);
     }
 }

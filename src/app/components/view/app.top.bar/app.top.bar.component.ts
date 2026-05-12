@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";
-import { DrawerModule } from "primeng/drawer";
 import { ToolbarModule } from "primeng/toolbar";
 import { CommonModule } from "@angular/common";
 import { SettingsModel } from "../../../models/settings.model";
@@ -11,6 +10,11 @@ import { DialogNovoGastoComponent } from "../../ui/dialog/novo.gasto/dialog.novo
 import { DialogEditarSettingsComponent } from "../../ui/dialog/dialog.editar.valor.settings/dialog.editar.settings.component";
 import { MesModel } from "../../../models/month.model";
 import { PatrimonioModel } from "../../../models/patrimonio.model";
+import { DialogEditarPatrimonioComponent } from "../../ui/dialog/dialog.editar.patrimonio/dialog.editar.patrimonio.component";
+import { DashboardModel } from "../../../models/main.data.model";
+import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
+import { DialogGastosDiariosComponent } from "../../ui/dialog/dialog.gastos.diarios/dialog.gastos.diarios.component";
+import { DiaGastoModel } from "../../../models/dia.gasto.model";
 
 @Component({
     selector: 'app-top-bar-component',
@@ -18,44 +22,40 @@ import { PatrimonioModel } from "../../../models/patrimonio.model";
     styleUrls: ['./app.top.bar.component.scss'],
     imports: [
         FormsModule, CommonModule,
-        ButtonModule, DatePickerModule, DrawerModule, ToolbarModule,
-        DialogEditarSettingsComponent, DialogNovoGastoComponent
+        ButtonModule, DatePickerModule, ToolbarModule,
+        DialogEditarSettingsComponent, DialogNovoGastoComponent, DialogGastosDiariosComponent,
+        DialogEditarPatrimonioComponent,
     ]
 })
 export class AppTopBarComponent implements OnInit, OnChanges {
 
     @Input('settings') settings: SettingsModel;
     @Input('mes') mes: MesModel;
-    @Input('gastos') gastos: GastosModel[];
     @Input('patrimonio') patrimonio: PatrimonioModel;
+    @Input('mainData') mainData: DashboardModel;
 
     @Output('onNovaData') onNovaData: EventEmitter<Date[]> = new EventEmitter<Date[]>();
     @Output('novoGasto') novoGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output('onEditarSettings') onEditarSettings: EventEmitter<SettingsModel> = new EventEmitter<SettingsModel>();
     @Output('onLogout') onLogout: EventEmitter<void> = new EventEmitter<void>();
-    @Output() onPagarCartao: EventEmitter<void> = new EventEmitter<void>();
+    @Output('onEditarPatrimonio') onEditarPatrimonio: EventEmitter<PatrimonioModel> = new EventEmitter<PatrimonioModel>();
 
     @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
     @ViewChild('dialogEditarSettings') dialogEditarSettings: DialogEditarSettingsComponent;
+    @ViewChild('dialogEditarPatrimonio') dialogEditarPatrimonio: DialogEditarPatrimonioComponent;
+    @ViewChild('dialogGastosDiarios') dialogGastosDiarios: DialogGastosDiariosComponent;
 
     rangeDates: Date[] = [];
 
-    inss: number = 0;
-    pspd: number = 0;
-    taxa: number = 0;
-    descontos: number = 0;
-    liquido: number = 0;
-    bruto: number = 0;
-    restante: number = 0;
-    dias: number = 0;
-    horasUteis: number = 0;
-    horasExtra: number = 0;
-    valorHora: number = 0;
-    gastosTotal: number = 0;
-    infoDrawerVisible: boolean = false;
+    mesAtual: string = '';
+    mesAnterior: string = '';
+    proximoMes: string = '';
+
+    gastoDiaAtual: number;
+    diferencaGasto: number;
 
     ngOnChanges(changes: SimpleChanges): void {
-        if ((changes['mes'] && this.mes) || (changes['settings'] && this.settings) || (changes['gastos'] && this.gastos)) {
+        if ((changes['mes'] && this.mes) || (changes['settings'] && this.settings) || (changes['mainData'] && this.mainData)) {
             this.atualizarDados();
         }
     }
@@ -91,6 +91,7 @@ export class AppTopBarComponent implements OnInit, OnChanges {
         end.setMonth(start.getMonth() + 1);
 
         this.rangeDates = [start, end];
+        this.atuaizaMesBase();
         this.onNovaData.emit(this.rangeDates);
     }
 
@@ -103,39 +104,163 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     }
 
     buscarDados(): void {
-        const start: Date = this.rangeDates[0];
-        const end: Date = this.rangeDates[1];
-
-        if (!start || !end) {
-            return;
-        }
-
-        this.onNovaData.emit(this.rangeDates);
+        this.setRangeDates();
     }
 
     atualizarDados(): void {
-        if (!this.settings || !this.mes) {
+        if (!this.mainData) {
             return;
         }
 
-        this.valorHora = this.settings.valorHora;
-        this.dias = this.mes.diasUteis;
-        this.horasUteis = this.mes.horasUteis;
-        this.horasExtra = this.mes.horasExtras;
-        this.bruto = (this.horasUteis * this.valorHora) + (this.horasExtra * this.valorHora);
-        this.inss = this.settings.salarioMinimo * this.settings.percentagemTaxaINSS;
-        this.taxa = this.bruto * this.settings.percentagemTaxaCooperativa;
-        this.pspd = this.settings.valorPlanoSaude + this.settings.valorPlanoDental;
-        this.descontos = this.inss + this.taxa + this.pspd;
-        this.liquido = this.bruto - this.descontos;
-        this.restante = this.liquido - this.gastosTotal;
+        const listaParcelados: GastoConsolidadoModel[] = this.mainData.listaGastosParcelados;
+        const listaAvulsos: GastoConsolidadoModel[] = this.mainData.listaGastosAvulsos;
 
-        this.gastosTotal = 0;
-        this.gastos?.forEach(gasto => {
-            this.gastosTotal += gasto.valor;
+        let gastoHoje: number = 0;
+        let gastoOntem: number = 0;
+
+        const hoje: Date = new Date();
+
+        const ontem: Date = new Date();
+        ontem.setDate(ontem.getDate() - 1);
+
+        listaParcelados.forEach((item: GastoConsolidadoModel) => {
+            item.origem?.forEach((gasto: GastosModel) => {
+                const data: Date = new Date(gasto.dataGasto);
+
+                if (this.isSameDay(data, hoje)) {
+                    gastoHoje += gasto.valor;
+                }
+
+                if (this.isSameDay(data, ontem)) {
+                    gastoOntem += gasto.valor;
+                }
+            });
         });
 
-        this.restante = this.liquido - this.gastosTotal;
+        listaAvulsos.forEach((item: GastoConsolidadoModel) => {
+            item.origem?.forEach((gasto: GastosModel) => {
+                const data: Date = new Date(gasto.dataGasto);
+
+                if (this.isSameDay(data, hoje)) {
+                    gastoHoje += gasto.valor;
+                }
+
+                if (this.isSameDay(data, ontem)) {
+                    gastoOntem += gasto.valor;
+                }
+            });
+        });
+
+
+
+        this.gastoDiaAtual = gastoHoje;
+        const diferenca: number = this.gastoDiaAtual - gastoOntem;
+        this.diferencaGasto = diferenca;
+    }
+
+    isSameDay(d1: Date, d2: Date): boolean {
+        return d1.getFullYear() === d2.getFullYear() &&
+            d1.getMonth() === d2.getMonth() &&
+            d1.getDate() === d2.getDate();
+    }
+
+    atuaizaMesBase(): void {
+        const meses = [
+            "Janeiro", "Fevereiro", "Março", "Abril",
+            "Maio", "Junho", "Julho", "Agosto",
+            "Setembro", "Outubro", "Novembro", "Dezembro"
+        ];
+
+        const dia = this.rangeDates[0].getDate();
+        let mesIndex = this.rangeDates[0].getMonth();
+
+        if (dia <= 9) {
+            mesIndex -= 1;
+
+            if (mesIndex < 0) {
+                mesIndex = 11;
+            }
+        }
+
+        const prox: number = mesIndex == 11 ? 0 : mesIndex + 1;
+        const ant: number = mesIndex == 0 ? 11 : mesIndex - 1;
+
+        this.proximoMes = meses[prox];
+        this.mesAnterior = meses[ant];
+        this.mesAtual = meses[mesIndex];
+    }
+
+    getClassDiferenca(valor: number): string {
+        if (valor <= 0) {
+            return 'lime';
+        } else {
+            return 'tomato';
+        }
+    }
+
+    getBordaDiferenca(valor: number): string {
+        if (valor < 0) {
+            return 'border: 1px solid lime';
+        } else if (valor > 0) {
+            return 'border: 1px solid tomato';
+        }
+
+        return 'border: 1px solid orange';
+    }
+
+    getIconValor(valor: number): string {
+        if (valor >= 1000) {
+            return 'pi pi-angle-double-up';
+        } else if (valor > 0 && valor < 1000) {
+            return 'pi pi-angle-up';
+        } else if (valor <= 0 && valor >= -500) {
+            return 'pi pi-angle-down';
+        }
+        return 'pi pi-angle-double-down';
+    }
+
+    historicoGastos(): void {
+        if (!this.mainData) {
+            return;
+        }
+
+        const listaParcelados = this.mainData.listaGastosParcelados;
+        const listaAvulsos = this.mainData.listaGastosAvulsos;
+        const totalmes: number = this.mainData.totalGastosAvulsos + this.mainData.totalGastosParcelados;
+
+        let resultado: DiaGastoModel[] = [];
+
+        listaAvulsos.forEach(avulso => { avulso.origem.forEach(gasto => {
+            let dataGasto: Date = new Date(gasto.dataGasto);
+            const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
+            if (diaGasto == undefined) {
+                resultado.push({ data: dataGasto, total: gasto.valor, percentagem: 0, diferenca: undefined, gastos: [gasto] });
+            } else {
+                diaGasto.total += gasto.valor;
+                diaGasto.gastos.push(gasto);
+            }
+        })});
+
+        listaParcelados.forEach(parcelado => { parcelado.origem.forEach(gasto => {
+            let dataGasto: Date = new Date(gasto.dataGasto);
+            const diaGasto: DiaGastoModel | undefined = resultado.find(f => this.isSameDay(new Date(f.data), dataGasto));
+            if (diaGasto == undefined) {
+                resultado.push({ data: dataGasto, total: gasto.valor, percentagem: 0, diferenca: undefined, gastos: [gasto] });
+            } else {
+                diaGasto.total += gasto.valor;
+                diaGasto.gastos.push(gasto);
+            }
+        })});
+
+        resultado = resultado.sort((a, b) => new Date(a.data).getTime() - new Date(b.data).getTime());
+        resultado.forEach((result: DiaGastoModel, index: number) => {
+            if (index > 0) {
+                result.diferenca = result.total - resultado[index - 1].total;
+            }
+            result.percentagem = (result.total / totalmes);
+        });
+
+        this.dialogGastosDiarios.open(resultado);
     }
 
     addNewEntry(): void {
@@ -150,19 +275,19 @@ export class AppTopBarComponent implements OnInit, OnChanges {
         this.dialogEditarSettings.abrir(this.settings, this.mes, this.patrimonio);
     }
 
+    editPatrimonio(): void {
+        this.dialogEditarPatrimonio.abrir(this.patrimonio);
+    }
+
     salvarSettings(event: any): void {
         this.onEditarSettings.emit(event);
     }
 
+    salvarPatrimonio(event: PatrimonioModel): void {
+        this.onEditarPatrimonio.emit(event);
+    }
+
     logout(): void {
         this.onLogout.emit();
-    }
-
-    info(): void {
-        this.infoDrawerVisible = true;
-    }
-
-    pargarCartao(): void {
-        this.onPagarCartao.emit();
     }
 }

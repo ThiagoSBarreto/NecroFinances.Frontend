@@ -1,220 +1,715 @@
 :host {
-    .gastos-table {
-        width: 100%;
-        min-height: 825px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 0;
+}
+
+/* ========================= */
+/* 🧱 BASE */
+/* ========================= */
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 0.5rem;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+/* ========================= */
+/* 🧾 CARD SYSTEM */
+/* ========================= */
+
+.card {
+    position: relative;
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+}
+
+/* variações */
+.card-main {
+    flex: 2;
+    display: flex;
+    align-items: start;
+    justify-content: start;
+}
+
+.status-box {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 600px;
+    border-left: 5px solid;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.status-box.bom,
+.status-box.muito-bom {
+    border-color: lime;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+}
+
+.status-box.ruim,
+.status-box.muito-ruim {
+    border-color: tomato;
+    background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
+}
+
+.status-box.neutro,
+.status-box.neutral {
+    border-color: gray;
+    background: linear-gradient(135deg, #1f1f1f, #1e1e1e);
+}
+
+.status-box .icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+}
+
+.status-box.bom .icon,
+.status-box.muito-bom .icon {
+    background: rgba(0, 255, 0, 0.2);
+    color: lime;
+}
+
+.status-box.ruim .icon,
+.status-box.muito-ruim .icon {
+    background: rgba(255, 99, 71, 0.2);
+    color: tomato;
+}
+
+.status-box.neutro .icon,
+.status-box.neutral .icon {
+    background: rgba(128, 128, 128, 0.2);
+    color: gray;
+}
+
+.status-box .texts {
+    flex: 1;
+}
+
+.status-box .texts .title {
+    font-size: 0.85rem;
+    color: #aaa;
+    margin: 0 0 0.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.status-box .texts .value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 0;
+    color: #fff;
+}
+
+.status-box .texts .variation {
+    font-size: 0.9rem;
+    margin: 0.5rem 0 0 0;
+    color: #888;
+}
+
+.status-box.bom .texts .variation,
+.status-box.muito-bom .texts .variation {
+    color: lime;
+}
+
+.status-box.ruim .texts .variation,
+.status-box.muito-ruim .texts .variation {
+    color: tomato;
+}
+
+.card-metric {
+    flex: 2;
+}
+
+.card-large {
+    flex: 2;
+}
+
+/* ========================= */
+/* 📐 LAYOUT */
+/* ========================= */
+
+.top {
+    display: flex;
+    gap: 1rem;
+    flex: 0 0 auto;
+    height: 140px !important;
+}
+
+.top-side {
+    flex: 2.79;
+    display: flex;
+    gap: 1rem;
+}
+
+.middle {
+    display: flex;
+    gap: 1rem;
+    flex: 1 1 auto;
+    min-height: 0;
+}
+
+.bottom {
+    display: flex;
+    gap: 1rem;
+    flex: 0 0 auto;
+    height: 115px !important;
+}
+
+.bottom-center {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+/* ========================= */
+/* 🧠 CONTENT CONTROL */
+/* ========================= */
+
+.card-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.card-content-center {
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+/* distribuição vertical */
+.v-top {
+    align-self: flex-start;
+}
+
+.v-center {
+    margin: auto 0;
+}
+
+.v-bottom {
+    margin-top: auto;
+}
+
+/* alinhamento horizontal */
+.h-left {
+    text-align: left;
+}
+
+.h-center {
+    text-align: center;
+    align-self: center;
+}
+
+.h-right {
+    text-align: right;
+    align-self: flex-end;
+}
+
+/* distribuição completa */
+.v-between {
+    justify-content: space-between;
+}
+
+.v-between-2 {
+    gap: 1rem;
+    overflow-y: auto;
+    overflow-x: hidden;
+    flex: 1;
+}
+
+/* ========================= */
+/* 🎯 ESTILOS */
+/* ========================= */
+
+.card-header {
+    font-size: 0.85rem;
+    color: #aaa;
+}
+
+.card-big-header {
+    font-size: 1.15rem;
+    color: #aaa;
+}
+
+.card-value {
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+.minor-text {
+    font-size: 0.8rem;
+    color: #888;
+}
+
+.valor-positivo {
+    color: lime;
+}
+
+.valor-negativo {
+    color: red;
+}
+
+.valor-zerado {
+    color: yellow;
+}
+
+.valor-diferenca {
+    font-size: 0.9rem;
+}
+
+.valor-meta {
+    color: orange !important;
+    font-size: 0.9rem;
+}
+
+.valores-meta {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    vertical-align: middle;
+
+    .valor-meta {
+        text-align: left;
     }
 
-    .col-icone {
-        width: 75px;
+    .valor-diferenca {
+        text-align: left;
+    }
+}
+
+.card-bruto {
+    border-left: 5px solid green;
+}
+
+.card-descontos {
+    border-left: 5px solid orange;
+}
+
+.valor-descontos {
+    color: orange;
+}
+
+.card-gastos {
+    border-left: 5px solid orangered;
+}
+
+.card-restante {
+    transition: all 0.3s ease;
+    font-weight: bolder;
+
+    .card-value {
+        font-size: 1.8rem;
     }
 
-    .col-data {
-        width: auto;
+    .card-restante::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: 12px;
+        padding: 1px;
+        background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        opacity: 0.4;
     }
+}
 
-    .col-valor {
-        width: auto;
-    }
+.card-restante-excelente {
+    border: 2px solid lime;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(0, 255, 100, 0.25);
+}
 
-    .col-desc {
-        width: auto;
-    }
+.card-restante-bom {
+    border: 2px solid green;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.25);
+}
 
-    .col-acoes {
-        width: 140px;
-        text-align: center;
-    }
+.card-restante-alerta {
+    border: 2px solid #ff9800;
+    background: linear-gradient(135deg, #33210a, #1e1e1e);
+    box-shadow: 0 0 20px rgba(255, 152, 0, 0.22);
+}
 
-    ::ng-deep .p-datatable-wrapper {
-        overflow-x: hidden;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: 8px;
-    }
+.card-restante-negativo {
+    border: 2px solid tomato;
+    background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+}
 
-    ::ng-deep .p-datatable-table {
-        table-layout: fixed;
-        width: 100%;
-    }
+.icone-restante {
+    position: absolute;
+    top: 0.7rem;
+    right: 0.9rem;
+    font-size: 1.25rem;
+    z-index: 2;
+}
 
-    ::ng-deep .p-datatable-thead>tr>th {
-        font-weight: 700;
-        text-align: center;
-        padding: 9px 10px;
-        background: #111;
-        color: #bfc7c7;
-        border-color: #2d2d2d;
-        border-bottom: 1px solid #3a3a3a;
-        font-size: 0.72rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
+.card-restante-excelente .icone-restante {
+    color: lime;
+}
 
-    ::ng-deep .p-datatable-tbody>tr {
-        transition: background 0.2s ease, color 0.2s ease;
-        transform-origin: center center;
-    }
+.card-restante-bom .icone-restante {
+    color: green;
+}
 
-    ::ng-deep .p-datatable-tbody>tr:hover {
-        background: rgba(255, 255, 255, 0.055);
-    }
+.card-restante-alerta .icone-restante {
+    color: #ff9800;
+}
 
-    ::ng-deep .p-datatable-tbody>tr>td {
-        padding: 7px 10px;
-        text-align: center;
-        border-color: #2d2d2d;
-        color: #d7d7d7;
-        font-size: 0.86rem;
-        white-space: nowrap;
-        vertical-align: middle;
-    }
+.card-restante-negativo .icone-restante {
+    color: tomato;
+}
 
-    ::ng-deep .p-datatable-tbody>tr>td.col-data {
-        color: #aeb7b7;
-        font-size: 0.8rem;
-    }
+.card-middle {
+    position: relative;
+}
 
-    ::ng-deep .p-datatable-tbody>tr>td.col-valor {
-        color: #f0f0f0;
-        font-weight: 650;
-        font-variant-numeric: tabular-nums;
-    }
+.card-middle .labels-patrimonio,
+.card .labels-card,
+.card .labels-card-superior {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0.18rem 0.7rem;
+    background: #1e1e1e;
+    color: #eee;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    z-index: 2;
+    white-space: nowrap;
+}
 
-    ::ng-deep .p-datatable-tbody>tr>td.col-desc {
-        overflow: hidden;
-        color: #ececec;
-        text-overflow: ellipsis;
-    }
+.labels-card-superior {
+    position: absolute;
+    top: 0;
+    left: 1rem;
+    transform: translateY(-50%);
+    padding: 0.18rem 0.7rem;
+    background: #1e1e1e;
+    color: #eee;
+    font-size: 0.75rem;
+    font-weight: 700;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    z-index: 2;
+    white-space: nowrap;
+}
 
-   
-    .separator-row td {
-        background: rgba(0, 230, 230, 0.08);
-        border-top: 1px solid rgba(0, 230, 230, 0.28);
-        border-bottom: 1px solid rgba(0, 230, 230, 0.22);
-        padding: 9px 12px;
-    }
+.bottom {
+    flex-wrap: wrap;
+    min-height: auto;
+}
 
-    .separator-title {
-        font-weight: 700;
-        font-size: 0.82rem;
-        text-transform: uppercase;
-        color: #00e6e6;
-        letter-spacing: 0.08em;
-        text-align: center;
-    }
+.bottom .card-metric.card-middle {
+    flex: 1 1 220px;
+    min-width: 0;
+    max-height: 110px;
+}
 
-   
-    .col-icone i {
-        font-size: 1.25rem;
-        color: #00e6e6;
-        transition: transform 0.2s ease, color 0.2s ease;
-    }
+.bottom .card-metric.card-middle .card-content {
+    display: grid;
+    gap: 0.2rem;
+    min-height: 0;
+    max-height: 8.4rem;
+    width: 100%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    padding-right: 0;
+}
 
-    .col-icone i.icone-pago {
-        color: #7bff7b;
-        transform: scale(1.05);
-    }
+.bottom .card-metric.card-middle .barra-container-bottom {
+    display: grid !important;
+    justify-items: stretch;
+    grid-template-columns: minmax(0, 33%) minmax(0, 33%) minmax(0, 33%);
+    gap: 0.2rem;
+    align-items: center;
+    width: 100%;
+    min-height: 2.1rem;
+    max-height: 2.45rem;
+    padding: 0.15rem 0.25rem;
+    box-sizing: border-box;
+}
 
-    .col-icone i:hover {
-        transform: scale(1.12);
-    }
+.bottom .card-metric.card-middle .barra-container-bottom>* {
+    min-width: 0;
+    margin: 0;
+}
 
-   
-    ::ng-deep .col-acoes .p-button {
-        margin: 0 2px;
-    }
+.bottom .card-metric.card-middle .barra-container-bottom .col-5,
+.bottom .card-metric.card-middle .barra-container-bottom .col {
+    width: 100%;
+    min-width: 0;
+    padding: 0;
+}
 
-   
-    .pago td {
-        color: #b6d8b6 !important;
-    }
+.bottom .card-metric.card-middle .barra-container-bottom .mt-2 {
+    margin-top: 0 !important;
+}
 
-    .pago:hover td {
-        color: #c2e4c2 !important;
-    }
+.bottom .card-metric.card-middle .barra-container-bottom .texto-descricao-barra {
+    display: block;
+    min-width: 0;
+    font-size: 0.9rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
-    .icon-pago {
-        margin-left: 8px;
-        font-size: 1rem;
-        color: #b6ffb6;
-        vertical-align: middle;
-    }
+.bottom .card-metric.card-middle .barra-container-bottom .texto-valor-barra {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: bold;
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-align: left;
+}
 
-    .pago td {
-        background: rgba(0, 255, 0, 0.035);
-    }
+.bottom .card-metric.card-middle .barra-container-bottom .texto-diferenca-barra {
+    font-size: 0.75rem;
+    font-weight: bold !important;
+    background-color: black;
+    border-radius: 5px;
+    text-align: center;
+}
 
-    .pago td:first-child {
-        border-left: 3px solid lime !important;
-        border-top-left-radius: 15px;
-        border-bottom-left-radius: 15px;
-    }
+.value-fipe {
+    color: cyan;
+}
 
-    .pago td:last-child {
-        border-right: 3px solid lime !important;
-        border-radius: 15px;
-    }
+.value-reserva {
+    color: greenyellow;
+}
 
-   
-    .group-row {
-        background: rgba(255, 255, 255, 0.07);
-        cursor: pointer;
-        font-weight: 700;
-        transition: background 0.2s ease, transform 0.15s ease;
-    }
+.value-economias {
+    color: lime;
+    font-size: 2.5rem;
+}
 
-    .group-row td {
-        color: #f5f5f5 !important;
-        font-size: 0.92rem !important;
-    }
+.value-fies {
+    color: yellow;
+}
 
-    .item-row td {
-        font-size: 0.84rem;
-    }
+.label-gastos {
+    text-align: center;
+    color: darkgray;
+    font-size: 1.15rem;
+}
 
-    .group-row:hover {
-        background: rgba(255, 255, 255, 0.12);
-        transform: translateY(-1px);
-    }
+.labels-patrimonio {
+    text-align: center;
+    color: darkgray;
+    font-size: 0.75rem;
+}
 
-    .group-row i {
-        font-size: 1.25rem;
-    }
+.barra-container-bottom {
+    width: 100%;
+    min-height: 30px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 
-    .group-row-expanded {
-        background: rgba(0, 230, 230, 0.1);
-    }
+.barra-container {
+    width: 100%;
+    min-height: 30px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    position: relative;
+    top: 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
 
-    .group-row .col-desc {
-        color: #bfc7c7 !important;
-        font-size: 0.8rem !important;
-        font-weight: 600;
-    }
+.barra-preenchida {
+    height: 10%;
+    width: 100%;
+    display: flex;
+    transition: width 0.3s ease;
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+}
 
-   
-    .icon-rotate {
-        transition: transform 0.2s ease;
-        transform: rotate(180deg);
-    }
+.barra-texto {
+    position: relative;
+    z-index: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    display: flex;
+    width: 100%;
+    padding: 0 1rem;
+    box-sizing: border-box;
+    align-items: center;
+    justify-content: space-between;
+}
 
-   
-    @keyframes fadeSlideIn {
-        from {
-            opacity: 0;
-            transform: translateY(-4px);
-        }
+.barra-texto .grid {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 100%;
+}
 
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
+.barra-texto .grid .col {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-    .item-row {
-        animation: fadeSlideIn 0.18s ease-out;
-    }
+.texto-descricao-barra {
+    font-size: 1.15rem;
+    font-weight: bold;
+    text-shadow: 1rem black !important;
+}
 
-    .col-size {
-        font-size: 0.85rem !important;
-    }
+.texto-valor-barra {
+    font-size: 0.95;
+    font-weight: bold;
+}
+
+.texto-data-barra {
+    font-size: 0.90rem;
+    font-weight: bold;
+    color: lightgray;
+}
+
+.texto-parcelas {
+    text-align: center;
+    color: darkgray;
+}
+
+// ------------------------
+
+.icone-categoria {
+    margin-left: -10px;
+    margin-right: 10px;
+    color: cyan;
+}
+
+.icone-avaliacao-wrapper {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icone-avaliacao-wrapper i {
+    font-size: 5rem;
+}
+
+.value-cartao-credito {
+    color: orange;
+}
+
+.border-tomato {
+    border: solid 1px tomato;
+}
+
+.border-lime {
+    border: solid 1px lime;
+}
+
+.valor-positivo-forte {
+    color: #00e676;
+}
+
+.valor-positivo-leve {
+    color: #8bc34a;
+}
+
+.valor-neutro {
+    color: #ffc107;
+}
+
+.valor-alerta {
+    color: #ff9800;
+}
+
+.valor-negativo-forte {
+    color: #b71c1c;
+}
+
+.icone-avaliacao {
+    font-size: 1.4rem;
+}
+
+.barra-container-resultados {
+    background: transparent;
+}
+
+.barra-container-resultados::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 72%;
+    height: 1px;
+
+    background: linear-gradient(to right,
+            transparent,
+            lightgray 20%,
+            lightgray 80%,
+            transparent);
+}
+
+.card-propriedades {
+    border-left: 5px solid lime;
+}
+
+.card-investimentos {
+    border-left: 5px solid green;
+}
+
+.card-financiamentos {
+    border-left: 5px solid orangered;
+}
+
+.card-posicao-financeira-good {
+    border-left: 5px solid lime;
+    background: linear-gradient(135deg, #0f2f1f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(0, 128, 0, 0.25);
+}
+
+.card-posicao-financeira-bad {
+    border-left: 5px solid red;
+    background: linear-gradient(135deg, #2f0f0f, #1e1e1e);
+    box-shadow: 0 0 20px rgba(255, 50, 50, 0.25);
+}
+
+.dashboard .middle .texto-diferenca-barra,
+.dashboard .bottom .texto-diferenca-barra {
+    height: 20px;
 }

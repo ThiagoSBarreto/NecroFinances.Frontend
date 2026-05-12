@@ -13,15 +13,11 @@ export class PatrimonioService {
 
     }
 
-    getPatrimonio(): Observable<PatrimonioModel> {
-        return this.http.get<PatrimonioModel>(`${environment.patrimonioContext}GetPatrimonio`);
+    getPatrimonioByDate(inicio: Date, fim: Date): Observable<PatrimonioModel> {
+        return this.http.get<PatrimonioModel>(`${environment.patrimonioContext}getPatrimonioByDate?inicio=${inicio.toISOString()}&fim=${fim.toISOString()}`);
     }
 
-    adicionarPatrimonio(patrimonio: PatrimonioModel): Observable<boolean> {
-        return this.http.post<boolean>(`${environment.patrimonioContext}AdicionarPatrimonio`, patrimonio);
-    }
-
-    getPatrimonios(): Observable<PatrimonioModel[]> {
-        return this.http.get<PatrimonioModel[]>(`${environment.patrimonioContext}GetPatrimonios`);
+    updatePatrimonio(patrimonio: PatrimonioModel): Observable<PatrimonioModel> {
+        return this.http.post<PatrimonioModel>(`${environment.patrimonioContext}updatePatrimonio`, patrimonio);
     }
 }

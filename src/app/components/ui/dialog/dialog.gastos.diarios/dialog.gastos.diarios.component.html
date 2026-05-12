@@ -1,0 +1,42 @@
+<p-dialog [(visible)]="visible" [header]="header" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+    [resizable]="false" [closeOnEscape]="true" appendTo="body" [dismissableMask]="true">
+
+    <div class="dialog-content">
+        <div class="tabela-container">
+            <div class="tabela-body">
+                @if(gastos) {
+                @for(item of gastos; track item.data;) {
+                <div class="linha-item grid" (click)="abrirLista(item)">
+                    <div class="col texto-data-barra">
+                        {{ item.data | date:'dd/MM/yyyy'}}
+                    </div>
+                    <div class="col texto-valor-barra">
+                        {{ item.total| currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </div>
+                    <div class="col texto-diferenca-cell" [ngClass]="getClassValorDivida(item.diferenca)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(item.diferenca)">
+                            <i [ngClass]="getIconValor(item.diferenca)"></i>
+                            {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        </div>
+                    </div>
+                    <div class="col texto-data-barra">
+                        <div class="barra-container">
+                            <div class="barra-preenchida" [style.width.%]="(item.percentagem) * 100"
+                                [style.background]="getBarColor(item.percentagem / 0.3)"></div>
+                            <span class="barra-porcentagem">{{ (item.percentagem * 100).toFixed(2) }}%</span>
+                        </div>
+                    </div>
+                </div>
+                } @empty {
+                <div class="sem-itens">
+                    <i class="pi pi-info-circle"></i>
+                    <span>Nenhum item encontrado</span>
+                </div>
+                }
+            }
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<dialog-lista-gastos #dialogListaGastos></dialog-lista-gastos>

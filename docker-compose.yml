@@ -3,17 +3,9 @@ version: "3.9"
 services:
   angular-app:
     build:
-      context: ./
+      context: .
       dockerfile: Dockerfile
     container_name: angular-app
     ports:
-      - "4200:4200"
-    depends_on:
-      - necrofinances
-
-  necrofinances:
-    image: necrofinances:latest
-    container_name: necrofinances
-    expose:
-      - "8080"
-    restart: unless-stopped
+      - "80:80"
+    restart: always

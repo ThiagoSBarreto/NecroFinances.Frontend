@@ -26,7 +26,7 @@ export const IconesDescricao: Record<IconesEnum, string> = {
     [IconesEnum.HEALTH]: 'Saúde',
     [IconesEnum.PHONE]: 'Telefone',
     [IconesEnum.BILL]: 'Boletos',
-    [IconesEnum.GUN]: 'Armas',
+    [IconesEnum.GUN]: 'CAC',
     [IconesEnum.MAINTENANCE]: 'Manutenção',
     [IconesEnum.UBER]: 'Transporte',
     [IconesEnum.INTERNET]: 'Internet',

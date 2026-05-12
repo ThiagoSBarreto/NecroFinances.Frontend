@@ -1,21 +1,21 @@
-import { ChangeDetectorRef, Component } from "@angular/core";
+import { Component } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppTopBarComponent } from "../app.top.bar/app.top.bar.component";
-import { AppBottomBarComponent } from "../app.bottom.bar/app.bottom.bar.component";
 import { AppMiddleComponent } from "../app.middle.view/app.middle.component";
 import { SettingsModel } from "../../../models/settings.model";
 import { GastosModel } from "../../../models/gasto.model";
 import { SettingsService } from "../../../services/settings.service";
 import { GastoService } from "../../../services/gasto.service";
-import { IndicadorTipoGastoEnum } from "../../../models/gasto.tipo.enum";
-import { ConfirmationService, MessageService } from "primeng/api";
-import { forkJoin } from "rxjs";
+import { MessageService } from "primeng/api";
+import { concatMap, defer, forkJoin } from "rxjs";
 import { ToastModule } from "primeng/toast";
 import { MesService } from "../../../services/mes.service";
 import { MesModel } from "../../../models/month.model";
 import { PatrimonioModel } from "../../../models/patrimonio.model";
 import { PatrimonioService } from "../../../services/patrimonio.service";
 import { ConfirmDialogModule } from "primeng/confirmdialog";
+import { DashboardModel } from "../../../models/main.data.model";
+import { DashboardService } from "../../../services/dashboard.service";
 
 @Component({
     selector: 'app-main-view-component',
@@ -23,19 +23,20 @@ import { ConfirmDialogModule } from "primeng/confirmdialog";
     styleUrls: ['./app.main.view.component.scss'],
     imports: [
         ToastModule, ConfirmDialogModule,
-        AppTopBarComponent, AppBottomBarComponent, AppMiddleComponent
+        AppTopBarComponent, AppMiddleComponent
     ],
     providers: [
-        SettingsService, MesService, GastoService, PatrimonioService,
-        MessageService, ConfirmationService
+        SettingsService, MesService, GastoService, PatrimonioService, DashboardService,
+        MessageService
     ]
 })
 export class AppMainViewComponent {
+    isMobile = window.matchMedia("(max-width: 768px)").matches;
 
     settings: SettingsModel;
     mes: MesModel;
-    gastos: GastosModel[];
     patrimonio: PatrimonioModel;
+    mainData: DashboardModel;
 
     range: Date[] = [];
 
@@ -44,9 +45,8 @@ export class AppMainViewComponent {
         private mesService: MesService,
         private gastoService: GastoService,
         private patrimonioService: PatrimonioService,
-        private cdr: ChangeDetectorRef,
         private messageService: MessageService,
-        private confirmationService: ConfirmationService,
+        private dashboardService: DashboardService,
         private router: Router
     ) {
 
@@ -58,86 +58,36 @@ export class AppMainViewComponent {
     }
 
     buscarDados(): void {
-        this.settingsService.getSettingsByDate(this.range[0]).subscribe({
-            next: (settings) => {
-                setTimeout(() => {
-                    this.settings = settings;
-                    this.cdr.detectChanges();
-                });
-            },
-            error: (err) => {
-                this.toast('error', err.error);
-            }
-        });
 
-        this.mesService.getMonthAtual(this.range[0]).subscribe({
-            next: (mes) => {
-                setTimeout(() => {
-                    this.mes = mes;
-                    this.cdr.detectChanges();
-                });
-            },
-            error: (err) => {
-                this.toast('error', err.error);
-            }
-        });
+        defer(() => this.dashboardService.getDashboard(this.range[0], this.range[1])).pipe(
 
-        this.patrimonioService.getPatrimonio().subscribe({
+            concatMap(mainData => {
+                this.mainData = mainData;
+                return defer(() => this.settingsService.getSettingsByDate(this.range[0], this.range[1]));
+            }),
+
+            concatMap(settings => {
+                this.settings = settings;
+                return defer(() => this.mesService.getMesByDate(this.range[0], this.range[1]));
+            }),
+
+            concatMap(mes => {
+                this.mes = mes;
+                return defer(() => this.patrimonioService.getPatrimonioByDate(this.range[0], this.range[1]));
+            })
+
+        ).subscribe({
             next: (patrimonio) => {
-                setTimeout(() => {
-                    this.patrimonio = patrimonio;
-                    this.cdr.detectChanges();
-                })
+                this.patrimonio = patrimonio;
             },
-            error: (err) => {
-                this.patrimonio = new PatrimonioModel()
-                this.patrimonio.moto = 0;
-                this.patrimonio.reservaEmergencia = 0;
-                this.patrimonio.reservaExtra = 0;
-                this.patrimonio.fiesThiago = 0;
-                this.patrimonio.fiesPri = 0;
-
-                this.toast('error', err.error);
-            }
-        })
-
-        this.buscarGastos();
-    }
-
-    buscarGastos(): void {
-        this.gastoService.getGastoByRange(this.range[0], this.range[1]).subscribe({
-            next: (gastos) => {
-                setTimeout(() => {
-                    this.gastos = gastos
-                        .sort((a, b) => {
-
-                            const ordemTipo = {
-                                [IndicadorTipoGastoEnum.FIXO]: 1,
-                                [IndicadorTipoGastoEnum.PARCELADO]: 2,
-                                [IndicadorTipoGastoEnum.AVULSO]: 3
-                            };
-
-                            const tipoA = ordemTipo[a.tipoGasto];
-                            const tipoB = ordemTipo[b.tipoGasto];
-
-                            if (tipoA !== tipoB) {
-                                return tipoA - tipoB;
-                            }
-
-                            return new Date(a.dataGasto).getTime() - new Date(b.dataGasto).getTime();
-                        });
-
-                    this.cdr.detectChanges();
-                });
-            },
-            error: (err) => {
-                this.toast('error', err.error);
+            error: () => {
+                this.toast('error', 'Erro ao buscar dados do periodo');
             }
         });
     }
 
     onNovoGasto(gasto: GastosModel): void {
-        this.gastoService.addNewGasto(gasto).subscribe({
+        this.gastoService.addGasto(gasto).subscribe({
             next: () => {
                 this.toast('success', 'Gasto adicionado com sucesso');
                 this.buscarDados();
@@ -149,8 +99,8 @@ export class AppMainViewComponent {
     }
 
 
-    onEditarGasto(gasto: GastosModel): void {
-        this.gastoService.updateGasto(gasto).subscribe({
+    editarGastos(item: GastosModel): void {
+        this.gastoService.updateGasto(item).subscribe({
             next: () => {
                 this.toast('success', 'Gasto atualizado com sucesso');
                 this.buscarDados();
@@ -162,7 +112,7 @@ export class AppMainViewComponent {
     }
 
 
-    onRemoverGasto(gasto: GastosModel): void {
+    removerGasto(gasto: GastosModel): void {
         this.gastoService.deleteGasto(gasto.id).subscribe({
             next: () => {
                 this.toast('success', 'Gasto removido com sucesso');
@@ -176,13 +126,15 @@ export class AppMainViewComponent {
 
 
     onEditarSettings(event: any): void {
-        forkJoin([
-            this.settingsService.updateSetting(event.settings),
-            this.mesService.updateMonth(event.mes),
-            this.patrimonioService.adicionarPatrimonio(event.patrimonio)
-        ]).subscribe({
-            next: () => {
+        forkJoin({
+            settings: this.settingsService.updateSettings(event.settings),
+            mes: this.mesService.updateMes(event.mes),
+            patrimonio: this.patrimonioService.updatePatrimonio(event.patrimonio)
+        }).subscribe({
+            next: (result) => {
                 this.toast('success', 'Configurações atualizadas com sucesso');
+                const { settings, mes, patrimonio } = result;
+
                 this.buscarDados();
             },
             error: (err) => {
@@ -191,39 +143,16 @@ export class AppMainViewComponent {
         });
     }
 
-    onMarcarGasto(event: any): void {
-        this.gastoService.maskAsPaid(event.id).subscribe({
-            next: () => {
-                this.toast('success', 'Gasto atualizado com sucesso');
+    editarPatrimonio(event: PatrimonioModel): void {
+        this.patrimonioService.updatePatrimonio(event).subscribe({
+            next: ((patrimonio) => {
+                this.toast('success', 'Patrimônio atualizado com sucesso!');
                 this.buscarDados();
-            },
+            }),
             error: (err) => {
                 this.toast('error', err.error);
             }
         })
-    }
-
-    onPagarCartao(): void {
-        this.confirmationService.confirm({
-            message: `Tem certeza que deseja marcar todos os gastos PARCELADOS e AVULSOS como pago?`,
-            header: 'Confirmar ação',
-            icon: 'pi pi-exclamation-triangle',
-            acceptLabel: 'Confirmar',
-            acceptButtonStyleClass: 'p-button-success',
-            rejectLabel: 'Cancelar',
-            rejectButtonStyleClass: 'p-button-danger',
-            accept: () => {
-                this.gastoService.pagarCartao(this.range[0], this.range[1]).subscribe({
-                    next: () => {
-                        this.toast('success', 'Gastos atualizados com sucesso');
-                        this.buscarDados();
-                    },
-                    error: (err) => {
-                        this.toast('error', err.error);
-                    }
-                })
-            }
-        });
     }
 
     private toast(tipo: 'success' | 'error', mensagem: string): void {
@@ -236,7 +165,6 @@ export class AppMainViewComponent {
     }
 
     onLogOut(): void {
-        this.messageService.add({ severity: 'success', summary: 'Sucesso', detail: 'Deslogado com sucesso' });
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
     }

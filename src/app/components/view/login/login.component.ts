@@ -30,7 +30,8 @@ import { CardModule } from "primeng/card";
     ]
 })
 export class LoginComponent {
-
+    isMobile = window.matchMedia("(max-width: 768px)").matches;
+    
     username = '';
     password = '';
     loading = false;
@@ -58,6 +59,7 @@ export class LoginComponent {
                 this.loading = false;
 
                 localStorage.setItem('token', token.accessToken);
+                localStorage.setItem('refreshToken', token.refreshToken);
 
                 this.messageService.add({
                     severity: 'success',
@@ -69,6 +71,8 @@ export class LoginComponent {
             },
             error: (err) => {
                 this.loading = false;
+
+                console.error(err);
 
                 this.messageService.add({
                     severity: 'error',

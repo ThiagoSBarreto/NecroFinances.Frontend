@@ -1,150 +1,308 @@
-<p-table [value]="listaGastos" class="gastos-table p-datatable-gridlines p-datatable-sm p-datatable-striped"
-    [scrollable]="true" scrollHeight="825px" [rowHover]="true">
-    <ng-template pTemplate="header">
-        <tr>
-            <th class="col-icone col-size">Ícone</th>
-            <th class="col-data col-size">Data</th>
-            <th class="col-valor col-size">Valor</th>
-            <th class="col-desc col-size">Descrição</th>
-            <th class="col-acoes col-size">Ações</th>
-        </tr>
-    </ng-template>
+@if(data) {
+<div class="dashboard">
+    <div class="top">
+        <div class="top-side">
+            <div class="card card-metric card-bruto">
+                <div class="labels-card-superior">Receitas</div>
+                <div class="card-content v-between gap-1">
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt-2">Valor Bruto</div>
+                        <div class="col texto-valor-barra" style="color: green">{{ data.totalBruto|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValor(data.diferencaBruto)">
+                            <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(data.diferencaBruto)">
+                                <i [ngClass]="getIconValor(data.diferencaBruto)"></i>{{
+                                data.diferencaBruto |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt-2">Descontos</div>
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalDescontos|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaDescontos)">
+                            <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(data.diferencaDescontos)"><i
+                                    [ngClass]="getIconValor(data.diferencaDescontos)"></i>{{
+                                data.diferencaDescontos |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt-2">Valor Liquído</div>
+                        <div class="col texto-valor-barra" style="color: lime">{{ data.totalLiquido |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValor(data.diferencaLiquido)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferencaDivida(data.diferencaLiquido)"><i
+                                    [ngClass]="getIconValor(data.diferencaLiquido)"></i>{{
+                                data.diferencaLiquido |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-    <ng-template pTemplate="body" let-item let-rowIndex="rowIndex">
-        @if (rowIndex === 0 || listaGastos[rowIndex - 1].tipoGasto !== item.tipoGasto) {
-        <tr class="separator-row">
-            <td colspan="5" class="separator-title">
-                {{
-                item.tipoGasto === TipoGastoEnum.FIXO
-                ? 'Fixos'
-                : item.tipoGasto === TipoGastoEnum.PARCELADO
-                ? 'Parcelados'
-                : 'Avulsos'
-                }}
-            </td>
-        </tr>
-        }
+            <div class="card card-metric card-gastos">
+                <div class="labels-card-superior">Gastos</div>
+                <div class="card-content v-between gap-1">
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt=2">Fixos</div>
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosFixos|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosFixos)">
+                            <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(data.diferencaGastosFixos)">
+                                <i [ngClass]="getIconValor(data.diferencaGastosFixos)"></i>{{
+                                data.diferencaGastosFixos |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt-2">Parcelados</div>
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosParcelados|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosParcelados)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferenca(data.diferencaGastosParcelados)"><i
+                                    [ngClass]="getIconValor(data.diferencaGastosParcelados)"></i>{{
+                                data.diferencaGastosParcelados |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                    <div class="barra-container-bottom">
+                        <div class="col-5 texto-descricao-barra mt-2">Avulsos</div>
+                        <div class="col texto-valor-barra" style="color: orange">{{ data.totalGastosAvulsos|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col" [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferenca(data.diferencaGastosAvulsos)"><i
+                                    [ngClass]="getIconValor(data.diferencaGastosAvulsos)"></i>{{
+                                data.diferencaGastosAvulsos |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-        @if (item.isGroup) {
-        <tr class="group-row" [class.group-row-expanded]="expandedGroups[item.icone]" [class.pago]="item.pago" (click)="toggleGroup(item.icone)">
-            <td class="col-icone">
-                <i [class]="item.icone" [class.icone-pago]="item.pago"></i>
-            </td>
+            <div class="card card-metric" [ngClass]="getClassRestante(data.totalRestante)">
+                <div class="labels-card-superior">Resultados</div>
+                <i class="icone-restante" [ngClass]="getIconRestante(data.totalRestante)"></i>
+                <div class="card-content v-between gap-1">
+                    <div class="barra-container-bottom barra-container-resultados">
+                        <div class="col-5 texto-descricao-barra mt-2">Gastos</div>
+                        <div class="col texto-valor-barra mt-2" style="color: red">{{ data.totalGastosAvulsos +
+                            data.totalGastosParcelados|
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col mt-2"
+                            [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferenca(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
+                                <i
+                                    [ngClass]="getIconValor(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)"></i>{{
+                                data.diferencaGastosAvulsos + data.diferencaGastosParcelados |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
 
-            <td class="col-data">
-                {{ item.latestDate | date : 'dd/MM/yyyy' }}
-            </td>
+                    <div class="barra-container-bottom barra-container-resultados">
+                        <div class="col-5 texto-descricao-barra mt-2">Diferença Meta</div>
+                        <div class="col texto-valor-barra mt-2" style="color: red">{{ data.valorMeta |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col mt-2" [ngClass]="getClassValorDivida(data.diferencaMeta)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferencaDivida(data.diferencaMeta)"><i
+                                    [ngClass]="getIconValor(data.diferencaMeta)"></i>{{
+                                data.diferencaMeta |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
 
-            <td class="col-valor">
-                {{ item.total | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
-            </td>
+                    <div class="barra-container-bottom barra-container-resultados">
+                        <div class="col-5 texto-descricao-barra mt-2">Restante</div>
+                        <div class="col texto-valor-barra mt-2" [ngClass]="getClassValor(data.totalRestante)">{{
+                            data.totalRestante |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col mt-2" [ngClass]="getClassValor(data.diferencaRestante)">
+                            <div class="texto-diferenca-barra"
+                                [ngClass]="getBordaDiferencaDivida(data.diferencaRestante)"><i
+                                    [ngClass]="getIconValor(data.diferencaRestante)"></i>{{
+                                data.diferencaRestante |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-            <td class="col-desc">
-                [{{ item.itens.length }} itens]
-            </td>
-
-            <td class="col-acoes">
-                <i class="pi" [ngClass]="expandedGroups[item.icone] ? 'pi-chevron-up' : 'pi-chevron-down'"
-                    [class.icon-rotate]="expandedGroups[item.icone]"></i>
-            </td>
-        </tr>
-
-        @if (expandedGroups[item.icone]) {
-        @for (g of item.itens; track g.id) {
-        <tr class="item-row" [class.pago]="g.pago">
-            <td class="col-icone">
-                <i [class]="g.icone" [class.icone-pago]="g.pago"></i>
-            </td>
-
-            <td class="col-data">
-                {{ g.dataGasto | date : 'dd/MM/yyyy' }}
-            </td>
-
-            <td class="col-valor">
-                {{ g.valor | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
-
-                @if (g.tipoGasto === TipoGastoEnum.PARCELADO) {
-                <ng-container>
-                    – {{ g.parcela }} / {{ g.totalParcelas }}
-                </ng-container>
+    <div class="middle">
+        <div class="card card-large">
+            <div class="label-gastos">Gastos Fixos</div>
+            <div class="card-content v-between-2">
+                @for(item of data.listaGastosFixos; track item.id) {
+                <div class="barra-container" (click)="abrirOrigem(item)">
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
+                        [style.background]="getBarColor(item.percentagem)"></div>
+                    <div class="barra-texto grid">
+                        <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
+                                [class]="item.categoria"></i>{{ getDescricao(item.categoria) }}</div>
+                        <div class="col texto-valor-barra mt-2">{{ item.valor |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
+                            100).toFixed(2) }}%</div>
+                        <div class="col mt-2" [ngClass]="getClassValorDivida(item.diferenca)">
+                            <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(item.diferenca)"><i
+                                    [ngClass]="getIconValor(item.diferenca)"></i>{{
+                                item.diferenca |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                </div>
                 }
-            </td>
+            </div>
+        </div>
 
-            <td class="col-desc">
-                {{ g.descricao }}
-            </td>
-
-            <td class="col-acoes">
-                @if (g.tipoGasto === TipoGastoEnum.FIXO && g.pago === false) {
-                <p-button icon="pi pi-check-circle" severity="success" styleClass="btn-acao btn-check"
-                    (onClick)="marcarGasto(g)" title="Marcar como Pago"></p-button>
+        <div class="card card-large">
+            <div class="label-gastos">Gastos Parcelados</div>
+            <div class="card-content v-between-2">
+                @for(item of data.listaGastosParcelados; track item.id) {
+                <div class="barra-container" (click)="abrirOrigem(item)">
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
+                        [style.background]="getBarColor(item.percentagem)"></div>
+                    <div class="barra-texto grid">
+                        <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
+                                [class]="item.categoria"></i>{{ item.descricao }}</div>
+                        <div class="col texto-valor-barra mt-2">{{ item.valor |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        </div>
+                        <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
+                            100).toFixed(2) }}%</div>
+                        <div class="col mt-2">
+                            <div class="texto-parcelas">{{ item.parcela }}/{{ item.totalParcelas }}</div>
+                        </div>
+                    </div>
+                </div>
                 }
+            </div>
+        </div>
 
-                @if (g.tipoGasto === TipoGastoEnum.FIXO && g.pago === true) {
-                <p-button icon="pi pi-times-circle" severity="danger" styleClass="btn-acao btn-uncheck"
-                    (onClick)="marcarGasto(g)" title="Marcar como NÃO Pago"></p-button>
+        <div class="card card-large">
+            <div class="label-gastos">Gastos Avulsos</div>
+            <div class="card-content v-between-2">
+                @for(item of data.listaGastosAvulsos; track item.id) {
+                <div class="barra-container" (click)="abrirOrigem(item)">
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
+                        [style.background]="getBarColor(item.percentagem)"></div>
+                    <div class="barra-texto grid">
+                        <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
+                                [class]="item.categoria"></i>{{ getDescricao(item.categoria) }}</div>
+                        <div class="col texto-valor-barra mt-2">{{ item.valor |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
+                            100).toFixed(2) }}%</div>
+                        <div class="col mt-2" [ngClass]="getClassValorDivida(item.diferenca)">
+                            <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(item.diferenca)"><i
+                                    [ngClass]="getIconValor(item.diferenca)"></i>{{
+                                item.diferenca |
+                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                        </div>
+                    </div>
+                </div>
                 }
+            </div>
+        </div>
+    </div>
 
-                @if (g.pago === false) {
-                <p-button icon="pi pi-pencil" severity="info" styleClass="btn-acao btn-editar"
-                    (onClick)="editarGasto(g)" title="Editar Gasto"></p-button>
-
-                <p-button icon="pi pi-trash" severity="danger" styleClass="btn-acao btn-remover"
-                    (onClick)="removerGasto(g)" title="Remover Gasto"></p-button>
+    <div class="bottom">
+        <div class="card card-metric card-middle card-propriedades">
+            <div class="labels-card">Propriedades</div>
+            <div class="card-content v-between-2">
+                @for(item of data.propriedades; track item.id) {
+                <div class="barra-container-bottom">
+                    <div class="col-5 texto-descricao-barra mt-2" title="{{ item.nomePropriedade }}">{{
+                        item.nomePropriedade }}</div>
+                    <div class="col texto-valor-barra mt-2" style="color: lime">{{ item.valorPropriedade |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    <div class="col mt-2" [ngClass]="getClassValor(item.diferenca)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(item.diferenca)"><i
+                                [ngClass]="getIconValor(item.diferenca)"></i>{{
+                            item.diferenca |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    </div>
+                </div>
                 }
-            </td>
-        </tr>
-        }
-        }
-        }
+            </div>
+        </div>
 
-        @if (!item.isGroup && item.tipoGasto !== TipoGastoEnum.AVULSO) {
-        <tr class="item-row" [class.pago]="item.pago">
-            <td class="col-icone">
-                <i [class]="item.icone" [class.icone-pago]="item.pago"></i>
-            </td>
-
-            <td class="col-data">
-                {{ item.dataGasto | date : 'dd/MM/yyyy' }}
-            </td>
-
-            <td class="col-valor">
-                {{ item.valor | currency : 'BRL' : 'symbol' : '1.2-2' : 'pt-BR' }}
-
-                @if (item.tipoGasto === TipoGastoEnum.PARCELADO) {
-                <ng-container>
-                    – {{ item.parcela }} / {{ item.totalParcelas }}
-                </ng-container>
+        <div class="card card-metric card-middle card-investimentos">
+            <div class="labels-card">Investimentos</div>
+            <div class="card-content v-between-2">
+                @for(item of data.investimentos; track item.id) {
+                <div class="barra-container-bottom">
+                    <div class="col-5 texto-descricao-barra mt-2" title="{{ item.nomeInvestimento }}">{{
+                        item.nomeInvestimento }}</div>
+                    <div class="col texto-valor-barra mt-2" style="color: lime">{{ item.valorInvestimento |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    <div class="col mt-2" [ngClass]="getClassValor(item.diferenca)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(item.diferenca)"><i
+                                [ngClass]="getIconValor(item.diferenca)"></i>{{
+                            item.diferenca |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    </div>
+                </div>
                 }
-            </td>
+            </div>
+        </div>
 
-            <td class="col-desc">
-                {{ item.descricao }}
-            </td>
-
-            <td class="col-acoes">
-                @if (item.tipoGasto === TipoGastoEnum.FIXO && item.pago === false) {
-                <p-button icon="pi pi-check-circle" severity="success" styleClass="btn-acao btn-check"
-                    (onClick)="marcarGasto(item)" title="Marcar como Pago"></p-button>
+        <div class="card card-metric card-middle card-financiamentos">
+            <div class="labels-card">Financiamentos</div>
+            <div class="card-content v-between-2">
+                @for(item of data.financiamentos; track item.id) {
+                <div class="barra-container-bottom">
+                    <div class="col-5 texto-descricao-barra mt-2" title="{{ item.nomeFinanciamento }}">{{
+                        item.nomeFinanciamento }}</div>
+                    <div class="col texto-valor-barra mt-2" style="color: orange">{{ item.valorFinanciamento |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    <div class="col mt-2" [ngClass]="getClassValor(item.diferenca)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(item.diferenca)"><i
+                                [ngClass]="getIconValor(item.diferenca)"></i>{{
+                            item.diferenca |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    </div>
+                </div>
                 }
+            </div>
+        </div>
 
-                @if (item.tipoGasto === TipoGastoEnum.FIXO && item.pago === true) {
-                <p-button icon="pi pi-times-circle" severity="danger" styleClass="btn-acao btn-uncheck"
-                    (onClick)="marcarGasto(item)" title="Marcar como NÃO Pago"></p-button>
-                }
+        <div class="card card-metric card-middle" [ngClass]="obtemClassPosicaoFinanceira()">
+            <div class="labels-card">Posição Financeira</div>
+            <div class="card-content v-between-2">
+                <div class="barra-container-bottom">
+                    <div class="col-5 texto-descricao-barra mt-2">Econômias</div>
+                    <div class="col texto-valor-barra mt-2" style="color: Lime">{{ data.economias |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    <div class="col mt-2" [ngClass]="getClassValor(data.diferencaEconomias)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(data.diferencaEconomias)">
+                            <i [ngClass]="getIconValor(data.diferencaEconomias)"></i>{{
+                            data.diferencaEconomias |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    </div>
+                </div>
+                <div class="barra-container-bottom">
+                    <div class="col-5 texto-descricao-barra mt-2">Patrimônio</div>
+                    <div class="col texto-valor-barra mt-2" style="color: Lime">{{ data.totalPatrimonio |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    <div class="col mt-2" [ngClass]="getClassValor(data.diferencaPatrimonio)">
+                        <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(data.diferencaPatrimonio)"><i
+                                [ngClass]="getIconValor(data.diferencaPatrimonio)"></i>{{
+                            data.diferencaPatrimonio |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+}
 
-                @if (item.pago === false) {
-                <p-button icon="pi pi-pencil" severity="info" styleClass="btn-acao btn-editar"
-                    (onClick)="editarGasto(item)" title="Editar Gasto"></p-button>
-
-                <p-button icon="pi pi-trash" severity="danger" styleClass="btn-acao btn-remover"
-                    (onClick)="removerGasto(item)" title="Remover Gasto"></p-button>
-                }
-            </td>
-        </tr>
-        }
-    </ng-template>
-</p-table>
-
-<dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="onFinalizarEdicao($event)"></dialog-novo-gasto>
-<p-confirmDialog></p-confirmDialog>
+<app-dialog-visualizar-origem #dialogOrigem (onEditarGasto)="editarGasto($event)"
+    (onRemoverGasto)="removerGasto($event)"></app-dialog-visualizar-origem>

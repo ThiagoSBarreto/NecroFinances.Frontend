@@ -1,0 +1,197 @@
+.dialog-content {
+    padding: 0;
+}
+
+.tabela-container {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.tabela-header {
+    display: flex;
+    background-color: #2b2b2b;
+    border-radius: 8px 8px 0 0;
+    padding: 1rem 0.5rem;
+    font-weight: bold;
+    color: #aaa;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.tabela-body {
+    max-height: 600px;
+}
+
+.linha-item {
+    display: flex;
+    align-items: center;
+    padding: 0.75rem 0.5rem;
+    border-bottom: 1px solid #2b2b2b;
+    transition: background-color 0.2s ease;
+}
+
+.linha-item:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.header-cell {
+    text-align: center;
+    padding: 0 0.5rem;
+}
+
+.header-cell:first-child {
+    text-align: left;
+}
+
+.texto-descricao-barra {
+    font-size: 1rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.texto-valor-barra {
+    font-size: 0.95rem;
+    font-weight: bold;
+    color: white;
+    text-align: center;
+}
+
+.texto-data-barra {
+    text-align: center;
+}
+
+.texto-parcelas {
+    font-size: 0.90rem;
+    color: lightgray;
+    text-align: center;
+}
+
+.barra-container {
+    width: 100%;
+    min-height: 25px;
+    background-color: #2b2b2b;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.barra-preenchida {
+    height: 8px;
+    width: 100%;
+    display: flex;
+    transition: width 0.3s ease;
+    border-radius: 15px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    z-index: 0;
+}
+
+.barra-porcentagem {
+    position: relative;
+    z-index: 1;
+    margin-top: -5px;
+    font-size: 0.80rem;
+    font-weight: bold;
+    color: lightgray;
+}
+
+.icone-categoria {
+    font-size: 1.2rem;
+    margin-right: 0.25rem;
+    color: cyan;
+}
+
+/* Botões de ação */
+.btn-acao {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+    margin: 0 0.25rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.btn-acao i {
+    font-size: 1rem;
+}
+
+.btn-navegacao {
+    color: #4caf50;
+}
+
+.btn-navegacao:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+    color: #66bb6a;
+}
+
+.btn-logout {
+    color: #f44336;
+}
+
+.btn-logout:hover {
+    background-color: rgba(244, 67, 54, 0.1);
+    color: #ef5350;
+}
+
+.sem-itens {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 2rem;
+    color: gray;
+    font-style: italic;
+}
+
+.sem-itens i {
+    font-size: 1.2rem;
+}
+
+/* Scrollbar personalizada */
+.tabela-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.tabela-body::-webkit-scrollbar-track {
+    background: #1e1e1e;
+    border-radius: 4px;
+}
+
+.tabela-body::-webkit-scrollbar-thumb {
+    background: #444;
+    border-radius: 4px;
+}
+
+.tabela-body::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.texto-diferenca-cell {
+    display: flex;
+    justify-content: center;
+}
+
+.texto-positivo {
+    color: lime;
+}
+
+.texto-negativo {
+    color: red;
+}
+
+.borda-positiva {
+    border-color: lime;
+}
+
+.borda-negativa {
+    border-color: red;
+}

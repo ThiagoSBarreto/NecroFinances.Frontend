@@ -7,8 +7,8 @@
 }
 
 .toolbar-content {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    display: flex;
+    flex-direction: row;
     align-items: center;
     width: 100%;
     column-gap: 5px;
@@ -16,9 +16,12 @@
 }
 
 .toolbar-left,
+.toolbar-left-middle, 
 .toolbar-middle,
+.toolbar-middle-right,
 .toolbar-right {
     display: flex;
+    flex: 1;
     align-items: center;
     min-width: 0;
 }
@@ -28,10 +31,20 @@
     gap: 5px;
 }
 
+.toolbar-left-middle {
+    justify-content: center;
+}
+
 .toolbar-middle {
     justify-content: center;
     justify-self: center;
     gap: 5px;
+}
+
+.toolbar-middle-right {
+    justify-content: center;
+    justify-self: center;
+    align-items: center;
 }
 
 .toolbar-right {
@@ -47,6 +60,42 @@
 
 .toolbar-middle .p-datepicker-trigger:hover .pi {
     transform: scale(1.18);
+}
+
+.label-mes-atual {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 5px;
+    text-align: center;
+    border-radius: 5px;
+    border-left: 5px solid lightskyblue;
+    border-right: 5px solid lightskyblue;
+    background: #1e1e1e;
+    min-width: 150px;
+}
+
+.texto-valor-barra {
+    margin-left: 5px;
+}
+
+.gastos-diario {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    font-size: 0.85rem;
+    align-items: center;
+    background-color: #1e1e1e;
+    border-left: 5px solid orange;
+    border-radius: 5px;
+    margin-left: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.label-gastos-diarios {
+    font-size: 0.75rem;
+    color: lightgray;
+    margin-left: 5px;
 }
 
 .restante-destaque {
