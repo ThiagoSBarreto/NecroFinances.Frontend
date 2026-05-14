@@ -1,4 +1,4 @@
-const api = `http://192.168.70.6:6000/api`;
+const api = `http://192.168.70.6:6002/api`;
 
 export const environment = {
     production: false,
