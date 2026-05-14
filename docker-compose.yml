@@ -7,5 +7,5 @@ services:
       dockerfile: Dockerfile
     container_name: angular-app
     ports:
-      - "80:80"
+      - "6001:80"
     restart: always
