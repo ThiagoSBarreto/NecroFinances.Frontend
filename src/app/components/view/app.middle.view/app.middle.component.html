@@ -307,7 +307,7 @@
             <div class="card-content v-between-2">
                 <div class="barra-container-bottom">
                     <div class="col-5 texto-descricao-barra mt-2">Econômias</div>
-                    <div class="col texto-valor-barra mt-2" style="color: Lime">{{ data.economias |
+                    <div class="col texto-valor-barra mt-2" [ngClass]="getClassValor(data.economias)">{{ data.economias |
                         currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
                     <div class="col mt-2" [ngClass]="getClassValor(data.diferencaEconomias)">
                         <div class="texto-diferenca-barra" [ngClass]="getBordaDiferencaDivida(data.diferencaEconomias)">
@@ -319,7 +319,7 @@
                 </div>
                 <div class="barra-container-bottom">
                     <div class="col-5 texto-descricao-barra mt-2">Patrimônio</div>
-                    <div class="col texto-valor-barra mt-2" style="color: Lime">{{ data.totalPatrimonio |
+                    <div class="col texto-valor-barra mt-2" [ngClass]="getClassValor(data.totalPatrimonio)">{{ data.totalPatrimonio |
                         currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
                     <div class="col mt-2" [ngClass]="getClassValor(data.diferencaPatrimonio)">
                         <div class="texto-diferenca-barra"
