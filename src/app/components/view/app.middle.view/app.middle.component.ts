@@ -10,6 +10,7 @@ import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
 import { DialogVisualizarOrigemComponent } from "../../ui/dialog/dialog.visualizar.origem/dialog.visualizar.origem.component";
 import { GastosModel } from "../../../models/gasto.model";
 import { DashboardModel } from "../../../models/main.data.model";
+import { IndicadorTipoRecursoEnum } from "../../../models/gasto.tipo.enum";
 
 @Component({
     selector: 'app-middle-component',
@@ -199,6 +200,14 @@ export class AppMiddleComponent implements OnChanges {
 
     getDescricao(categoria: string): string {
         return IconesDescricao[categoria as IconesEnum];
+    }
+
+    get gastosParceladosCredito(): GastoConsolidadoModel[] {
+        return this.data.listaGastosParcelados?.filter(item => item.tipoRecurso === IndicadorTipoRecursoEnum.CARTAO) ?? [];
+    }
+
+    get gastosParceladosDebito(): GastoConsolidadoModel[] {
+        return this.data.listaGastosParcelados?.filter(item => item.tipoRecurso === IndicadorTipoRecursoEnum.DINHEIRO) ?? [];
     }
 
     editarGasto(item: GastosModel): void {
