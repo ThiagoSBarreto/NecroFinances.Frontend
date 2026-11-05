@@ -206,10 +206,6 @@ export class AppMiddleComponent implements OnChanges {
         return this.data.listaGastosParcelados?.filter(item => item.tipoRecurso === IndicadorTipoRecursoEnum.CARTAO) ?? [];
     }
 
-    get gastosParceladosDebito(): GastoConsolidadoModel[] {
-        return this.data.listaGastosParcelados?.filter(item => item.tipoRecurso === IndicadorTipoRecursoEnum.DINHEIRO) ?? [];
-    }
-
     editarGasto(item: GastosModel): void {
         this.onEditarGastos.emit(item);
     }

@@ -190,52 +190,27 @@
                 </div>
             </div>
         </div>
-        <div class="double-card">
-            <div class="card card-column">
-                <div class="labels-card-superior">Gastos Parcelados - Crédito</div>
-                <div class="card-content v-between-2">
-                    @for(item of gastosParceladosCredito; track item.id) {
-                    <div class="barra-container" (click)="abrirOrigem(item)">
-                        <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
-                            [style.background]="getBarColor(item.percentagem)"></div>
-                        <div class="barra-texto grid">
-                            <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
-                                    [class]="item.categoria"></i>{{ item.descricao }}</div>
-                            <div class="col texto-valor-barra mt-2">{{ item.valor |
-                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                            </div>
-                            <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
-                                100).toFixed(2) }}%</div>
-                            <div class="col mt-2">
-                                <div class="texto-parcelas">{{ item.parcela }}/{{ item.totalParcelas }}</div>
-                            </div>
+        <div class="card card-column">
+            <div class="labels-card-superior">Gastos Parcelados - Crédito</div>
+            <div class="card-content v-between-2">
+                @for(item of gastosParceladosCredito; track item.id) {
+                <div class="barra-container" (click)="abrirOrigem(item)">
+                    <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
+                        [style.background]="getBarColor(item.percentagem)"></div>
+                    <div class="barra-texto grid">
+                        <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
+                                [class]="item.categoria"></i>{{ item.descricao }}</div>
+                        <div class="col texto-valor-barra mt-2">{{ item.valor |
+                            currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        </div>
+                        <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
+                            100).toFixed(2) }}%</div>
+                        <div class="col mt-2">
+                            <div class="texto-parcelas">{{ item.parcela }}/{{ item.totalParcelas }}</div>
                         </div>
                     </div>
-                    }
                 </div>
-            </div>
-            <div class="card card-column">
-                <div class="labels-card-superior">Gastos Parcelados - Débito</div>
-                <div class="card-content v-between-2">
-                    @for(item of gastosParceladosDebito; track item.id) {
-                    <div class="barra-container" (click)="abrirOrigem(item)">
-                        <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
-                            [style.background]="getBarColor(item.percentagem)"></div>
-                        <div class="barra-texto grid">
-                            <div class="col-5 texto-descricao-barra mt-2"><i class="icone-categoria"
-                                    [class]="item.categoria"></i>{{ item.descricao }}</div>
-                            <div class="col texto-valor-barra mt-2">{{ item.valor |
-                                currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
-                            </div>
-                            <div class="col texto-data-barra mt-2" title="% do Liquído">{{ (item.percentagem *
-                                100).toFixed(2) }}%</div>
-                            <div class="col mt-2">
-                                <div class="texto-parcelas">{{ item.parcela }}/{{ item.totalParcelas }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    }
-                </div>
+                }
             </div>
         </div>
 
