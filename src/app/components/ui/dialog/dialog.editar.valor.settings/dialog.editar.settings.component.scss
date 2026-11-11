@@ -22,7 +22,7 @@
     background: rgba(0, 0, 0, 0.55) !important;
     backdrop-filter: blur(22px) saturate(160%) !important;
     padding: 12px 16px !important;
-    overflow: hidden !important;
+    overflow-y: auto !important;
     max-height: calc(100vh - 140px) !important;
 }
 
@@ -65,7 +65,8 @@
 
 
 .panels-container {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 12px;
 }
 
@@ -73,6 +74,7 @@
 
 .settings-panel {
     flex: 1;
+    min-width: 0;
     background: rgba(10, 10, 10, 0.65) !important;
     backdrop-filter: blur(16px) saturate(140%) !important;
     border-radius: 12px !important;
@@ -96,6 +98,14 @@
 
 .panel-mes {
     box-shadow: 0 6px 24px rgba(0, 0, 0, 0.5) !important;
+}
+
+.panel-ferias .field-card {
+    color: #ffe066;
+}
+
+.panel-adiantamento .field-card {
+    color: #ff9f43;
 }
 
 .panel-header {
@@ -273,4 +283,10 @@
 
 .ng-invalid.ng-touched {
     border: 1px solid #ff4d4d !important;
+}
+
+@media (max-width: 600px) {
+    .panels-container {
+        grid-template-columns: minmax(0, 1fr);
+    }
 }
