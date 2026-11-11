@@ -139,7 +139,7 @@
     <div class="middle">
         <div class="double-card">
             <div class="card card-column">
-                <div class="labels-card-superior">Gastos Fixos - Cartão</div>
+                <div class="labels-card-superior">Gastos Fixos - Crédito</div>
                 <div class="card-content v-between-2">
                     @for(item of data.listaGastosFixosCartao; track item.id) {
                     <div class="barra-container" (click)="abrirOrigem(item)">
@@ -165,7 +165,7 @@
             </div>
 
             <div class="card card-column">
-                <div class="labels-card-superior">Gastos Fixos - Débto</div>
+                <div class="labels-card-superior">Gastos Fixos - Débito</div>
                 <div class="card-content v-between-2">
                     @for(item of data.listaGastosFixosDebto; track item.id) {
                     <div class="barra-container" (click)="abrirOrigem(item)">
@@ -191,9 +191,9 @@
             </div>
         </div>
         <div class="card card-column">
-            <div class="labels-card-superior">Gastos Parcelados</div>
+            <div class="labels-card-superior">Gastos Parcelados - Crédito</div>
             <div class="card-content v-between-2">
-                @for(item of data.listaGastosParcelados; track item.id) {
+                @for(item of gastosParceladosCredito; track item.id) {
                 <div class="barra-container" (click)="abrirOrigem(item)">
                     <div class="barra-preenchida" [style.width.%]="(item.percentagem / 0.3) * 100"
                         [style.background]="getBarColor(item.percentagem)"></div>
