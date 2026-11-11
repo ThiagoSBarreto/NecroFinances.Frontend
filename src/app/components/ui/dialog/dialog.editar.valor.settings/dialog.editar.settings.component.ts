@@ -32,6 +32,8 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
     formSettings!: FormGroup;
     formMonth!: FormGroup;
     formPatrimonio!: FormGroup;
+    formFerias!: FormGroup;
+    formAdiantamento!: FormGroup;
 
     @Output() onSalvar = new EventEmitter<{ settings: SettingsModel, mes: MesModel, patrimonio: PatrimonioModel }>();
 
@@ -49,6 +51,14 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
             valorPlanoSaude: [0, [Validators.required, Validators.min(0)]],
             outros: [0, [Validators.required, Validators.min(0)]],
             desafioGastos: [0, [Validators.required, Validators.min(0)]]
+        });
+
+        this.formFerias = this.fb.group({
+            ferias: [0, [Validators.required, Validators.min(0)]]
+        });
+
+        this.formAdiantamento = this.fb.group({
+            adiantamentoCartao: [0, [Validators.required, Validators.min(0)]]
         });
 
         this.formMonth = this.fb.group({
@@ -100,6 +110,14 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
             desafioGastos: settings.desafioGastos
         });
 
+        this.formFerias.patchValue({
+            ferias: settings.ferias
+        });
+
+        this.formAdiantamento.patchValue({
+            adiantamentoCartao: settings.adiantamentoCartao
+        });
+
         this.formMonth.patchValue({
             diasUteis: mes.diasUteis,
             horasUteis: mes.horasUteis,
@@ -114,11 +132,13 @@ export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
     }
 
     salvar(): void {
-        if (this.formSettings.invalid || this.formMonth.invalid) return;
+        if (this.formSettings.invalid || this.formMonth.invalid || this.formFerias.invalid || this.formAdiantamento.invalid) return;
 
         const settingsAtualizado: SettingsModel = {
             ...this.settings,
-            ...this.formSettings.value
+            ...this.formSettings.value,
+            ...this.formFerias.value,
+            ...this.formAdiantamento.value
         };
 
         const monthAtualizado: MesModel = {

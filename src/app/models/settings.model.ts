@@ -10,4 +10,6 @@ export class SettingsModel {
     valorPlanoSaude: number;
     outros: number;
     desafioGastos: number;
+    ferias: number;
+    adiantamentoCartao: number;
 }

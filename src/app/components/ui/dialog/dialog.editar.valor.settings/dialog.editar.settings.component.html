@@ -124,12 +124,46 @@
                 </form>
             </div>
 
+            <div class="settings-panel panel-ferias">
+                <div class="panel-header">
+                    <i class="pi pi-sun"></i>
+                    <span>Férias</span>
+                </div>
+
+                <form [formGroup]="formFerias" class="cards-grid">
+                    <div class="field-card">
+                        <i class="pi pi-dollar"></i>
+                        <div class="field-info">
+                            <label>Valor de Férias (R$)</label>
+                            <p-inputNumber formControlName="ferias" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="settings-panel panel-adiantamento">
+                <div class="panel-header">
+                    <i class="pi pi-credit-card"></i>
+                    <span>Adiantamento</span>
+                </div>
+
+                <form [formGroup]="formAdiantamento" class="cards-grid">
+                    <div class="field-card">
+                        <i class="pi pi-dollar"></i>
+                        <div class="field-info">
+                            <label>Adiantamento no Cartão (R$)</label>
+                            <p-inputNumber formControlName="adiantamentoCartao" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
         </div>
     </div>
 
     <ng-template pTemplate="footer">
         <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
-        <p-button label="Salvar" severity="success" [disabled]="formSettings.invalid || formMonth.invalid || formPatrimonio.invalid" (onClick)="salvar()"></p-button>
+        <p-button label="Salvar" severity="success" [disabled]="formSettings.invalid || formMonth.invalid || formPatrimonio.invalid || formFerias.invalid || formAdiantamento.invalid" (onClick)="salvar()"></p-button>
     </ng-template>
 
 </p-dialog>
