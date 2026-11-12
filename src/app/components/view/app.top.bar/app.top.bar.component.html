@@ -47,4 +47,5 @@
 <dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="onAdicionar($event)"></dialog-novo-gasto>
 <dialog-editar-settings #dialogEditarSettings (onSalvar)="salvarSettings($event)"></dialog-editar-settings>
 <dialog-editar-patrimonio #dialogEditarPatrimonio (onSalvar)="salvarPatrimonio($event)"></dialog-editar-patrimonio>
-<dialog-gastos-diarios #dialogGastosDiarios></dialog-gastos-diarios>
+<dialog-gastos-diarios #dialogGastosDiarios (onEditarGasto)="editarGasto($event)"
+    (onRemoverGasto)="removerGasto($event)"></dialog-gastos-diarios>

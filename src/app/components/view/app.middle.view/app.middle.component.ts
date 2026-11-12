@@ -5,12 +5,16 @@ import { TableModule } from "primeng/table";
 import { ButtonModule } from "primeng/button";
 import { ConfirmationService } from "primeng/api";
 import { CardModule } from "primeng/card";
+import { ConfirmDialogModule } from "primeng/confirmdialog";
 import { IconesDescricao, IconesEnum } from "../../../models/icones.enum";
 import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
 import { DialogVisualizarOrigemComponent } from "../../ui/dialog/dialog.visualizar.origem/dialog.visualizar.origem.component";
 import { GastosModel } from "../../../models/gasto.model";
 import { DashboardModel } from "../../../models/main.data.model";
 import { IndicadorTipoRecursoEnum } from "../../../models/gasto.tipo.enum";
+import { DialogNovoGastoComponent } from "../../ui/dialog/novo.gasto/dialog.novo.gasto.component";
+import { DiaGastoModel } from "../../../models/dia.gasto.model";
+import { DateUtils } from "../../../helpers/data.utils";
 
 @Component({
     selector: 'app-middle-component',
@@ -19,7 +23,7 @@ import { IndicadorTipoRecursoEnum } from "../../../models/gasto.tipo.enum";
     imports: [
         CommonModule, FormsModule, CurrencyPipe,
         CardModule, TableModule, ButtonModule,
-        DialogVisualizarOrigemComponent
+        DialogVisualizarOrigemComponent, DialogNovoGastoComponent, ConfirmDialogModule
     ],
     providers: [
         ConfirmationService
@@ -33,10 +37,15 @@ export class AppMiddleComponent implements OnChanges {
 
     @Output() onEditarGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output() onRemoverGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
+    @Output() onNovoGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
 
     @ViewChild('dialogOrigem') dialogOrigem: DialogVisualizarOrigemComponent;
+    @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
 
     Math: Math;
+    abaMobile: 'resumo' | 'gastos' = 'resumo';
+    gastosPorDia: DiaGastoModel[] = [];
+    private diaExpandido: string | null = null;
 
     constructor(
         private confirmationService: ConfirmationService
@@ -46,8 +55,83 @@ export class AppMiddleComponent implements OnChanges {
 
     ngOnChanges(changes: SimpleChanges): void {
         if (changes['data']) {
-
+            this.atualizarGastosPorDia();
         }
+    }
+
+    private atualizarGastosPorDia(): void {
+        const grupos = new Map<string, DiaGastoModel>();
+        const gastos = [
+            ...(this.data?.listaGastosAvulsos ?? []),
+            ...(this.data?.listaGastosParcelados ?? [])
+        ].flatMap(item => item.origem ?? []);
+
+        gastos.forEach(gasto => {
+            const dia = DateUtils.parseLocalDate(gasto.dataGasto);
+            const chave = gasto.dataGasto;
+            const grupo = grupos.get(chave);
+
+            if (grupo) {
+                grupo.total += gasto.valor;
+                grupo.gastos.push(gasto);
+            } else {
+                grupos.set(chave, {
+                    data: dia,
+                    total: gasto.valor,
+                    percentagem: 0,
+                    gastos: [gasto]
+                });
+            }
+        });
+
+        this.gastosPorDia = Array.from(grupos.values())
+            .sort((a, b) => a.data.getTime() - b.data.getTime());
+
+        const total = this.gastosPorDia.reduce((valor, dia) => valor + dia.total, 0);
+        this.gastosPorDia.forEach((dia, index) => {
+            dia.percentagem = total ? dia.total / total : 0;
+            if (index > 0) {
+                dia.diferenca = dia.total - this.gastosPorDia[index - 1].total;
+            }
+        });
+    }
+
+    adicionarGasto(): void {
+        this.dialogNovoGasto.abrirParaAdicionar();
+    }
+
+    onAdicionarGasto(gasto: GastosModel): void {
+        this.onNovoGasto.emit(gasto);
+    }
+
+    alternarDia(dia: DiaGastoModel): void {
+        const chave = this.chaveDia(dia);
+        this.diaExpandido = this.diaExpandido === chave ? null : chave;
+    }
+
+    isDiaExpandido(dia: DiaGastoModel): boolean {
+        return this.diaExpandido === this.chaveDia(dia);
+    }
+
+    editarGastoMobile(gasto: GastosModel): void {
+        this.dialogNovoGasto.abrirParaEditar(gasto);
+    }
+
+    confirmarRemocaoMobile(gasto: GastosModel): void {
+        this.confirmationService.confirm({
+            header: 'Remover gasto',
+            message: `Confirmar remoção do gasto [${gasto.descricao}]?`,
+            acceptButtonStyleClass: 'p-button-danger',
+            acceptIcon: 'pi pi-trash',
+            acceptLabel: 'Remover Gasto',
+            rejectButtonStyleClass: 'p-button-secondary',
+            rejectLabel: 'Cancelar',
+            accept: () => this.removerGasto(gasto)
+        });
+    }
+
+    private chaveDia(dia: DiaGastoModel): string {
+        return `${dia.data.getFullYear()}-${dia.data.getMonth()}-${dia.data.getDate()}`;
     }
 
     getClassValor(valor: number): string {

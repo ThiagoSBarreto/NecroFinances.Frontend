@@ -40,6 +40,8 @@ export class AppTopBarComponent implements OnInit, OnChanges {
     @Output('onEditarSettings') onEditarSettings: EventEmitter<SettingsModel> = new EventEmitter<SettingsModel>();
     @Output('onLogout') onLogout: EventEmitter<void> = new EventEmitter<void>();
     @Output('onEditarPatrimonio') onEditarPatrimonio: EventEmitter<PatrimonioModel> = new EventEmitter<PatrimonioModel>();
+    @Output() onEditarGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
+    @Output() onRemoverGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
 
     @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
     @ViewChild('dialogEditarSettings') dialogEditarSettings: DialogEditarSettingsComponent;
@@ -288,5 +290,13 @@ export class AppTopBarComponent implements OnInit, OnChanges {
 
     logout(): void {
         this.onLogout.emit();
+    }
+
+    editarGasto(gasto: GastosModel): void {
+        this.onEditarGasto.emit(gasto);
+    }
+
+    removerGasto(gasto: GastosModel): void {
+        this.onRemoverGasto.emit(gasto);
     }
 }

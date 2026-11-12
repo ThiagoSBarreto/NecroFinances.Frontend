@@ -20,6 +20,16 @@
                             <span class="barra-porcentagem">{{ ((item.valor / total) * 100).toFixed(2) }}%</span>
                         </div>
                     </div>
+                    <div class="daily-expense-actions">
+                        <button type="button" class="btn-acao btn-navegacao" title="Editar gasto"
+                            aria-label="Editar gasto" (click)="editar(item)">
+                            <i class="pi pi-pencil"></i>
+                        </button>
+                        <button type="button" class="btn-acao btn-logout" title="Remover gasto"
+                            aria-label="Remover gasto" (click)="confirmarRemocao(item)">
+                            <i class="pi pi-trash"></i>
+                        </button>
+                    </div>
                 </div>
                 } @empty {
                 <div class="sem-itens">
@@ -32,3 +42,5 @@
         </div>
     </div>
 </p-dialog>
+<dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="salvarEdicao($event)"></dialog-novo-gasto>
+<p-confirmDialog></p-confirmDialog>

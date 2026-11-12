@@ -39,4 +39,5 @@
     </div>
 </p-dialog>
 
-<dialog-lista-gastos #dialogListaGastos></dialog-lista-gastos>
+<dialog-lista-gastos #dialogListaGastos (onEditarGasto)="editarGasto($event)"
+    (onRemoverGasto)="removerGasto($event)"></dialog-lista-gastos>

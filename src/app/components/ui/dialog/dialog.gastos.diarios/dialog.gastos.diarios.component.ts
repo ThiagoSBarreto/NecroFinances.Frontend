@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -24,6 +24,9 @@ export class DialogGastosDiariosComponent {
     visible: boolean = false;
     header: string = 'Gastos Diários';
     gastos: DiaGastoModel[];
+
+    @Output() onEditarGasto = new EventEmitter<GastosModel>();
+    @Output() onRemoverGasto = new EventEmitter<GastosModel>();
 
     @ViewChild('dialogListaGastos') dialogListaGastos: DialogListaGastoComponent;
 
@@ -72,5 +75,13 @@ export class DialogGastosDiariosComponent {
 
     abrirLista(item: DiaGastoModel): void {
         this.dialogListaGastos.open(item.total, item.gastos);
+    }
+
+    editarGasto(gasto: GastosModel): void {
+        this.onEditarGasto.emit(gasto);
+    }
+
+    removerGasto(gasto: GastosModel): void {
+        this.onRemoverGasto.emit(gasto);
     }
 }

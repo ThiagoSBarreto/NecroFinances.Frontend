@@ -8,3 +8,18 @@
 p-toolbar {
     flex-shrink: 0;
 }
+
+@media (max-width: 768px) {
+    :host ::ng-deep .app-title {
+        display: none;
+    }
+
+    :host ::ng-deep app-middle-component {
+        flex: 1;
+        min-height: 0;
+    }
+
+    :host ::ng-deep app-middle-component .mobile-view {
+        overflow-y: auto;
+    }
+}

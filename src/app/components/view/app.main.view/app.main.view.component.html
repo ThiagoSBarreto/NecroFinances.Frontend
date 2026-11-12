@@ -1,6 +1,7 @@
 <div class="app-title">Necrofinances</div>
 <app-top-bar-component [settings]="settings" [mes]="mes" [patrimonio]="patrimonio" [mainData]="mainData" (onNovaData)="onNovaData($event)"
     (novoGasto)="onNovoGasto($event)" (onEditarSettings)="onEditarSettings($event)"
-    (onLogout)="onLogOut()" (onEditarPatrimonio)="editarPatrimonio($event)"></app-top-bar-component>
-<app-middle-component [data]="mainData" (onEditarGastos)="editarGastos($event)"
-    (onRemoverGastos)="removerGasto($event)"></app-middle-component>
+    (onLogout)="onLogOut()" (onEditarPatrimonio)="editarPatrimonio($event)"
+    (onEditarGasto)="editarGastos($event)" (onRemoverGasto)="removerGasto($event)"></app-top-bar-component>
+<app-middle-component class="app-middle-view" [data]="mainData" (onEditarGastos)="editarGastos($event)"
+    (onRemoverGastos)="removerGasto($event)" (onNovoGasto)="onNovoGasto($event)"></app-middle-component>
