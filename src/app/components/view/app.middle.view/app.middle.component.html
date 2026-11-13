@@ -1,4 +1,145 @@
 @if(data) {
+    <nav class="mobile-navigation" aria-label="Navegação financeira">
+        <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'resumo'"
+            aria-label="Resumo financeiro" (click)="abaMobile = 'resumo'">
+            <i class="pi pi-dollar"></i>
+        </button>
+        <button type="button" class="mobile-nav-button mobile-add-button" aria-label="Adicionar gasto"
+            title="Adicionar gasto" (click)="adicionarGasto()">
+            <i class="pi pi-plus"></i>
+        </button>
+        <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'gastos'"
+            aria-label="Lista de gastos" (click)="abaMobile = 'gastos'">
+            <i class="pi pi-list"></i>
+        </button>
+    </nav>
+
+    <main class="mobile-view">
+        @if(abaMobile === 'resumo') {
+        <div class="mobile-metrics">
+            <section class="card mobile-metric-card">
+                <div class="labels-card-superior">Receitas</div>
+                <div class="mobile-metric-row">
+                    <span>Valor Bruto</span>
+                    <strong>{{ data.totalBruto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(data.diferencaBruto)">
+                        <i [ngClass]="getIconValor(data.diferencaBruto)"></i>
+                        {{ data.diferencaBruto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Descontos</span>
+                    <strong class="valor-descontos">{{ data.totalDescontos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValorDivida(data.diferencaDescontos)">
+                        <i [ngClass]="getIconValor(data.diferencaDescontos)"></i>
+                        {{ data.diferencaDescontos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Valor Líquido</span>
+                    <strong class="valor-positivo">{{ data.totalLiquido | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(data.diferencaLiquido)">
+                        <i [ngClass]="getIconValor(data.diferencaLiquido)"></i>
+                        {{ data.diferencaLiquido | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+            </section>
+
+            <section class="card mobile-metric-card" [ngClass]="getClassRestante(data.totalRestante)">
+                <div class="labels-card-superior">Resultados</div>
+                <div class="mobile-metric-row">
+                    <span>Gastos</span>
+                    <strong class="valor-negativo">{{ data.totalGastosAvulsos + data.totalGastosParcelados + data.totalGastosFixosCartao |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference"
+                        [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)">
+                        <i [ngClass]="getIconValor(data.diferencaGastosAvulsos + data.diferencaGastosParcelados)"></i>
+                        {{ data.diferencaGastosAvulsos + data.diferencaGastosParcelados |
+                        currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Restante</span>
+                    <strong [ngClass]="getClassValor(data.totalRestante)">
+                        {{ data.totalRestante | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(data.diferencaRestante)">
+                        <i [ngClass]="getIconValor(data.diferencaRestante)"></i>
+                        {{ data.diferencaRestante | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+            </section>
+
+            <section class="card mobile-metric-card" [ngClass]="obtemClassPosicaoFinanceira()">
+                <div class="labels-card-superior">Posição Financeira</div>
+                <div class="mobile-metric-row">
+                    <span>Economias</span>
+                    <strong [ngClass]="getClassValor(data.economias)">
+                        {{ data.economias | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(data.diferencaEconomias)">
+                        <i [ngClass]="getIconValor(data.diferencaEconomias)"></i>
+                        {{ data.diferencaEconomias | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Patrimônio</span>
+                    <strong [ngClass]="getClassValor(data.totalPatrimonio)">
+                        {{ data.totalPatrimonio | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(data.diferencaPatrimonio)">
+                        <i [ngClass]="getIconValor(data.diferencaPatrimonio)"></i>
+                        {{ data.diferencaPatrimonio | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+            </section>
+        </div>
+        } @else {
+        <section class="mobile-expense-list">
+            @for(dia of gastosPorDia; track dia.data) {
+            <article class="mobile-day-card">
+                <button type="button" class="mobile-day-header" [attr.aria-expanded]="isDiaExpandido(dia)"
+                    (click)="alternarDia(dia)">
+                    <span>
+                        <strong>{{ dia.data | date:'EEEE, dd/MM' }}</strong>
+                        <small>{{ dia.gastos.length }} {{ dia.gastos.length === 1 ? 'gasto' : 'gastos' }}</small>
+                    </span>
+                    <span class="mobile-day-values">
+                        <strong>{{ dia.total | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                        <i class="pi" [ngClass]="isDiaExpandido(dia) ? 'pi-chevron-up' : 'pi-chevron-down'"></i>
+                    </span>
+                </button>
+                @if(isDiaExpandido(dia)) {
+                <div class="mobile-day-expenses">
+                    @for(gasto of dia.gastos; track gasto.id) {
+                    <div class="mobile-expense-row">
+                        <span class="mobile-expense-description">
+                            <i class="icone-categoria" [class]="gasto.icone"></i>
+                            <span>{{ gasto.descricao || getDescricao(gasto.icone) }}</span>
+                        </span>
+                        <strong>{{ gasto.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                        <span class="mobile-expense-actions">
+                            <button type="button" aria-label="Editar gasto" title="Editar gasto"
+                                (click)="editarGastoMobile(gasto)">
+                                <i class="pi pi-pencil"></i>
+                            </button>
+                            <button type="button" aria-label="Remover gasto" title="Remover gasto"
+                                (click)="confirmarRemocaoMobile(gasto)">
+                                <i class="pi pi-trash"></i>
+                            </button>
+                        </span>
+                    </div>
+                    }
+                </div>
+                }
+            </article>
+            } @empty {
+            <div class="mobile-empty-state">Nenhum gasto encontrado neste período.</div>
+            }
+        </section>
+        }
+    </main>
+
 <div class="dashboard">
     <div class="top">
         <div class="top-side">
@@ -337,3 +478,5 @@
 
 <app-dialog-visualizar-origem #dialogOrigem (onEditarGasto)="editarGasto($event)"
     (onRemoverGasto)="removerGasto($event)"></app-dialog-visualizar-origem>
+<dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="onAdicionarGasto($event)"></dialog-novo-gasto>
+<p-confirmDialog></p-confirmDialog>

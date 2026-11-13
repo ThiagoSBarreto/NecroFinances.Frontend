@@ -30,8 +30,6 @@ import { CardModule } from "primeng/card";
     ]
 })
 export class LoginComponent {
-    isMobile = window.matchMedia("(max-width: 768px)").matches;
-    
     username = '';
     password = '';
     loading = false;

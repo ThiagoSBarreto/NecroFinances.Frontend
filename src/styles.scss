@@ -315,3 +315,213 @@ body {
         background-position: 0% 50%;
     }
 }
+
+.app-middle-view .mobile-navigation,
+.app-middle-view .mobile-view {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    app-middle-component.app-middle-view {
+        height: auto;
+        overflow: visible;
+    }
+
+    app-middle-component.app-middle-view .dashboard {
+        display: none;
+    }
+
+    .app-middle-view .mobile-navigation {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 0.5rem;
+        padding: 0.5rem;
+        background: #121212;
+    }
+
+    .app-middle-view .mobile-nav-button {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-height: 42px;
+        border: 1px solid #333;
+        border-radius: 10px;
+        background: #1e1e1e;
+        color: #bdbdbd;
+        font-size: 1.15rem;
+    }
+
+    .app-middle-view .mobile-nav-button.active {
+        border-color: #4aa3ff;
+        color: #4aa3ff;
+    }
+
+    .app-middle-view .mobile-add-button {
+        border-color: rgba(125, 255, 125, 0.45);
+        color: #7dff7d;
+    }
+
+    .app-middle-view .mobile-view {
+        display: flex;
+        flex: 1;
+        flex-direction: column;
+        min-height: 0;
+        overflow-y: auto;
+        padding: 0.25rem 0.5rem 1rem;
+    }
+
+    .app-middle-view .mobile-metrics,
+    .app-middle-view .mobile-expense-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .app-middle-view .mobile-metric-card {
+        gap: 0.6rem;
+        padding: 1rem 0.65rem 0.75rem;
+        margin-top: 0.4rem;
+    }
+
+    .app-middle-view .mobile-metric-row {
+        display: grid;
+        grid-template-columns: minmax(4.5rem, 0.9fr) minmax(5.5rem, 1fr) minmax(6.5rem, 1.15fr);
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 2rem;
+        padding: 0.25rem 0.35rem;
+        border-radius: 7px;
+        background: rgba(0, 0, 0, 0.2);
+        font-size: 0.76rem;
+    }
+
+    .app-middle-view .mobile-metric-row > span:first-child {
+        color: #ccc;
+    }
+
+    .app-middle-view .mobile-metric-row > strong,
+    .app-middle-view .mobile-difference {
+        overflow: hidden;
+        text-align: right;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .app-middle-view .mobile-metric-row > strong {
+        font-size: 0.78rem;
+    }
+
+    .app-middle-view .mobile-difference {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 0.15rem;
+        font-size: 0.68rem;
+    }
+
+    .app-middle-view .mobile-day-card {
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        background: #1e1e1e;
+    }
+
+    .app-middle-view .mobile-day-header {
+        display: flex;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.8rem;
+        border: 0;
+        background: transparent;
+        color: #eee;
+        text-align: left;
+    }
+
+    .app-middle-view .mobile-day-header > span,
+    .app-middle-view .mobile-day-values {
+        display: flex;
+        align-items: flex-end;
+        gap: 0.35rem;
+    }
+
+    .app-middle-view .mobile-day-header > span:first-child {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .app-middle-view .mobile-day-header small {
+        color: #aaa;
+        font-size: 0.72rem;
+    }
+
+    .app-middle-view .mobile-day-values {
+        align-items: center;
+        color: #7dff7d;
+        font-size: 0.85rem;
+        white-space: nowrap;
+    }
+
+    .app-middle-view .mobile-day-expenses {
+        padding: 0 0.7rem 0.5rem;
+    }
+
+    .app-middle-view .mobile-expense-row {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) auto auto;
+        align-items: center;
+        gap: 0.35rem;
+        min-height: 42px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        font-size: 0.8rem;
+    }
+
+    .app-middle-view .mobile-expense-description {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        overflow: hidden;
+    }
+
+    .app-middle-view .mobile-expense-description .icone-categoria {
+        flex: 0 0 1rem;
+        margin: 0 0.4rem 0 0;
+        text-align: center;
+    }
+
+    .app-middle-view .mobile-expense-description > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .app-middle-view .mobile-expense-actions {
+        display: flex;
+        gap: 0.2rem;
+    }
+
+    .app-middle-view .mobile-expense-actions button {
+        display: grid;
+        width: 30px;
+        height: 30px;
+        place-items: center;
+        border: 1px solid #333;
+        border-radius: 7px;
+        background: #161616;
+        color: #4aa3ff;
+    }
+
+    .app-middle-view .mobile-expense-actions button:last-child {
+        color: tomato;
+    }
+
+    .app-middle-view .mobile-empty-state {
+        padding: 2rem 1rem;
+        color: #aaa;
+        text-align: center;
+    }
+}

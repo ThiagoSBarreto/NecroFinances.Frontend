@@ -278,3 +278,31 @@
         font-size: 1.05rem;
     }
 }
+
+@media (max-width: 768px) {
+    .toolbar-content {
+        height: 40px;
+        column-gap: 0.25rem;
+    }
+
+    .toolbar-left,
+    .toolbar-left-middle,
+    .toolbar-middle-right {
+        display: none;
+    }
+
+    .toolbar-middle {
+        flex: 1;
+        gap: 0.25rem;
+    }
+
+    .toolbar-middle .label-mes-atual {
+        min-width: 0;
+        padding: 0.3rem;
+        font-size: 0.9rem;
+    }
+
+    .toolbar-right {
+        flex: 0 0 auto;
+    }
+}

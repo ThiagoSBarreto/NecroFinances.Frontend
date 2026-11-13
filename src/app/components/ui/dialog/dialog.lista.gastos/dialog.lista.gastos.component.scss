@@ -195,3 +195,28 @@
 .borda-negativa {
     border-color: red;
 }
+
+.daily-expense-actions {
+    display: flex;
+    flex-shrink: 0;
+}
+
+@media (max-width: 640px) {
+    .linha-item {
+        gap: 0.3rem;
+        padding-inline: 0.2rem;
+    }
+
+    .linha-item .col-3 {
+        min-width: 0;
+        font-size: 0.78rem;
+    }
+
+    .linha-item .col {
+        min-width: 3.2rem;
+    }
+
+    .daily-expense-actions .btn-acao {
+        margin: 0 0.1rem;
+    }
+}
