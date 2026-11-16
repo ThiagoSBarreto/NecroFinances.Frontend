@@ -29,20 +29,41 @@
         <div class="toolbar-middle-right">
             <div class="gastos-diario" title="Gasto Diário" (click)="historicoGastos()">
                 <div class="label-gastos-diarios">Hoje: </div>
-                <div class="texto-valor-barra mr-3">{{ gastoDiaAtual | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                <div class="texto-valor-barra mr-3">{{ gastoDiaAtual | currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}</div>
                 <div [ngClass]="getClassDiferenca(diferencaGasto)">
                     <div class="texto-diferenca-barra"><i
-                            [ngClass]="getIconValor(diferencaGasto)"></i>{{ diferencaGasto | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</div>
+                            [ngClass]="getIconValor(diferencaGasto)"></i>{{ diferencaGasto | currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}</div>
                 </div>
             </div>
         </div>
 
         <div class="toolbar-right">
+            <p-button styleClass="btn-acao btn-privacy" [icon]="valueVisibility.isHidden() ? 'pi pi-eye-slash' : 'pi pi-eye'"
+                [title]="valueVisibility.isHidden() ? 'Exibir valores' : 'Ocultar valores'"
+                [ariaLabel]="valueVisibility.isHidden() ? 'Exibir valores' : 'Ocultar valores'"
+                [disabled]="!valueVisibility.isLoaded() || visibilitySaving"
+                (onClick)="toggleValueVisibility()"></p-button>
             <p-button styleClass="btn-acao btn-logout" severity="danger" icon="pi pi-sign-out" iconPos="left"
                 title="Logout" (onClick)="logout()"></p-button>
         </div>
     </div>
 </p-toolbar>
+
+<p-dialog header="Exibir valores" [(visible)]="passwordDialogVisible" [modal]="true" [style]="{ width: 'min(92vw, 420px)' }"
+    [closable]="!visibilitySaving" [closeOnEscape]="!visibilitySaving" [dismissableMask]="!visibilitySaving"
+    (onHide)="closePasswordDialog()">
+    <div class="password-prompt">
+        <label for="unlock-password">Digite sua senha para exibir os valores.</label>
+        <input pInputText id="unlock-password" type="password" [(ngModel)]="unlockPassword"
+            autocomplete="current-password" [disabled]="visibilitySaving" (keydown.enter)="unlockValues()">
+    </div>
+    <ng-template pTemplate="footer">
+        <p-button label="Cancelar" severity="secondary" [disabled]="visibilitySaving"
+            (onClick)="closePasswordDialog()"></p-button>
+        <p-button label="Exibir valores" severity="success" [loading]="visibilitySaving"
+            [disabled]="!unlockPassword.trim() || visibilitySaving" (onClick)="unlockValues()"></p-button>
+    </ng-template>
+</p-dialog>
 
 <dialog-novo-gasto #dialogNovoGasto (onNovoGasto)="onAdicionar($event)"></dialog-novo-gasto>
 <dialog-editar-settings #dialogEditarSettings (onSalvar)="salvarSettings($event)"></dialog-editar-settings>

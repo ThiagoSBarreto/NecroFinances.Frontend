@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -9,6 +9,8 @@ import { DialogNovoGastoComponent } from '../novo.gasto/dialog.novo.gasto.compon
 import { IconesDescricao, IconesEnum } from '../../../../models/icones.enum';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MaskValuePipe } from '../../../../pipes/mask-value.pipe';
+import { ValueVisibilityService } from '../../../../services/value-visibility.service';
 
 @Component({
     selector: 'app-dialog-visualizar-origem',
@@ -16,13 +18,15 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     templateUrl: './dialog.visualizar.origem.component.html',
     styleUrls: ['./dialog.visualizar.origem.component.scss'],
     imports: [
-        CommonModule, DialogModule, ButtonModule, FormsModule, DialogNovoGastoComponent, CurrencyPipe, ConfirmDialogModule
+        CommonModule, DialogModule, ButtonModule, FormsModule, DialogNovoGastoComponent, CurrencyPipe, ConfirmDialogModule,
+        MaskValuePipe
     ],
     providers: [
         ConfirmationService
     ]
 })
 export class DialogVisualizarOrigemComponent {
+    readonly valueVisibility = inject(ValueVisibilityService);
     visible: boolean = false;
     header: string = 'Gastos que compões a categoria';
     gastoConsolidado: GastoConsolidadoModel;

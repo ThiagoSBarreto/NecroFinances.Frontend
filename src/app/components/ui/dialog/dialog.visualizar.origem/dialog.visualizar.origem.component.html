@@ -13,12 +13,12 @@
                     </div>
                     <span class="linha-data">{{ item.dataGasto | date:'dd/MM/yyyy' }}</span>
                     <div class="linha-valor">
-                        {{ item.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        {{ item.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}
                     </div>
                     <div class="barra-container">
-                        <div class="barra-preenchida" [style.width.%]="(item.valor / gastoConsolidado.valor) * 100"
+                        <div class="barra-preenchida" [style.width.%]="valueVisibility.isHidden() ? 0 : (item.valor / gastoConsolidado.valor) * 100"
                             [style.background]="getBarColor((item.valor / gastoConsolidado.valor) / 0.3)"></div>
-                        <span class="barra-porcentagem">{{ ((item.valor / gastoConsolidado.valor) * 100).toFixed(2) }}%</span>
+                        <span class="barra-porcentagem">{{ (((item.valor / gastoConsolidado.valor) * 100).toFixed(2) + '%') | maskValue }}</span>
                     </div>
                     <div class="linha-acoes">
                         <button type="button" class="btn-acao btn-navegacao" (click)="onEdit(item)" title="Editar"

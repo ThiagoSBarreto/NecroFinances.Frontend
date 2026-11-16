@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { Component, ElementRef, EventEmitter, Input, OnChanges, Output, SimpleChanges, ViewChild, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { CommonModule, CurrencyPipe, DatePipe } from "@angular/common";
 import { TableModule } from "primeng/table";
@@ -15,6 +15,8 @@ import { IndicadorTipoRecursoEnum } from "../../../models/gasto.tipo.enum";
 import { DialogNovoGastoComponent } from "../../ui/dialog/novo.gasto/dialog.novo.gasto.component";
 import { DiaGastoModel } from "../../../models/dia.gasto.model";
 import { DateUtils } from "../../../helpers/data.utils";
+import { MaskValuePipe } from "../../../pipes/mask-value.pipe";
+import { ValueVisibilityService } from "../../../services/value-visibility.service";
 
 @Component({
     selector: 'app-middle-component',
@@ -22,6 +24,7 @@ import { DateUtils } from "../../../helpers/data.utils";
     styleUrls: ['./app.middle.component.scss'],
     imports: [
         CommonModule, FormsModule, CurrencyPipe,
+        MaskValuePipe,
         CardModule, TableModule, ButtonModule,
         DialogVisualizarOrigemComponent, DialogNovoGastoComponent, ConfirmDialogModule
     ],
@@ -30,6 +33,7 @@ import { DateUtils } from "../../../helpers/data.utils";
     ]
 })
 export class AppMiddleComponent implements OnChanges {
+    readonly valueVisibility = inject(ValueVisibilityService);
 
     gastoConsolidado: GastoConsolidadoModel;
 

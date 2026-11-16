@@ -25,9 +25,8 @@ export class LoginService {
         return this.http.post<LoginResponseModel>(`${environment.loginContext}login`, user);
     }
 
-    logout(userID: string) {
-        sessionStorage.clear();
-        return this.http.get(`${environment.loginContext}logout?userID=${userID}`);
+    logout(refreshToken: string): Observable<void> {
+        return this.http.post<void>(`${environment.loginContext}logout`, { refreshToken });
     }
 
     registrar(username: string, password: string): Observable<UserModel> {

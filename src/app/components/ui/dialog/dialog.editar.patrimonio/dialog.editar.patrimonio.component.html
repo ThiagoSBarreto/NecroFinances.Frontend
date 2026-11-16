@@ -25,9 +25,13 @@
 
                         <div class="field-info value-field">
                             <label>Valor</label>
-                            <p-inputNumber formControlName="valorPropriedade" mode="currency" currency="BRL"
-                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
-                            </p-inputNumber>
+                            @if (valueVisibility.isHidden()) {
+                                <span class="masked-value">********</span>
+                            } @else {
+                                <p-inputNumber formControlName="valorPropriedade" mode="currency" currency="BRL"
+                                    locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                                </p-inputNumber>
+                            }
                         </div>
 
                         <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
@@ -56,9 +60,13 @@
 
                         <div class="field-info value-field">
                             <label>Valor</label>
-                            <p-inputNumber formControlName="valorInvestimento" mode="currency" currency="BRL"
-                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
-                            </p-inputNumber>
+                            @if (valueVisibility.isHidden()) {
+                                <span class="masked-value">********</span>
+                            } @else {
+                                <p-inputNumber formControlName="valorInvestimento" mode="currency" currency="BRL"
+                                    locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                                </p-inputNumber>
+                            }
                         </div>
 
                         <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
@@ -87,9 +95,13 @@
 
                         <div class="field-info value-field">
                             <label>Valor</label>
-                            <p-inputNumber formControlName="valorFinanciamento" mode="currency" currency="BRL"
-                                locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
-                            </p-inputNumber>
+                            @if (valueVisibility.isHidden()) {
+                                <span class="masked-value">********</span>
+                            } @else {
+                                <p-inputNumber formControlName="valorFinanciamento" mode="currency" currency="BRL"
+                                    locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
+                                </p-inputNumber>
+                            }
                         </div>
 
                         <button pButton icon="pi pi-trash" class="remove-button" (click)="remover(item)"></button>
