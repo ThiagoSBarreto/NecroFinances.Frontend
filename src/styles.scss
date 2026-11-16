@@ -336,7 +336,7 @@ body {
         top: 0;
         z-index: 5;
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(5, minmax(0, 1fr));
         gap: 0.5rem;
         padding: 0.5rem;
         background: #121212;

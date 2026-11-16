@@ -38,6 +38,8 @@ export class AppMiddleComponent implements OnChanges {
     @Output() onEditarGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output() onRemoverGastos: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
     @Output() onNovoGasto: EventEmitter<GastosModel> = new EventEmitter<GastosModel>();
+    @Output() onAbrirSettings: EventEmitter<void> = new EventEmitter<void>();
+    @Output() onAbrirPatrimonio: EventEmitter<void> = new EventEmitter<void>();
 
     @ViewChild('dialogOrigem') dialogOrigem: DialogVisualizarOrigemComponent;
     @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
