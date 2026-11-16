@@ -273,21 +273,42 @@
 
 @media (max-width: 1100px) {
     .panels-container {
-        grid-template-columns: 1fr;
+        flex-direction: column;
     }
 
     .patrimonio-panel {
         max-height: none;
     }
+
+    .cards-grid {
+        min-width: 0;
+        min-height: 0;
+        max-height: 30vh;
+    }
+
+    .field-card {
+        grid-template-columns: 20px minmax(0, 1fr) minmax(0, 0.85fr) 34px;
+    }
+
+    .value-field {
+        grid-column: auto;
+    }
+
+    :host ::ng-deep .p-dialog-content {
+        overflow-y: auto !important;
+    }
 }
 
 @media (max-width: 640px) {
     .field-card {
-        grid-template-columns: 20px minmax(0, 1fr) 34px;
+        grid-template-columns: 18px minmax(0, 1fr) minmax(0, 0.85fr) 32px;
+        gap: 4px;
+        padding: 6px;
     }
 
-    .value-field {
-        grid-column: 2 / 4;
+    :host ::ng-deep .p-inputtext,
+    :host ::ng-deep .p-inputnumber-input {
+        font-size: 0.75rem;
     }
 }
 

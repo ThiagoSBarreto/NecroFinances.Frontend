@@ -1,15 +1,23 @@
 @if(data) {
     <nav class="mobile-navigation" aria-label="Navegação financeira">
         <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'resumo'"
-            aria-label="Resumo financeiro" (click)="abaMobile = 'resumo'">
-            <i class="pi pi-dollar"></i>
+            aria-label="Início" title="Início" (click)="abaMobile = 'resumo'">
+            <i class="pi pi-home"></i>
+        </button>
+        <button type="button" class="mobile-nav-button" aria-label="Configurações" title="Configurações"
+            (click)="onAbrirSettings.emit()">
+            <i class="pi pi-cog"></i>
         </button>
         <button type="button" class="mobile-nav-button mobile-add-button" aria-label="Adicionar gasto"
             title="Adicionar gasto" (click)="adicionarGasto()">
             <i class="pi pi-plus"></i>
         </button>
+        <button type="button" class="mobile-nav-button" aria-label="Patrimônio" title="Patrimônio"
+            (click)="onAbrirPatrimonio.emit()">
+            <i class="pi pi-wallet"></i>
+        </button>
         <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'gastos'"
-            aria-label="Lista de gastos" (click)="abaMobile = 'gastos'">
+            aria-label="Lista de gastos por dia" title="Lista de gastos por dia" (click)="abaMobile = 'gastos'">
             <i class="pi pi-list"></i>
         </button>
     </nav>
@@ -92,6 +100,82 @@
                         {{ data.diferencaPatrimonio | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                     </span>
                 </div>
+            </section>
+
+            <section class="card mobile-metric-card">
+                <div class="labels-card-superior">Gastos</div>
+                <div class="mobile-metric-row">
+                    <span>Fixos</span>
+                    <strong class="valor-descontos">{{ data.totalGastosFixos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValorDivida(data.diferencaGastosFixos)">
+                        <i [ngClass]="getIconValor(data.diferencaGastosFixos)"></i>
+                        {{ data.diferencaGastosFixos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Parcelados</span>
+                    <strong class="valor-descontos">{{ data.totalGastosParcelados | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValorDivida(data.diferencaGastosParcelados)">
+                        <i [ngClass]="getIconValor(data.diferencaGastosParcelados)"></i>
+                        {{ data.diferencaGastosParcelados | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                <div class="mobile-metric-row">
+                    <span>Avulsos</span>
+                    <strong class="valor-descontos">{{ data.totalGastosAvulsos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValorDivida(data.diferencaGastosAvulsos)">
+                        <i [ngClass]="getIconValor(data.diferencaGastosAvulsos)"></i>
+                        {{ data.diferencaGastosAvulsos | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+            </section>
+
+            <section class="card mobile-metric-card">
+                <div class="labels-card-superior">Propriedades</div>
+                @for(item of data.propriedades; track item.id) {
+                <div class="mobile-metric-row">
+                    <span [title]="item.nomePropriedade">{{ item.nomePropriedade }}</span>
+                    <strong class="valor-positivo">{{ item.valorPropriedade | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(item.diferenca)">
+                        <i [ngClass]="getIconValor(item.diferenca)"></i>
+                        {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                } @empty {
+                <div class="mobile-empty-state">Nenhuma propriedade cadastrada.</div>
+                }
+            </section>
+
+            <section class="card mobile-metric-card">
+                <div class="labels-card-superior">Investimentos</div>
+                @for(item of data.investimentos; track item.id) {
+                <div class="mobile-metric-row">
+                    <span [title]="item.nomeInvestimento">{{ item.nomeInvestimento }}</span>
+                    <strong class="valor-positivo">{{ item.valorInvestimento | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValor(item.diferenca)">
+                        <i [ngClass]="getIconValor(item.diferenca)"></i>
+                        {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                } @empty {
+                <div class="mobile-empty-state">Nenhum investimento cadastrado.</div>
+                }
+            </section>
+
+            <section class="card mobile-metric-card">
+                <div class="labels-card-superior">Financiamentos</div>
+                @for(item of data.financiamentos; track item.id) {
+                <div class="mobile-metric-row">
+                    <span [title]="item.nomeFinanciamento">{{ item.nomeFinanciamento }}</span>
+                    <strong class="valor-descontos">{{ item.valorFinanciamento | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                    <span class="mobile-difference" [ngClass]="getClassValorDivida(item.diferenca)">
+                        <i [ngClass]="getIconValor(item.diferenca)"></i>
+                        {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                    </span>
+                </div>
+                } @empty {
+                <div class="mobile-empty-state">Nenhum financiamento cadastrado.</div>
+                }
             </section>
         </div>
         } @else {
