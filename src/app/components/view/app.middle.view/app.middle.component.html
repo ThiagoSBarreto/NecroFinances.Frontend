@@ -16,6 +16,10 @@
             (click)="onAbrirPatrimonio.emit()">
             <i class="pi pi-wallet"></i>
         </button>
+        <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'fixos'"
+            aria-label="Gastos fixos" title="Gastos fixos" (click)="abaMobile = 'fixos'">
+            <i class="pi pi-credit-card"></i>
+        </button>
         <button type="button" class="mobile-nav-button" [class.active]="abaMobile === 'gastos'"
             aria-label="Lista de gastos por dia" title="Lista de gastos por dia" (click)="abaMobile = 'gastos'">
             <i class="pi pi-list"></i>
@@ -178,6 +182,68 @@
                 }
             </section>
         </div>
+        } @else if(abaMobile === 'fixos') {
+        <section class="mobile-expense-list">
+            <article class="mobile-day-card">
+                <div class="mobile-day-header">
+                    <strong>Gastos Fixos - Crédito</strong>
+                </div>
+                <div class="mobile-day-expenses">
+                    @for(item of data.listaGastosFixosCartao; track item.id) {
+                    <button type="button" class="mobile-fixed-expense-row"
+                        [attr.aria-label]="'Detalhes de ' + getDescricao(item.categoria)"
+                        (click)="abrirOrigem(item)">
+                        <span class="mobile-fixed-expense-main">
+                            <span class="mobile-expense-description">
+                                <i class="icone-categoria" [class]="item.categoria"></i>
+                                <span>{{ getDescricao(item.categoria) }}</span>
+                            </span>
+                            <strong>{{ item.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                        </span>
+                        <span class="mobile-fixed-expense-details">
+                            <span>{{ (item.percentagem * 100).toFixed(2) }}% do líquido</span>
+                            <span [ngClass]="getClassValorDivida(item.diferenca)">
+                                <i [ngClass]="getIconValor(item.diferenca)"></i>
+                                {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                            </span>
+                        </span>
+                    </button>
+                    } @empty {
+                    <div class="mobile-empty-state">Nenhum gasto fixo no crédito.</div>
+                    }
+                </div>
+            </article>
+
+            <article class="mobile-day-card">
+                <div class="mobile-day-header">
+                    <strong>Gastos Fixos - Débito</strong>
+                </div>
+                <div class="mobile-day-expenses">
+                    @for(item of data.listaGastosFixosDebto; track item.id) {
+                    <button type="button" class="mobile-fixed-expense-row"
+                        [attr.aria-label]="'Detalhes de ' + getDescricao(item.categoria)"
+                        (click)="abrirOrigem(item)">
+                        <span class="mobile-fixed-expense-main">
+                            <span class="mobile-expense-description">
+                                <i class="icone-categoria" [class]="item.categoria"></i>
+                                <span>{{ getDescricao(item.categoria) }}</span>
+                            </span>
+                            <strong>{{ item.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}</strong>
+                        </span>
+                        <span class="mobile-fixed-expense-details">
+                            <span>{{ (item.percentagem * 100).toFixed(2) }}% do líquido</span>
+                            <span [ngClass]="getClassValorDivida(item.diferenca)">
+                                <i [ngClass]="getIconValor(item.diferenca)"></i>
+                                {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                            </span>
+                        </span>
+                    </button>
+                    } @empty {
+                    <div class="mobile-empty-state">Nenhum gasto fixo no débito.</div>
+                    }
+                </div>
+            </article>
+        </section>
         } @else {
         <section class="mobile-expense-list">
             @for(dia of gastosPorDia; track dia.data) {

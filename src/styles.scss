@@ -336,7 +336,7 @@ body {
         top: 0;
         z-index: 5;
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         gap: 0.5rem;
         padding: 0.5rem;
         background: #121212;
@@ -478,6 +478,51 @@ body {
         min-height: 42px;
         border-top: 1px solid rgba(255, 255, 255, 0.08);
         font-size: 0.8rem;
+    }
+
+    .app-middle-view .mobile-fixed-expense-row {
+        display: flex;
+        width: 100%;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.25rem;
+        min-height: 54px;
+        padding: 0.5rem 0;
+        border: 0;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        background: transparent;
+        color: #eee;
+        text-align: left;
+    }
+
+    .app-middle-view .mobile-fixed-expense-main {
+        display: flex;
+        min-width: 0;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+    }
+
+    .app-middle-view .mobile-fixed-expense-main > strong {
+        font-size: 0.8rem;
+        white-space: nowrap;
+    }
+
+    .app-middle-view .mobile-fixed-expense-details {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.5rem;
+        padding-left: 1.4rem;
+        color: #aaa;
+        font-size: 0.68rem;
+    }
+
+    .app-middle-view .mobile-fixed-expense-details > span:last-child {
+        display: flex;
+        align-items: center;
+        gap: 0.15rem;
+        white-space: nowrap;
     }
 
     .app-middle-view .mobile-expense-description {
