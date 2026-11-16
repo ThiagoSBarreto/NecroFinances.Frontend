@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, OnInit, Output, ViewChild } from "@angular/core";
+import { Component, EventEmitter, OnInit, Output, ViewChild, inject } from "@angular/core";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";
@@ -8,6 +8,7 @@ import { InputNumberModule } from "primeng/inputnumber";
 import { IndicadorTipoGastoEnum, IndicadorTipoRecursoEnum } from "../../../../models/gasto.tipo.enum";
 import { GastosModel } from "../../../../models/gasto.model";
 import { IconesDescricao, IconesEnum } from "../../../../models/icones.enum";
+import { ValueVisibilityService } from "../../../../services/value-visibility.service";
 
 @Component({
     selector: 'dialog-novo-gasto',
@@ -25,6 +26,7 @@ import { IconesDescricao, IconesEnum } from "../../../../models/icones.enum";
     ]
 })
 export class DialogNovoGastoComponent implements OnInit {
+    readonly valueVisibility = inject(ValueVisibilityService);
     display: boolean = false;
     titulo: string = 'Novo Gasto';
     modoEditar: boolean = false;

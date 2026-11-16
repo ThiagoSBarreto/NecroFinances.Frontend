@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe, DatePipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,8 @@ import { ConfirmationService } from 'primeng/api';
 import { GastosModel } from '../../../../models/gasto.model';
 import { DialogNovoGastoComponent } from '../novo.gasto/dialog.novo.gasto.component';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { MaskValuePipe } from '../../../../pipes/mask-value.pipe';
+import { ValueVisibilityService } from '../../../../services/value-visibility.service';
 
 @Component({
     selector: 'dialog-lista-gastos',
@@ -14,6 +16,7 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
     styleUrls: ['./dialog.lista.gastos.component.scss'],
     imports: [
         CommonModule, DialogModule, ButtonModule, FormsModule, CurrencyPipe,
+        MaskValuePipe,
         DialogNovoGastoComponent, ConfirmDialogModule
     ],
     providers: [
@@ -22,9 +25,17 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 })
 export class DialogListaGastoComponent {
     visible: boolean = false;
-    header: string = '';
+    private headerDate: string = '';
     gastos: GastosModel[];
     total: number;
+    readonly valueVisibility = inject(ValueVisibilityService);
+
+    get header(): string {
+        const total = this.valueVisibility.isHidden()
+            ? '********'
+            : this.currencyPipe.transform(this.total, 'BRL', 'symbol', '1.2-2', 'pt-BR') ?? '';
+        return `${this.headerDate} | ${total}`;
+    }
 
     @Output() onEditarGasto = new EventEmitter<GastosModel>();
     @Output() onRemoverGasto = new EventEmitter<GastosModel>();
@@ -44,7 +55,7 @@ export class DialogListaGastoComponent {
     }
 
     open(total: number, gastos: GastosModel[]): void {
-        this.header = `${this.datePipe.transform(gastos[0].dataGasto, 'dd/MM/yyyy')} | ${this.currencyPipe.transform(total, 'BRL', 'symbol', '1.2-2', 'pt-BR' )}`;
+        this.headerDate = this.datePipe.transform(gastos[0].dataGasto, 'dd/MM/yyyy') ?? '';
         this.total = total;
         this.gastos = gastos.sort((a, b) => b.valor - a.valor);
         this.visible = true;

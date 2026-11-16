@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, EventEmitter, Output, ViewChild, inject } from '@angular/core';
 import { CommonModule, CurrencyPipe } from '@angular/common';
 import { DialogModule } from 'primeng/dialog';
 import { ButtonModule } from 'primeng/button';
@@ -7,6 +7,8 @@ import { ConfirmationService } from 'primeng/api';
 import { DiaGastoModel } from '../../../../models/dia.gasto.model';
 import { DialogListaGastoComponent } from '../dialog.lista.gastos/dialog.lista.gastos.component';
 import { GastosModel } from '../../../../models/gasto.model';
+import { MaskValuePipe } from '../../../../pipes/mask-value.pipe';
+import { ValueVisibilityService } from '../../../../services/value-visibility.service';
 
 @Component({
     selector: 'dialog-gastos-diarios',
@@ -14,6 +16,7 @@ import { GastosModel } from '../../../../models/gasto.model';
     styleUrls: ['./dialog.gastos.diarios.component.scss'],
     imports: [
         CommonModule, DialogModule, ButtonModule, FormsModule, CurrencyPipe,
+        MaskValuePipe,
         DialogListaGastoComponent
     ],
     providers: [
@@ -21,6 +24,7 @@ import { GastosModel } from '../../../../models/gasto.model';
     ]
 })
 export class DialogGastosDiariosComponent {
+    readonly valueVisibility = inject(ValueVisibilityService);
     visible: boolean = false;
     header: string = 'Gastos Diários';
     gastos: DiaGastoModel[];

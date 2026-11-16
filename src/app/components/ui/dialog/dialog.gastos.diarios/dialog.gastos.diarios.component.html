@@ -11,19 +11,19 @@
                         {{ item.data | date:'dd/MM/yyyy'}}
                     </div>
                     <div class="col texto-valor-barra">
-                        {{ item.total| currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        {{ item.total| currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}
                     </div>
                     <div class="col texto-diferenca-cell" [ngClass]="getClassValorDivida(item.diferenca)">
                         <div class="texto-diferenca-barra" [ngClass]="getBordaDiferenca(item.diferenca)">
                             <i [ngClass]="getIconValor(item.diferenca)"></i>
-                            {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                            {{ item.diferenca | currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}
                         </div>
                     </div>
                     <div class="col texto-data-barra">
                         <div class="barra-container">
-                            <div class="barra-preenchida" [style.width.%]="(item.percentagem) * 100"
+                            <div class="barra-preenchida" [style.width.%]="valueVisibility.isHidden() ? 0 : item.percentagem * 100"
                                 [style.background]="getBarColor(item.percentagem / 0.3)"></div>
-                            <span class="barra-porcentagem">{{ (item.percentagem * 100).toFixed(2) }}%</span>
+                            <span class="barra-porcentagem">{{ ((item.percentagem * 100).toFixed(2) + '%') | maskValue }}</span>
                         </div>
                     </div>
                 </div>

@@ -91,6 +91,22 @@ body {
     border-color: tomato !important;
 }
 
+.btn-privacy .pi,
+.p-button.btn-privacy .pi {
+    color: #b7c8ff !important;
+}
+
+.btn-privacy:hover,
+.p-button.btn-privacy:hover {
+    border-color: #b7c8ff !important;
+}
+
+.masked-value {
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    user-select: none;
+}
+
 .card-group,
 .card-group-bottom {
     display: flex;

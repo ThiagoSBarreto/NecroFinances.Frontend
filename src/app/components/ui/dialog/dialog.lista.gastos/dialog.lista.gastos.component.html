@@ -11,13 +11,13 @@
                         <i class="icone-categoria" [class]="item.icone"></i>{{ item.descricao }}
                     </div>
                     <div class="col texto-valor-barra">
-                        {{ item.valor| currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
+                        {{ item.valor| currency:'BRL':'symbol':'1.2-2':'pt-BR' | maskValue }}
                     </div>
                     <div class="col texto-data-barra">
                         <div class="barra-container">
-                            <div class="barra-preenchida" [style.width.%]="(item.valor / total) * 100"
+                            <div class="barra-preenchida" [style.width.%]="valueVisibility.isHidden() ? 0 : (item.valor / total) * 100"
                                 [style.background]="getBarColor((item.valor / total) / 0.3)"></div>
-                            <span class="barra-porcentagem">{{ ((item.valor / total) * 100).toFixed(2) }}%</span>
+                            <span class="barra-porcentagem">{{ (((item.valor / total) * 100).toFixed(2) + '%') | maskValue }}</span>
                         </div>
                     </div>
                     <div class="daily-expense-actions">

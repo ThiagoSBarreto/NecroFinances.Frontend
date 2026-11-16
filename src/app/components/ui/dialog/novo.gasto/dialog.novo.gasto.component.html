@@ -23,9 +23,13 @@
                 <i class="pi pi-dollar"></i>
                 <div class="field-info">
                     <label for="valor">Valor (R$)</label>
-                    <p-inputNumber #valorInput id="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"
-                        [min]="0" (onFocus)="selecionarValor()">
-                    </p-inputNumber>
+                    @if (valueVisibility.isHidden()) {
+                        <span class="masked-value">********</span>
+                    } @else {
+                        <p-inputNumber #valorInput id="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"
+                            [min]="0" (onFocus)="selecionarValor()">
+                        </p-inputNumber>
+                    }
                 </div>
             </div>
 
@@ -88,11 +92,15 @@
                         <i class="pi pi-list"></i>
                         <div class="field-info">
                             <label for="totalParcelas">Parcelas</label>
-                            <p-inputNumber id="totalParcelas" formControlName="totalParcelas" [min]="1" [showButtons]="true"
-                                buttonLayout="horizontal" decrementButtonClass="p-button-secondary"
-                                incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
-                                decrementButtonIcon="pi pi-minus">
-                            </p-inputNumber>
+                            @if (valueVisibility.isHidden()) {
+                                <span class="masked-value">********</span>
+                            } @else {
+                                <p-inputNumber id="totalParcelas" formControlName="totalParcelas" [min]="1" [showButtons]="true"
+                                    buttonLayout="horizontal" decrementButtonClass="p-button-secondary"
+                                    incrementButtonClass="p-button-secondary" incrementButtonIcon="pi pi-plus"
+                                    decrementButtonIcon="pi pi-minus">
+                                </p-inputNumber>
+                            }
                         </div>
                     </div>
                 }
@@ -113,12 +121,12 @@
     @if(modoEditar == false) {
     <ng-template pTemplate="footer">
         <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
-        <p-button label="Adicionar" severity="success" [disabled]="formGasto.invalid" (onClick)="adicionar()"></p-button>
+        <p-button label="Adicionar" severity="success" [disabled]="formGasto.invalid || valueVisibility.isHidden()" (onClick)="adicionar()"></p-button>
     </ng-template>
     } @else {
     <ng-template pTemplate="footer">
         <p-button label="Cancelar" severity="danger" (onClick)="cancelar()"></p-button>
-        <p-button label="Atualizar" severity="success" [disabled]="formGasto.invalid" (onClick)="adicionar()"></p-button>
+        <p-button label="Atualizar" severity="success" [disabled]="formGasto.invalid || valueVisibility.isHidden()" (onClick)="adicionar()"></p-button>
     </ng-template>
     }
 

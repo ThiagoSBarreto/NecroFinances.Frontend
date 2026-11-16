@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { AfterViewChecked, Component, EventEmitter, OnInit, Output } from "@angular/core";
+import { AfterViewChecked, Component, EventEmitter, OnInit, Output, inject } from "@angular/core";
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DialogModule } from "primeng/dialog";
 import { InputNumberModule } from "primeng/inputnumber";
@@ -7,6 +7,7 @@ import { ButtonModule } from "primeng/button";
 import { SettingsModel } from "../../../../models/settings.model";
 import { MesModel } from "../../../../models/month.model";
 import { PatrimonioModel } from "../../../../models/patrimonio.model";
+import { ValueVisibilityService } from "../../../../services/value-visibility.service";
 
 @Component({
     selector: 'dialog-editar-settings',
@@ -19,6 +20,7 @@ import { PatrimonioModel } from "../../../../models/patrimonio.model";
     ]
 })
 export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {
+    readonly valueVisibility = inject(ValueVisibilityService);
 
     display: boolean = false;
     titulo: string = "Editar Configurações";

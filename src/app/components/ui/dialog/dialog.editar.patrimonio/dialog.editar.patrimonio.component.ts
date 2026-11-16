@@ -1,5 +1,5 @@
 import { CommonModule } from "@angular/common";
-import { Component, EventEmitter, Output } from "@angular/core";
+import { Component, EventEmitter, Output, inject } from "@angular/core";
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from "@angular/forms";
 import { DialogModule } from "primeng/dialog";
 import { InputNumberModule } from "primeng/inputnumber";
@@ -10,6 +10,7 @@ import { PatrimonioModel } from "../../../../models/patrimonio.model";
 import { PropriedadeModel } from "../../../../models/propriedade.model";
 import { InvestimentoModel } from "../../../../models/investimento.model";
 import { FinanciamentoModel } from "../../../../models/financiamento.model";
+import { ValueVisibilityService } from "../../../../services/value-visibility.service";
 
 @Component({
     selector: 'dialog-editar-patrimonio',
@@ -26,6 +27,7 @@ import { FinanciamentoModel } from "../../../../models/financiamento.model";
     ]
 })
 export class DialogEditarPatrimonioComponent {
+    readonly valueVisibility = inject(ValueVisibilityService);
 
     display = false;
 

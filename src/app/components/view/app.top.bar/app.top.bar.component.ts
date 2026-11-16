@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild } from "@angular/core";
+import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChanges, ViewChild, inject } from "@angular/core";
 import { FormsModule } from "@angular/forms";
 import { ButtonModule } from "primeng/button";
 import { DatePickerModule } from "primeng/datepicker";
@@ -16,6 +16,11 @@ import { GastoConsolidadoModel } from "../../../models/gasto.consolidado.model";
 import { DialogGastosDiariosComponent } from "../../ui/dialog/dialog.gastos.diarios/dialog.gastos.diarios.component";
 import { DiaGastoModel } from "../../../models/dia.gasto.model";
 import { DateUtils } from "../../../helpers/data.utils";
+import { DialogModule } from "primeng/dialog";
+import { InputTextModule } from "primeng/inputtext";
+import { MessageService } from "primeng/api";
+import { ValueVisibilityService } from "../../../services/value-visibility.service";
+import { MaskValuePipe } from "../../../pipes/mask-value.pipe";
 
 @Component({
     selector: 'app-top-bar-component',
@@ -24,11 +29,14 @@ import { DateUtils } from "../../../helpers/data.utils";
     imports: [
         FormsModule, CommonModule,
         ButtonModule, DatePickerModule, ToolbarModule,
+        DialogModule, InputTextModule, MaskValuePipe,
         DialogEditarSettingsComponent, DialogNovoGastoComponent, DialogGastosDiariosComponent,
         DialogEditarPatrimonioComponent,
     ]
 })
 export class AppTopBarComponent implements OnInit, OnChanges {
+    readonly valueVisibility = inject(ValueVisibilityService);
+    private readonly messageService = inject(MessageService);
 
     @Input('settings') settings: SettingsModel;
     @Input('mes') mes: MesModel;
@@ -56,6 +64,9 @@ export class AppTopBarComponent implements OnInit, OnChanges {
 
     gastoDiaAtual: number;
     diferencaGasto: number;
+    passwordDialogVisible = false;
+    visibilitySaving = false;
+    unlockPassword = '';
 
     ngOnChanges(changes: SimpleChanges): void {
         if ((changes['mes'] && this.mes) || (changes['settings'] && this.settings) || (changes['mainData'] && this.mainData)) {
@@ -290,6 +301,61 @@ export class AppTopBarComponent implements OnInit, OnChanges {
 
     logout(): void {
         this.onLogout.emit();
+    }
+
+    toggleValueVisibility(): void {
+        if (!this.valueVisibility.isLoaded() || this.visibilitySaving) {
+            return;
+        }
+
+        if (this.valueVisibility.isHidden()) {
+            this.passwordDialogVisible = true;
+            return;
+        }
+
+        this.updateValueVisibility(true);
+    }
+
+    unlockValues(): void {
+        if (!this.unlockPassword.trim() || this.visibilitySaving) {
+            return;
+        }
+
+        this.updateValueVisibility(false, this.unlockPassword);
+    }
+
+    closePasswordDialog(): void {
+        if (this.visibilitySaving) {
+            return;
+        }
+
+        this.passwordDialogVisible = false;
+        this.unlockPassword = '';
+    }
+
+    private updateValueVisibility(hideValues: boolean, password?: string): void {
+        this.visibilitySaving = true;
+        this.valueVisibility.update(hideValues, password).subscribe({
+            next: () => {
+                this.visibilitySaving = false;
+                if (!hideValues) {
+                    this.passwordDialogVisible = false;
+                    this.unlockPassword = '';
+                }
+            },
+            error: (error) => {
+                this.visibilitySaving = false;
+                const detail = error.status === 401 && !hideValues
+                    ? 'Senha inválida.'
+                    : 'Não foi possível salvar a preferência de privacidade.';
+                this.messageService.add({
+                    severity: 'error',
+                    summary: 'Erro',
+                    detail,
+                    life: 3000
+                });
+            }
+        });
     }
 
     editarGasto(gasto: GastosModel): void {

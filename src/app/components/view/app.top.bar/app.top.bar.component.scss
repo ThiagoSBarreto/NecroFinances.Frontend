@@ -52,6 +52,12 @@
     gap: 8px;
 }
 
+.password-prompt {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
 .toolbar-middle .p-datepicker-trigger .pi {
     font-size: 1.25rem;
     color: inherit !important; 

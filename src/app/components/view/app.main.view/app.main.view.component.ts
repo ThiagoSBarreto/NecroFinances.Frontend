@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { Router } from "@angular/router";
 import { AppTopBarComponent } from "../app.top.bar/app.top.bar.component";
 import { AppMiddleComponent } from "../app.middle.view/app.middle.component";
@@ -18,6 +18,7 @@ import { DashboardModel } from "../../../models/main.data.model";
 import { DashboardService } from "../../../services/dashboard.service";
 import { DateUtils } from "../../../helpers/data.utils";
 import { LoginService } from "../../../services/login.service";
+import { ValueVisibilityService } from "../../../services/value-visibility.service";
 
 @Component({
     selector: 'app-main-view-component',
@@ -32,7 +33,7 @@ import { LoginService } from "../../../services/login.service";
         MessageService, LoginService
     ]
 })
-export class AppMainViewComponent {
+export class AppMainViewComponent implements OnInit {
     isMobile = window.matchMedia("(max-width: 768px)").matches;
 
     settings: SettingsModel;
@@ -50,9 +51,16 @@ export class AppMainViewComponent {
         private messageService: MessageService,
         private dashboardService: DashboardService,
         private router: Router,
-        private loginService: LoginService
+        private loginService: LoginService,
+        private valueVisibilityService: ValueVisibilityService
     ) {
 
+    }
+
+    ngOnInit(): void {
+        this.valueVisibilityService.load().subscribe({
+            error: () => this.toast('error', 'Não foi possível carregar a preferência de privacidade.')
+        });
     }
 
     onNovaData(range: Date[]): void {
