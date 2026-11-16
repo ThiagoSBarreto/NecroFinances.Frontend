@@ -7,6 +7,11 @@
     overflow-x: hidden;
 }
 
+.dialog-content {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
 .tabela-header {
     display: flex;
     background-color: #2b2b2b;
@@ -23,15 +28,68 @@
 }
 
 .linha-item {
-    display: flex;
+    display: grid;
+    grid-template-columns: minmax(150px, 1.3fr) minmax(85px, 0.75fr) minmax(105px, 0.9fr) minmax(105px, 1fr) auto;
+    grid-template-areas: "descricao data valor barra acoes";
     align-items: center;
-    padding: 0.75rem 0.5rem;
+    gap: 0.75rem;
+    padding: 0.75rem 0.25rem;
     border-bottom: 1px solid #2b2b2b;
     transition: background-color 0.2s ease;
 }
 
 .linha-item:hover {
     background-color: rgba(255, 255, 255, 0.05);
+}
+
+.linha-descricao {
+    display: flex;
+    min-width: 0;
+    grid-area: descricao;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: bold;
+}
+
+.linha-descricao .icone-categoria {
+    flex: 0 0 auto;
+    margin: 0;
+}
+
+.linha-descricao span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.linha-valor {
+    grid-area: valor;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.linha-data {
+    grid-area: data;
+    color: #aaa;
+    font-size: 0.75rem;
+    text-align: center;
+    white-space: nowrap;
+}
+
+.linha-item > .barra-container {
+    grid-area: barra;
+}
+
+.linha-acoes {
+    display: flex;
+    grid-area: acoes;
+    align-items: center;
+    justify-content: flex-end;
+    white-space: nowrap;
 }
 
 .header-cell {
@@ -70,6 +128,7 @@
 
 .barra-container {
     width: 100%;
+    min-width: 0;
     min-height: 25px;
     background-color: #2b2b2b;
     border-radius: 8px;
@@ -154,6 +213,35 @@
 
 .sem-itens i {
     font-size: 1.2rem;
+}
+
+@media (max-width: 640px) {
+    .linha-item {
+        grid-template-columns: minmax(0, 1fr) minmax(70px, 1.2fr) auto;
+        grid-template-areas:
+            "descricao descricao valor"
+            "data barra acoes";
+        gap: 0.5rem;
+    }
+
+    .linha-descricao {
+        font-size: 0.82rem;
+    }
+
+    .linha-valor {
+        font-size: 0.82rem;
+    }
+
+    .linha-data {
+        justify-self: start;
+    }
+
+    .linha-acoes .btn-acao {
+        width: 30px;
+        height: 30px;
+        margin: 0 0.1rem;
+        padding: 0;
+    }
 }
 
 /* Scrollbar personalizada */

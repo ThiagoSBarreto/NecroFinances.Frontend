@@ -1,4 +1,4 @@
-<p-dialog [(visible)]="visible" [header]="header" [modal]="true" [style]="{width: '50vw'}" [draggable]="false"
+<p-dialog [(visible)]="visible" [header]="header" [modal]="true" [style]="{width: 'min(92vw, 760px)'}" [draggable]="false"
     [resizable]="false" [closeOnEscape]="true" appendTo="body" [dismissableMask]="true">
 
     <div class="dialog-content">
@@ -6,28 +6,27 @@
             <div class="tabela-body">
                 @if(gastoConsolidado) {
                 @for(item of gastoConsolidado.origem; track item.id) {
-                <div class="linha-item grid">
-                    <div class="col-3 texto-descricao-barra">
-                        <i class="icone-categoria" [class]="gastoConsolidado.categoria"></i>{{ item.descricao }}
+                <div class="linha-item">
+                    <div class="linha-descricao">
+                        <i class="icone-categoria" [class]="gastoConsolidado.categoria"></i>
+                        <span>{{ item.descricao }}</span>
                     </div>
-                    <div class="col texto-data-barra">
-                        {{ item.dataGasto | date:'dd/MM/yyyy'}}
-                    </div>
-                    <div class="col texto-valor-barra">
+                    <span class="linha-data">{{ item.dataGasto | date:'dd/MM/yyyy' }}</span>
+                    <div class="linha-valor">
                         {{ item.valor | currency:'BRL':'symbol':'1.2-2':'pt-BR' }}
                     </div>
-                    <div class="col texto-data-barra">
-                        <div class="barra-container">
-                            <div class="barra-preenchida" [style.width.%]="(item.valor / gastoConsolidado.valor) * 100"
-                                [style.background]="getBarColor((item.valor / gastoConsolidado.valor) / 0.3)"></div>
-                            <span class="barra-porcentagem">{{ ((item.valor / gastoConsolidado.valor) * 100).toFixed(2) }}%</span>
-                        </div>
+                    <div class="barra-container">
+                        <div class="barra-preenchida" [style.width.%]="(item.valor / gastoConsolidado.valor) * 100"
+                            [style.background]="getBarColor((item.valor / gastoConsolidado.valor) / 0.3)"></div>
+                        <span class="barra-porcentagem">{{ ((item.valor / gastoConsolidado.valor) * 100).toFixed(2) }}%</span>
                     </div>
-                    <div class="text-center">
-                        <button class="btn-acao btn-navegacao" (click)="onEdit(item)" title="Editar">
+                    <div class="linha-acoes">
+                        <button type="button" class="btn-acao btn-navegacao" (click)="onEdit(item)" title="Editar"
+                            aria-label="Editar gasto">
                             <i class="pi pi-pencil"></i>
                         </button>
-                        <button class="btn-acao btn-logout" (click)="onDelete(item)" title="Excluir">
+                        <button type="button" class="btn-acao btn-logout" (click)="onDelete(item)" title="Excluir"
+                            aria-label="Excluir gasto">
                             <i class="pi pi-trash"></i>
                         </button>
                     </div>

@@ -45,7 +45,7 @@ export class AppMiddleComponent implements OnChanges {
     @ViewChild('dialogNovoGasto') dialogNovoGasto: DialogNovoGastoComponent;
 
     Math: Math;
-    abaMobile: 'resumo' | 'gastos' = 'resumo';
+    abaMobile: 'resumo' | 'fixos' | 'gastos' = 'resumo';
     gastosPorDia: DiaGastoModel[] = [];
     private diaExpandido: string | null = null;
 

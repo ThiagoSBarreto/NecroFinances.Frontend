@@ -45,7 +45,7 @@ export class DialogVisualizarOrigemComponent {
     }
 
     open(item: GastoConsolidadoModel, modoOrigem?: boolean): void {
-        this.header = `Gastos da categoria [ ${IconesDescricao[item.categoria as IconesEnum]} ]`;
+        this.header = `Gastos da categoria: ${IconesDescricao[item.categoria as IconesEnum]}`;
         this.gastoConsolidado = item;
         this.modoOrigem = modoOrigem ? modoOrigem : false;
         this.visible = true;
