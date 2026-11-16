@@ -25,7 +25,8 @@ export const AuthInterceptor: HttpInterceptorFn = (req, next) => {
     const isPublicAuthRequest =
         req.url.includes('/auth/login') ||
         req.url.includes('/auth/register') ||
-        req.url.includes('/auth/refreshToken');
+        req.url.includes('/auth/refreshToken') ||
+        req.url.includes('/auth/logout');
 
     if (isPublicAuthRequest) {
         return next(req);

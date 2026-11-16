@@ -168,6 +168,13 @@ export class AppMainViewComponent {
     }
 
     onLogOut(): void {
+        const refreshToken = localStorage.getItem('refreshToken');
+        if (refreshToken) {
+            this.loginService.logout(refreshToken).subscribe({
+                error: (error) => console.error('Falha ao revogar a sessão no servidor.', error)
+            });
+        }
+
         localStorage.removeItem('token');
         localStorage.removeItem('refreshToken');
         this.router.navigate(['/login']);
