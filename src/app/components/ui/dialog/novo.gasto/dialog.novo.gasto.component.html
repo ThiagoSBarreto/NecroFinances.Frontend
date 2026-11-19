@@ -26,7 +26,7 @@
                     @if (valueVisibility.isHidden()) {
                         <span class="masked-value">********</span>
                     } @else {
-                        <p-inputNumber #valorInput id="valor" formControlName="valor" mode="currency" currency="BRL" locale="pt-BR"
+                        <p-inputNumber #valorInput id="valor" formControlName="valor" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR"
                             [min]="0" (onFocus)="selecionarValor()">
                         </p-inputNumber>
                     }

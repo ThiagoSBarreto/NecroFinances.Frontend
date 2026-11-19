@@ -28,7 +28,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorPropriedade" mode="currency" currency="BRL"
+                                <p-inputNumber formControlName="valorPropriedade" [appAutoDecimalInput]="2" mode="currency" currency="BRL"
                                     locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
                                 </p-inputNumber>
                             }
@@ -63,7 +63,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorInvestimento" mode="currency" currency="BRL"
+                                <p-inputNumber formControlName="valorInvestimento" [appAutoDecimalInput]="2" mode="currency" currency="BRL"
                                     locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
                                 </p-inputNumber>
                             }
@@ -98,7 +98,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorFinanciamento" mode="currency" currency="BRL"
+                                <p-inputNumber formControlName="valorFinanciamento" [appAutoDecimalInput]="2" mode="currency" currency="BRL"
                                     locale="pt-BR" [minFractionDigits]="2" [maxFractionDigits]="2">
                                 </p-inputNumber>
                             }
