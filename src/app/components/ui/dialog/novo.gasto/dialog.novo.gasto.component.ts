@@ -9,6 +9,7 @@ import { IndicadorTipoGastoEnum, IndicadorTipoRecursoEnum } from "../../../../mo
 import { GastosModel } from "../../../../models/gasto.model";
 import { IconesDescricao, IconesEnum } from "../../../../models/icones.enum";
 import { ValueVisibilityService } from "../../../../services/value-visibility.service";
+import { AutoDecimalInputDirective } from "../../../../directives/auto-decimal-input.directive";
 
 @Component({
     selector: 'dialog-novo-gasto',
@@ -22,7 +23,8 @@ import { ValueVisibilityService } from "../../../../services/value-visibility.se
         DialogModule,
         DatePickerModule,
         ButtonModule,
-        InputNumberModule
+        InputNumberModule,
+        AutoDecimalInputDirective
     ]
 })
 export class DialogNovoGastoComponent implements OnInit {

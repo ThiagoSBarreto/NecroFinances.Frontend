@@ -8,6 +8,7 @@ import { SettingsModel } from "../../../../models/settings.model";
 import { MesModel } from "../../../../models/month.model";
 import { PatrimonioModel } from "../../../../models/patrimonio.model";
 import { ValueVisibilityService } from "../../../../services/value-visibility.service";
+import { AutoDecimalInputDirective } from "../../../../directives/auto-decimal-input.directive";
 
 @Component({
     selector: 'dialog-editar-settings',
@@ -16,7 +17,7 @@ import { ValueVisibilityService } from "../../../../services/value-visibility.se
     standalone: true,
     imports: [
         CommonModule, ReactiveFormsModule,
-        DialogModule, InputNumberModule, ButtonModule
+        DialogModule, InputNumberModule, ButtonModule, AutoDecimalInputDirective
     ]
 })
 export class DialogEditarSettingsComponent implements OnInit, AfterViewChecked {

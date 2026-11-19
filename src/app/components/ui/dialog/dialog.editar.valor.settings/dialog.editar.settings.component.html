@@ -23,7 +23,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorHora" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="valorHora" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="salarioMinimo" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="salarioMinimo" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -47,7 +47,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="percentagemTaxaINSS" mode="decimal" [min]="0" [maxFractionDigits]="2"></p-inputNumber>
+                                <p-inputNumber formControlName="percentagemTaxaINSS" [appAutoDecimalInput]="2" mode="decimal" locale="pt-BR" [min]="0" [maxFractionDigits]="2"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="percentagemTaxaIRPF" mode="decimal" [min]="0" [maxFractionDigits]="2"></p-inputNumber>
+                                <p-inputNumber formControlName="percentagemTaxaIRPF" [appAutoDecimalInput]="2" mode="decimal" locale="pt-BR" [min]="0" [maxFractionDigits]="2"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -71,7 +71,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="percentagemTaxaCooperativa" mode="decimal" [min]="0" [maxFractionDigits]="3"></p-inputNumber>
+                                <p-inputNumber formControlName="percentagemTaxaCooperativa" [appAutoDecimalInput]="3" mode="decimal" locale="pt-BR" [min]="0" [maxFractionDigits]="3"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -83,7 +83,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorPlanoDental" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="valorPlanoDental" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="valorPlanoSaude" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="valorPlanoSaude" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -107,7 +107,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="outros" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="outros" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -119,7 +119,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="desafioGastos" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="desafioGastos" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -153,7 +153,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="horasUteis" [min]="0" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+                                <p-inputNumber formControlName="horasUteis" [appAutoDecimalInput]="2" [min]="0" mode="decimal" locale="pt-BR" [maxFractionDigits]="2"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -165,7 +165,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="horasExtras" [min]="0" mode="decimal" [maxFractionDigits]="2"></p-inputNumber>
+                                <p-inputNumber formControlName="horasExtras" [appAutoDecimalInput]="2" [min]="0" mode="decimal" locale="pt-BR" [maxFractionDigits]="2"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -186,7 +186,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="ferias" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="ferias" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>
@@ -207,7 +207,7 @@
                             @if (valueVisibility.isHidden()) {
                                 <span class="masked-value">********</span>
                             } @else {
-                                <p-inputNumber formControlName="adiantamentoCartao" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
+                                <p-inputNumber formControlName="adiantamentoCartao" [appAutoDecimalInput]="2" mode="currency" currency="BRL" locale="pt-BR" [min]="0"></p-inputNumber>
                             }
                         </div>
                     </div>

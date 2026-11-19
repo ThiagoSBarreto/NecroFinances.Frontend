@@ -11,6 +11,7 @@ import { PropriedadeModel } from "../../../../models/propriedade.model";
 import { InvestimentoModel } from "../../../../models/investimento.model";
 import { FinanciamentoModel } from "../../../../models/financiamento.model";
 import { ValueVisibilityService } from "../../../../services/value-visibility.service";
+import { AutoDecimalInputDirective } from "../../../../directives/auto-decimal-input.directive";
 
 @Component({
     selector: 'dialog-editar-patrimonio',
@@ -23,7 +24,8 @@ import { ValueVisibilityService } from "../../../../services/value-visibility.se
         DialogModule,
         InputNumberModule,
         ButtonModule,
-        InputTextModule
+        InputTextModule,
+        AutoDecimalInputDirective
     ]
 })
 export class DialogEditarPatrimonioComponent {
